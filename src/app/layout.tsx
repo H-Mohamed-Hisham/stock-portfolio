@@ -1,8 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Ubuntu } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+// Global CSS
+import "@/styles/globals.css";
+
+// Lib
+import { cn } from "@/lib/utils";
+
+// Providers
+import { AuthProvider } from "@/providers/auth/AuthProvider";
+import { ThemeProvider } from "@/providers/theme-provider/ThemeProvider";
+import { ReactQueryProvider } from "@/providers/react-query/ReactQueryProvider";
+
+// Components
+import { Navbar } from "@/components/layout/Navbar";
+
+// Font
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +32,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn("bg-background font-sans antialiased", ubuntu.className)}
+      >
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ReactQueryProvider>
+              <Navbar />
+              <main className="relative isolate w-full h-full px-6 pt-32 pb-10 lg:px-8">
+                {children}
+              </main>
+            </ReactQueryProvider>
+          </ThemeProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
