@@ -1,9 +1,10 @@
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpDown } from "lucide-react";
 import { Column } from "@tanstack/react-table";
 
+// Lib
 import { cn } from "@/lib/utils";
 
-// Components - UI
+// Components - Shadcn
 import { Button } from "@/components/ui/button";
 
 interface DataTableColumnHeaderProps<TData, TValue>

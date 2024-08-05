@@ -1,4 +1,4 @@
-// Components - UI
+// Components - Shadcn
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const DataTableSkeleton = () => {

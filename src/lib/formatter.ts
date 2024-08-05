@@ -9,6 +9,15 @@ export const formatDate = (date: string) => {
   return result;
 };
 
+export const formatDateTime = (date: string) => {
+  if (date === "curent_date_time") {
+    return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+  }
+
+  const result = dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+  return result;
+};
+
 export const formatNumber = (number = 0) => {
   const result = new Intl.NumberFormat("en-IN", {
     minimumFractionDigits: 2,

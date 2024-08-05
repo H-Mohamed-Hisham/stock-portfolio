@@ -13,7 +13,7 @@ import { Menu, Sun, Moon, ChevronDown } from "lucide-react";
 // Constants
 import { navbar_menu, navbar_transaction_menu } from "@/constants/menu";
 
-// Components - UI
+// Components - Shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Menubar,

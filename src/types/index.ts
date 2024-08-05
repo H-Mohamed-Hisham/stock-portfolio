@@ -4,6 +4,18 @@ export type TStock = {
   stock_name: string;
 };
 
+export type TStockTransaction = {
+  transaction_id?: string;
+  user_id?: string;
+  stock_id: string;
+  transaction_type: string;
+  date: Date | string;
+  shares: number;
+  price: number;
+  tax: number;
+  total: number;
+};
+
 export type TDataTableLink = {
   show: boolean;
   text: string;
@@ -13,4 +25,9 @@ export type TDataTableLink = {
 export type TDataTableFilter = {
   placeholder: string;
   field: string;
+};
+
+export type TDropdown = {
+  label: string;
+  value: string;
 };

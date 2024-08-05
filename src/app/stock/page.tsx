@@ -1,7 +1,7 @@
 // Components
 import { StockTable } from "@/components/stock/StockTable";
 
-const page = () => {
+const Stock = () => {
   return (
     <>
       <StockTable />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Stock;

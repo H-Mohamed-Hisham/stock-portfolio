@@ -13,9 +13,14 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import Link from "next/link";
+
+// Icons
 import { SquarePlus } from "lucide-react";
 
-// Components - UI
+// Types
+import { TDataTableLink, TDataTableFilter } from "@/types";
+
+// Components - Shadcn
 import {
   Table,
   TableBody,
@@ -25,9 +30,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-
-// Types
-import { TDataTableLink, TDataTableFilter } from "@/types";
 
 // Components
 import { DataTablePagination } from "@/components/data-table";
@@ -96,7 +98,10 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className="bg-primary text-primary-foreground"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -132,7 +137,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No data to display.
                 </TableCell>
               </TableRow>
             )}

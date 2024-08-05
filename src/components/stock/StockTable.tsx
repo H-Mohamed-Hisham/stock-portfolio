@@ -14,14 +14,7 @@ import { stock_filter } from "@/constants/data-table-filter";
 import { fetchAllStock } from "@/rest-api/stock";
 
 // Components - Shadcn
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Components
 import { DataTable, DataTableSkeleton } from "@/components/data-table";
