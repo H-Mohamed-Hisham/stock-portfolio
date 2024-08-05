@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 // Helpers
 import { calculateTotal } from "@/lib/calculation";
-import { formatDateTime } from "@/lib/formatter";
+import { formatDateToISO } from "@/lib/formatter";
 
 // Constants
 import { FETCH_ALL_STOCK, ADD_STOCK_TRANSACTION } from "@/constants/query-key";
@@ -119,11 +119,12 @@ export const AddStockTransactionForm = () => {
         },
       ]),
     onError: (error: any) => {
+      // TODO : Add toast to display error message
       console.log("Error :: ", error?.response?.data);
     },
     onSuccess: (response: any) => {
-      //   toast.success(response?.message);
-      //   formik.resetForm();
+      form.reset();
+      // TODO : Add toast to display success message
       console.log("RES :: ", response?.message);
     },
   });
@@ -148,18 +149,17 @@ export const AddStockTransactionForm = () => {
   const tax = watch("tax");
 
   // Form Submit
-  const onSubmit = (data: any) => {
-    alert("TTT");
+  const onSubmit = (data: TStockTransaction) => {
     console.log(data);
-    //  mutation.mutate({
-    //    stock_id: data.stock_id,
-    //    transaction_type: data.transaction_type,
-    //    date: formatDateTime(data.date || "current_date_time"),
-    //    shares: data.shares,
-    //    price: data.price,
-    //    tax: data.tax,
-    //    total: data.total,
-    //  });
+    mutation.mutate({
+      stock_id: data.stock_id,
+      transaction_type: data.transaction_type,
+      date: formatDateToISO(data.date.toString()),
+      shares: data.shares,
+      price: data.price,
+      tax: data.tax,
+      total: data.total,
+    });
   };
 
   // UseEffect - Calculate Total

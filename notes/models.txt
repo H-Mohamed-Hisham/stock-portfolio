@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  user_id          String             @id @default(uuid()) @db.Uuid
+  user_id          String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_name        String
   user_email       String             @unique
   StockTransaction StockTransaction[]
 }
 
 model Stock {
-  stock_id         String             @id @default(uuid()) @db.Uuid
+  stock_id         String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   stock_symbol     String             @unique
   stock_name       String
   StockTransaction StockTransaction[]
 }
 
 model StockTransaction {
-  transaction_id   String   @id @default(uuid()) @db.Uuid
+  transaction_id   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_id          String   @db.Uuid
   transaction_type String
   stock_id         String   @db.Uuid

@@ -9,12 +9,12 @@ export const formatDate = (date: string) => {
   return result;
 };
 
-export const formatDateTime = (date: string) => {
+export const formatDateToISO = (date: string) => {
   if (date === "curent_date_time") {
-    return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+    return dayjs(date).toISOString();
   }
 
-  const result = dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+  const result = dayjs(date).toISOString();
   return result;
 };
 

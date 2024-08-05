@@ -38,17 +38,31 @@ export const POST = async (request: any) => {
     const { stock_id, date, transaction_type, shares, price, tax, total } =
       await request.json();
 
-    // const create = await prisma.stockTransaction.create({
-    //   data: {
-    //     stock_id: stock_id,
-    //     user_id: userId,
-    //     transaction_type: transaction_type,
-    //     date: date,
-    //     shares: shares,
-    //     price: price,
-    //     tax: tax,
-    //     total: total,
-    //   },
-    // });
-  } catch (error) {}
+    await prisma.stockTransaction.create({
+      data: {
+        stock_id: stock_id,
+        user_id: userId,
+        transaction_type: transaction_type,
+        date: date,
+        shares: shares,
+        price: price,
+        tax: tax,
+        total: total,
+      },
+    });
+
+    return new Response(
+      JSON.stringify({
+        message: "Transaction added successfully",
+      }),
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    console.log("Failed to add transaction :: ", error);
+    return new Response("Failed to add transaction", {
+      status: 500,
+    });
+  }
 };
