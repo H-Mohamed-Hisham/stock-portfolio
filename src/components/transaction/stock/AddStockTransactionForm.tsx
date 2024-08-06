@@ -224,6 +224,8 @@ export const AddStockTransactionForm = () => {
                     />
                   </PopoverContent>
                 </Popover>
+
+                <FormMessage />
               </FormItem>
             )}
           />

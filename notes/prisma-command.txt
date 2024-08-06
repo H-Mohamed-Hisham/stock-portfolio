@@ -1,0 +1,9 @@
+npx prisma studio
+
+npx prisma generate
+
+npx prisma db pull
+
+npx prisma db push
+
+npx prisma migrate dev --name deleted-index-table

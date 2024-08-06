@@ -34,7 +34,7 @@ export const StockTable = () => {
 
           {/* {isError && <AlertBox type="error" message={error?.response?.data} />} */}
 
-          {isSuccess && (
+          {!isFetching && isSuccess && (
             <DataTable
               columns={stock_columns}
               data={data}

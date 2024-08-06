@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 // Lib
 import prisma from "@/lib/prisma";
 
@@ -68,9 +70,9 @@ export const POST = async (request: any) => {
         transaction_type: transaction_type,
         date: date,
         shares: shares,
-        price: price,
-        tax: tax,
-        total: total,
+        price: new Prisma.Decimal(price),
+        tax: new Prisma.Decimal(tax),
+        total: new Prisma.Decimal(total),
       },
     });
 

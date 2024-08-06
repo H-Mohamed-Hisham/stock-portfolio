@@ -28,9 +28,9 @@ model StockTransaction {
   stock_id         String   @db.Uuid
   date             DateTime @default(now())
   shares           Int
-  price            Decimal
-  tax              Decimal
-  total            Decimal
+  price            Decimal 
+  tax              Decimal 
+  total            Decimal 
   Stock            Stock    @relation(fields: [stock_id], references: [stock_id], onDelete: Cascade)
   User             User     @relation(fields: [user_id], references: [user_id])
 
