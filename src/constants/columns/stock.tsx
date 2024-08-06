@@ -1,12 +1,10 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 
 // Types
 import { TStock } from "@/types";
 
 // Components - Shadcn
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 
 // Components
 import { DataTableColumnHeader } from "@/components/data-table";

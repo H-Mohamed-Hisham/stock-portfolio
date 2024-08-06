@@ -1,7 +1,7 @@
 // Components
 import { MenuTabs } from "@/components/transaction/stock/MenuTabs";
 
-const StockTransaction = () => {
+const StockHoldings = () => {
   return (
     <div className="md:container md:mx-auto">
       <MenuTabs />
@@ -9,4 +9,4 @@ const StockTransaction = () => {
   );
 };
 
-export default StockTransaction;
+export default StockHoldings;
