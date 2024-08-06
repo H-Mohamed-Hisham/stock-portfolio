@@ -6,11 +6,34 @@ import { getSessionUser } from "@/providers/auth/get-session-user";
 
 export const GET = async (request: any) => {
   try {
-    const result = await prisma.stock.findMany({
+    const sessionUser = await getSessionUser();
+
+    if (!sessionUser || !sessionUser.userId) {
+      return new Response("Unauthorised Access : User ID is required", {
+        status: 401,
+      });
+    }
+
+    const { userId } = sessionUser;
+
+    const result = await prisma.stockTransaction.findMany({
+      where: {
+        user_id: userId,
+      },
       select: {
-        stock_id: true,
-        stock_symbol: true,
-        stock_name: true,
+        transaction_id: true,
+        date: true,
+        transaction_type: true,
+        shares: true,
+        price: true,
+        tax: true,
+        total: true,
+        Stock: {
+          select: {
+            stock_name: true,
+            stock_symbol: true,
+          },
+        },
       },
     });
 
@@ -18,7 +41,7 @@ export const GET = async (request: any) => {
       status: 200,
     });
   } catch (error: any) {
-    return new Response("Failed to fetch stock data", {
+    return new Response("Failed to fetch stock transaction data", {
       status: 500,
     });
   }
