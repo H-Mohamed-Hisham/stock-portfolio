@@ -113,7 +113,7 @@ export const Navbar = () => {
                     "flex items-center gap-x-2 text-sm font-semibold leading-6 rounded-lg px-3 py-1 cursor-pointer "
                   )}
                 >
-                  Test
+                  Transaction
                   <ChevronDown
                     aria-hidden="true"
                     className="h-5 w-5 flex-none"
@@ -247,7 +247,7 @@ export const Navbar = () => {
                     <Accordion type="single" collapsible className="-mx-3">
                       <AccordionItem value="item-1">
                         <AccordionTrigger className="flex items-center pl-3 pr-3 py-2 rounded-lg text-base font-semibold leading-7 hover:no-underline hover:bg-primary hover:text-primary-foreground">
-                          Menu1
+                          Transaction
                         </AccordionTrigger>
                         <AccordionContent>
                           {navbar_menu.map((item) => (

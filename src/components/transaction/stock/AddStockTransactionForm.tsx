@@ -70,6 +70,7 @@ const FormSchema = z.object({
     .number({
       message: "Only number is allowed",
     })
+    .gte(0.01)
     .multipleOf(0.01),
   tax: z.coerce
     .number({
@@ -124,6 +125,7 @@ export const AddStockTransactionForm = () => {
     },
     onSuccess: (response: any) => {
       form.reset();
+      setValue("stock_id", data?.[0]?.stock_id);
       // TODO : Add toast to display success message
       console.log("RES :: ", response?.message);
     },
@@ -134,6 +136,8 @@ export const AddStockTransactionForm = () => {
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     defaultValues: {
+      date: new Date(),
+      stock_id: "",
       transaction_type: "Buy",
       shares: 0,
       price: 0,
@@ -179,7 +183,10 @@ export const AddStockTransactionForm = () => {
           value: item?.stock_id,
         }))
       );
+
+      setValue("stock_id", data?.[0]?.stock_id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, data]);
 
   return (
@@ -235,7 +242,7 @@ export const AddStockTransactionForm = () => {
             control={form.control}
             name="stock_id"
             render={({ field }) => (
-              <FormItem>
+              <FormItem key={field.value}>
                 <FormLabel>Stock</FormLabel>
                 <Select
                   onValueChange={field.onChange}
