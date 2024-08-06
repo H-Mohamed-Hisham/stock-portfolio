@@ -1,5 +1,4 @@
 import { Prisma } from "@prisma/client";
-import { capitalize } from "lodash";
 
 // Lib
 import prisma from "@/lib/prisma";
@@ -26,7 +25,7 @@ export const GET = async (request: any) => {
       where: {
         user_id: userId,
         ...(["buy", "sell"].includes(transaction_type) && {
-          transaction_type: capitalize(transaction_type),
+          transaction_type: transaction_type,
         }),
       },
       select: {

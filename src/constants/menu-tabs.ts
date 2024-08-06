@@ -1,4 +1,4 @@
-export const menu_tabs = [
+export const stock_menu_tabs = [
   {
     label: "Transactions",
     value: "/transaction/stock",

@@ -1,13 +1,13 @@
 // Components
 import { MenuTabs } from "@/components/transaction/stock/MenuTabs";
-import { StockTransactionTable } from "@/components/transaction/stock/StockTransactionTable";
+import { AllTransactionTable } from "@/components/transaction/stock/AllTransactionTable";
 
 const StockTransaction = () => {
   return (
     <div className="md:container md:mx-auto">
       <MenuTabs />
 
-      <StockTransactionTable />
+      <AllTransactionTable />
     </div>
   );
 };

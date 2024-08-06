@@ -1,10 +1,21 @@
 export const transaction_type_dropdown = [
   {
     label: "Buy",
-    value: "Buy",
+    value: "buy",
   },
   {
     label: "Sell",
-    value: "Sell",
+    value: "sell",
+  },
+];
+
+export const option_type_dropdown = [
+  {
+    label: "Call",
+    value: "call",
+  },
+  {
+    label: "Put",
+    value: "put",
   },
 ];

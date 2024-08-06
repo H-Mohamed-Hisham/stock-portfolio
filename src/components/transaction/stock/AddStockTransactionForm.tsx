@@ -138,7 +138,7 @@ export const AddStockTransactionForm = () => {
     defaultValues: {
       date: new Date(),
       stock_id: "",
-      transaction_type: "Buy",
+      transaction_type: "buy",
       shares: 0,
       price: 0,
       tax: 0,

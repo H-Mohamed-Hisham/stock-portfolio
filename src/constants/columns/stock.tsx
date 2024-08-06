@@ -9,7 +9,7 @@ import { TStock } from "@/types";
 // Components
 import { DataTableColumnHeader } from "@/components/data-table";
 
-export const stock_columns: ColumnDef<TStock>[] = [
+export const all_stock_columns: ColumnDef<TStock>[] = [
   {
     accessorKey: "stock_symbol",
     header: ({ table, column }) => (
