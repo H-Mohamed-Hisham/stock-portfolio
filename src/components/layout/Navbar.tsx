@@ -42,6 +42,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 export const Navbar = () => {
   // Theme
@@ -105,7 +116,7 @@ export const Navbar = () => {
             </Link>
           ))}
 
-          <Menubar className="border-0 p-0">
+          {/* <Menubar className="border-0 p-0">
             <MenubarMenu>
               <MenubarTrigger className=" p-0 hover:bg-primary hover:text-primary-foreground">
                 <div
@@ -142,7 +153,38 @@ export const Navbar = () => {
                 ))}
               </MenubarContent>
             </MenubarMenu>
-          </Menubar>
+          </Menubar> */}
+
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Transaction</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuLink className="w-48 block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ">
+                    {navbar_transaction_menu.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={clsx(
+                          "group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 font-semibold",
+                          {
+                            "bg-primary text-primary-foreground":
+                              pathname === item.href,
+                          },
+                          {
+                            "hover:bg-primary hover:text-primary-foreground":
+                              pathname !== item.href,
+                          }
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
 
         {/* Theme Switcher & Login/Logout */}
