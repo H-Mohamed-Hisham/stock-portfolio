@@ -16,15 +16,8 @@ import { navbar_menu, navbar_transaction_menu } from "@/constants/menu";
 // Components - Shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Menubar,
-  MenubarContent,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -45,13 +38,10 @@ import {
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 export const Navbar = () => {
@@ -115,45 +105,6 @@ export const Navbar = () => {
               {item.name}
             </Link>
           ))}
-
-          {/* <Menubar className="border-0 p-0">
-            <MenubarMenu>
-              <MenubarTrigger className=" p-0 hover:bg-primary hover:text-primary-foreground">
-                <div
-                  className={clsx(
-                    "flex items-center gap-x-2 text-sm font-semibold leading-6 rounded-lg px-3 py-1 cursor-pointer "
-                  )}
-                >
-                  Transaction
-                  <ChevronDown
-                    aria-hidden="true"
-                    className="h-5 w-5 flex-none"
-                  />
-                </div>
-              </MenubarTrigger>
-              <MenubarContent className="px-1 py-2">
-                {navbar_transaction_menu.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={clsx(
-                      "group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 font-semibold",
-                      {
-                        "bg-primary text-primary-foreground":
-                          pathname === item.href,
-                      },
-                      {
-                        "hover:bg-primary hover:text-primary-foreground":
-                          pathname !== item.href,
-                      }
-                    )}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar> */}
 
           <NavigationMenu>
             <NavigationMenuList>
