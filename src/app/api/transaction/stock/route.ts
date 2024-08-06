@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { capitalize } from "lodash";
 
 // Lib
 import prisma from "@/lib/prisma";
@@ -18,9 +19,15 @@ export const GET = async (request: any) => {
 
     const { userId } = sessionUser;
 
+    const transaction_type =
+      request.nextUrl.searchParams.get("transaction_type") || "all";
+
     const result = await prisma.stockTransaction.findMany({
       where: {
         user_id: userId,
+        ...(["buy", "sell"].includes(transaction_type) && {
+          transaction_type: capitalize(transaction_type),
+        }),
       },
       select: {
         transaction_id: true,

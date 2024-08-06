@@ -27,23 +27,21 @@ export const StockTable = () => {
   });
 
   return (
-    <div className="md:container md:mx-auto">
-      <Card className="w-full">
-        <CardContent className="p-6">
-          {isFetching && <DataTableSkeleton />}
+    <Card className="w-full">
+      <CardContent className="p-6">
+        {isFetching && <DataTableSkeleton />}
 
-          {/* {isError && <AlertBox type="error" message={error?.response?.data} />} */}
+        {/* {isError && <AlertBox type="error" message={error?.response?.data} />} */}
 
-          {!isFetching && isSuccess && (
-            <DataTable
-              columns={stock_columns}
-              data={data}
-              link={stock_link}
-              filter={stock_filter}
-            />
-          )}
-        </CardContent>
-      </Card>
-    </div>
+        {!isFetching && isSuccess && (
+          <DataTable
+            columns={stock_columns}
+            data={data}
+            link={stock_link}
+            filter={stock_filter}
+          />
+        )}
+      </CardContent>
+    </Card>
   );
 };

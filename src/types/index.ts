@@ -14,6 +14,7 @@ export type TStockTransaction = {
   price: number;
   tax: number;
   total: number;
+  stock?: TStock;
 };
 
 export type TDataTableLink = {

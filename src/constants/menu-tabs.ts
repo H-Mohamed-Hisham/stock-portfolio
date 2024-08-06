@@ -5,7 +5,7 @@ export const menu_tabs = [
   },
   {
     label: "Holdings",
-    value: "/transaction/stock/holdings",
+    value: "/transaction/stock/holding",
   },
   {
     label: "Profit/Loss",
