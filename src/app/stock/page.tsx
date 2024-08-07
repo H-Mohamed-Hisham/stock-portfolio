@@ -1,5 +1,5 @@
 // Components
-import { StockTable } from "@/components/stock/StockTable";
+import { StockTable } from "@/components/stock";
 
 const Stock = () => {
   return (

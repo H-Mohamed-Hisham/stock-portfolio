@@ -2,7 +2,7 @@
 import { stock_menu_tabs } from "@/constants/menu";
 
 // Components
-import { MenuTabs } from "@/components/common/MenuTabs";
+import { MenuTabs } from "@/components/common";
 
 const StockHoldings = () => {
   return (

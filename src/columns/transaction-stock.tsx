@@ -8,8 +8,7 @@ import { formatDate } from "@/lib/formatter";
 
 // Components
 import { DataTableColumnHeader, DataTableCell } from "@/components/data-table";
-import { BuySell } from "@/components/common/BuySell";
-import { ProfitLoss } from "@/components/common/ProfitLoss";
+import { BuySell, ProfitLossAmount, ProfitLoss } from "@/components/common";
 
 export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
   {
@@ -31,7 +30,7 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       <DataTableColumnHeader column={column} title="Date" />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="left">
+      <DataTableCell cellAlign="left" isRupees={true}>
         {formatDate(row.getValue("date"))}
       </DataTableCell>
     ),
@@ -42,7 +41,7 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       <DataTableColumnHeader column={column} title="Transaction Type" />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="left">
+      <DataTableCell cellAlign="left" isRupees={true}>
         <BuySell type={row.getValue("transaction_type")} />
       </DataTableCell>
     ),
@@ -57,7 +56,9 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">{row.getValue("shares")}</DataTableCell>
+      <DataTableCell cellAlign="right" isRupees={true}>
+        {row.getValue("shares")}
+      </DataTableCell>
     ),
   },
   {
@@ -70,7 +71,9 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">{row.getValue("price")}</DataTableCell>
+      <DataTableCell cellAlign="right" isRupees={true}>
+        {row.getValue("price")}
+      </DataTableCell>
     ),
   },
   {
@@ -83,7 +86,9 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">{row.getValue("tax")}</DataTableCell>
+      <DataTableCell cellAlign="right" isRupees={true}>
+        {row.getValue("tax")}
+      </DataTableCell>
     ),
   },
   {
@@ -96,7 +101,9 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">{row.getValue("total")}</DataTableCell>
+      <DataTableCell cellAlign="right" isRupees={true}>
+        {row.getValue("total")}
+      </DataTableCell>
     ),
   },
 ];
@@ -117,6 +124,7 @@ export const stock_profit_loss_columns: ColumnDef<TStockTransaction>[] = [
   },
   {
     accessorKey: "total_shares",
+    enableSorting: false,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -125,7 +133,9 @@ export const stock_profit_loss_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">{row.getValue("total_shares")}</DataTableCell>
+      <DataTableCell cellAlign="right">
+        {row.getValue("total_shares")}
+      </DataTableCell>
     ),
   },
   {
@@ -138,13 +148,13 @@ export const stock_profit_loss_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">
+      <DataTableCell cellAlign="right" isRupees={true}>
         {row.getValue("total_invested")}
       </DataTableCell>
     ),
   },
   {
-    accessorKey: "profit_loss_amount",
+    accessorKey: "total_returns",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -153,18 +163,38 @@ export const stock_profit_loss_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="right">
-        {row.getValue("profit_loss_amount")}
+      <DataTableCell cellAlign="right" isRupees={true}>
+        {row.getValue("total_returns")}
+      </DataTableCell>
+    ),
+  },
+  {
+    accessorKey: "profit_loss_amount",
+    enableSorting: false,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Profit/Loss Margin"
+        className="justify-end"
+      />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell cellAlign="right">
+        <ProfitLossAmount
+          type={row.getValue("profit_loss_status")}
+          amount={row.getValue("profit_loss_amount")}
+        />
       </DataTableCell>
     ),
   },
   {
     accessorKey: "profit_loss_status",
+    enableSorting: false,
     header: ({ table, column }) => (
       <DataTableColumnHeader column={column} title="Profit/Loss" />
     ),
     cell: ({ row }) => (
-      <DataTableCell type="left">
+      <DataTableCell cellAlign="left">
         <ProfitLoss type={row.getValue("profit_loss_status")} />
       </DataTableCell>
     ),

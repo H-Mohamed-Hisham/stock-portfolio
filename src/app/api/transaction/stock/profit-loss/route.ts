@@ -95,14 +95,20 @@ export const GET = async (request: any) => {
         },
       });
 
+      const total_returns = sell_transaction.reduce(
+        (acc: any, t: any) => Number(acc + t.total),
+        0
+      );
+
       const profit_loss_amount =
-        total_invested -
-        sell_transaction.reduce((acc: any, t) => Number(acc + t.total), 0);
+        total_returns > total_invested
+          ? total_returns - total_invested
+          : total_invested - total_returns;
 
       const profit_loss_status =
-        profit_loss_amount > 0
+        total_returns > total_invested
           ? "profit"
-          : profit_loss_amount < 0
+          : total_returns < total_invested
           ? "loss"
           : "no profit no loss";
 
@@ -111,6 +117,7 @@ export const GET = async (request: any) => {
         stock_symbol,
         total_shares,
         total_invested: formatNumber(total_invested),
+        total_returns: formatNumber(total_returns),
         profit_loss_amount: formatNumber(profit_loss_amount),
         profit_loss_status,
       });

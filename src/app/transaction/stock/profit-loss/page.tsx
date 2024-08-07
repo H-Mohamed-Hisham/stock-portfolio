@@ -1,9 +1,11 @@
+"use client";
+
 // Constants
 import { stock_menu_tabs } from "@/constants/menu";
 
 // Components
-import { MenuTabs } from "@/components/common/MenuTabs";
-import { ProfitLossTable } from "@/components/transaction/stock/ProfitLossTable";
+import { MenuTabs } from "@/components/common";
+import { ProfitLossTable } from "@/components/transaction/stock";
 
 const StockProfitLoss = () => {
   return (

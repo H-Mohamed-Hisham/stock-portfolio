@@ -14,7 +14,7 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Helpers
-import { calculateTotal } from "@/lib/calculation";
+import { calculateTotal, calculateTotalForSell } from "@/lib/calculation";
 import { formatDateToISO } from "@/lib/formatter";
 
 // Constants
@@ -148,6 +148,7 @@ export const AddStockTransactionForm = () => {
 
   // Form Watch
   const { setValue, watch } = form;
+  const transaction_type = watch("transaction_type");
   const shares = watch("shares");
   const price = watch("price");
   const tax = watch("tax");
@@ -169,7 +170,10 @@ export const AddStockTransactionForm = () => {
   // UseEffect - Calculate Total
   useEffect(() => {
     if (shares && price && tax !== undefined) {
-      const total = calculateTotal({ shares, price, tax });
+      const total =
+        transaction_type === "buy"
+          ? calculateTotal({ shares, price, tax })
+          : calculateTotalForSell({ shares, price, tax });
       setValue("total", total);
     }
   }, [shares, price, tax, setValue]);

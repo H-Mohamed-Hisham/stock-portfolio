@@ -1,25 +1,34 @@
 import React from "react";
 
 type Props = {
-  type: string;
+  cellAlign: string;
+  isRupees?: boolean;
   children: React.ReactNode;
 };
 
-export const DataTableCell = ({ type, children }: Props) => {
-  let _type = "left";
-  switch (type) {
+export const DataTableCell = ({
+  cellAlign,
+  children,
+  isRupees = false,
+}: Props) => {
+  let _cellAlign = "left";
+  switch (cellAlign) {
     case "left":
-      _type = "justify-start";
+      _cellAlign = "justify-start";
       break;
     case "center":
-      _type = "justify-center";
+      _cellAlign = "justify-center";
       break;
     case "right":
-      _type = "justify-end";
+      _cellAlign = "justify-end";
       break;
     default:
-      _type = "justify-center";
+      _cellAlign = "justify-center";
   }
 
-  return <div className={`flex ${_type} space-x-2`}>{children}</div>;
+  return (
+    <div className={`flex ${_cellAlign} space-x-2`}>
+      {isRupees && "₹"} {children}
+    </div>
+  );
 };

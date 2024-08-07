@@ -2,8 +2,8 @@
 import { stock_menu_tabs } from "@/constants/menu";
 
 // Components
-import { MenuTabs } from "@/components/common/MenuTabs";
-import { AllTransactionTable } from "@/components/transaction/stock/AllTransactionTable";
+import { MenuTabs } from "@/components/common";
+import { AllTransactionTable } from "@/components/transaction/stock";
 
 const StockTransaction = () => {
   return (

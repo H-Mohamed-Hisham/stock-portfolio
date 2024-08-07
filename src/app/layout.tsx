@@ -13,7 +13,7 @@ import { ThemeProvider } from "@/providers/theme-provider/ThemeProvider";
 import { ReactQueryProvider } from "@/providers/react-query/ReactQueryProvider";
 
 // Components
-import { Navbar } from "@/components/layout/Navbar";
+import { Navbar } from "@/components/layout";
 
 // Font
 const ubuntu = Ubuntu({

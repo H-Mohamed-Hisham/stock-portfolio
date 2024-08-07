@@ -1,4 +1,4 @@
-import { AddStockTransactionForm } from "@/components/transaction/stock/AddStockTransactionForm";
+import { AddStockTransactionForm } from "@/components/transaction/stock";
 
 const AddStockTransaction = () => {
   return (
