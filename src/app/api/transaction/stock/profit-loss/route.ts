@@ -1,5 +1,6 @@
 // Lib
 import prisma from "@/lib/prisma";
+import { formatNumber } from "@/lib/formatter";
 
 // Provider
 import { getSessionUser } from "@/providers/auth/get-session-user";
@@ -64,18 +65,54 @@ export const GET = async (request: any) => {
     const result: any = [];
 
     for (const item of sharesNotHolding) {
-      const stock_id = item.stock_id;
-      const totalShares = item.shares_bought;
+      const stock: any = await prisma.stock.findUnique({
+        where: {
+          stock_id: item.stock_id,
+        },
+      });
+      const stock_name = stock.stock_name;
+      const stock_symbol = stock.stock_symbol;
+
+      const total_shares = item.shares_bought;
+
+      const buy_transactions = await prisma.stockTransaction.findMany({
+        where: {
+          user_id: userId,
+          stock_id: item.stock_id,
+          transaction_type: "buy",
+        },
+      });
+      const total_invested = buy_transactions.reduce(
+        (acc: any, t) => Number(acc + t.total),
+        0
+      );
+
+      const sell_transaction = await prisma.stockTransaction.findMany({
+        where: {
+          user_id: userId,
+          stock_id: item.stock_id,
+          transaction_type: "sell",
+        },
+      });
+
+      const profit_loss_amount =
+        total_invested -
+        sell_transaction.reduce((acc: any, t) => Number(acc + t.total), 0);
+
+      const profit_loss_status =
+        profit_loss_amount > 0
+          ? "profit"
+          : profit_loss_amount < 0
+          ? "loss"
+          : "no profit no loss";
 
       result.push({
-        stock_id,
-        // stockSymbol,
-        totalShares,
-        // totalInvested,
-        // totalReturns,
-        // profitLossStatus,
-        // profitLossAmount,
-        // status,
+        stock_name,
+        stock_symbol,
+        total_shares,
+        total_invested: formatNumber(total_invested),
+        profit_loss_amount: formatNumber(profit_loss_amount),
+        profit_loss_status,
       });
     }
 

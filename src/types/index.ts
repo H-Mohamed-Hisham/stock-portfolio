@@ -17,6 +17,16 @@ export type TStockTransaction = {
   stock?: TStock;
 };
 
+export type TStockProfitLoss = {
+  stock_name: string;
+  stock_symbol: string;
+  total_shares: number;
+  total_invested: number;
+  total_returns: number;
+  profit_loss_amount: number;
+  profit_loss_status: string;
+};
+
 export type TLabelValue = {
   label: string;
   value: string;

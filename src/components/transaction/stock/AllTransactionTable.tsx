@@ -17,13 +17,13 @@ import { Card, CardContent } from "@/components/ui/card";
 // Components
 import { DataTable, DataTableSkeleton } from "@/components/data-table";
 
-const transaction_stock_link = {
+const table_link = {
   show: true,
   text: "Add Stock Transaction",
   link: "/transaction/stock/add",
 };
 
-const transaction_stock_filter = {
+const table_filter = {
   placeholder: "symbol",
   field: "stock_symbol",
 };
@@ -37,7 +37,7 @@ export const AllTransactionTable = () => {
 
   return (
     <Card className="w-full">
-      <CardContent className="p-6">
+      <CardContent className="py-6 px-1 md:px-4">
         {isFetching && <DataTableSkeleton />}
 
         {/* {isError && <AlertBox type="error" message={error?.response?.data} />} */}
@@ -46,8 +46,8 @@ export const AllTransactionTable = () => {
           <DataTable
             columns={all_transaction_columns}
             data={data}
-            link={transaction_stock_link}
-            filter={transaction_stock_filter}
+            link={table_link}
+            filter={table_filter}
           />
         )}
       </CardContent>

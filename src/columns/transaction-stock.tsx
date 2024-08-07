@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 // Types
-import { TStockTransaction } from "@/types";
+import { TStockTransaction, TStockProfitLoss } from "@/types";
 
 // Lib
 import { formatDate } from "@/lib/formatter";
@@ -97,6 +97,76 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
     ),
     cell: ({ row }) => (
       <DataTableCell type="right">{row.getValue("total")}</DataTableCell>
+    ),
+  },
+];
+
+export const stock_profit_loss_columns: ColumnDef<TStockTransaction>[] = [
+  {
+    accessorKey: "stock_name",
+    header: ({ table, column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
+  },
+  {
+    id: "stock_symbol",
+    accessorKey: "stock_symbol",
+    header: ({ table, column }) => (
+      <DataTableColumnHeader column={column} title="Symbol" />
+    ),
+  },
+  {
+    accessorKey: "total_shares",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Total Shares"
+        className="justify-end"
+      />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell type="right">{row.getValue("total_shares")}</DataTableCell>
+    ),
+  },
+  {
+    accessorKey: "total_invested",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Total Invested"
+        className="justify-end"
+      />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell type="right">
+        {row.getValue("total_invested")}
+      </DataTableCell>
+    ),
+  },
+  {
+    accessorKey: "profit_loss_amount",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Total Returns"
+        className="justify-end"
+      />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell type="right">
+        {row.getValue("profit_loss_amount")}
+      </DataTableCell>
+    ),
+  },
+  {
+    accessorKey: "profit_loss_status",
+    header: ({ table, column }) => (
+      <DataTableColumnHeader column={column} title="Profit/Loss" />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell type="left">
+        <ProfitLoss type={row.getValue("profit_loss_status")} />
+      </DataTableCell>
     ),
   },
 ];

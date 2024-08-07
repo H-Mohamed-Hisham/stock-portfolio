@@ -48,11 +48,7 @@ export default function RootLayout({
           >
             <ReactQueryProvider>
               <Navbar />
-              {/* <main className="relative isolate w-full h-full px-6 pt-32 pb-10 lg:px-8">
-                {children}
-              </main> */}
-
-              <main className="relative isolate px-6 pt-32 pb-10 lg:px-8">
+              <main className="relative isolate px-3 pt-32 pb-10 lg:px-8">
                 {children}
               </main>
             </ReactQueryProvider>

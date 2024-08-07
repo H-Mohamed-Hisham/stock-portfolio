@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex flex-wrap justify-between items-center py-4">
+      <div className="flex flex-wrap justify-between items-center gap-y-2 py-4">
         <Input
           placeholder={`Filter by ${filter.placeholder}`}
           value={
