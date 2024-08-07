@@ -1,3 +1,5 @@
+"use client";
+
 import { AddStockTransactionForm } from "@/components/transaction/stock";
 
 const AddStockTransaction = () => {

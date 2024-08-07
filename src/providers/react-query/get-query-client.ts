@@ -8,6 +8,7 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
+        // networkMode: "online",
         staleTime: 60 * 1000,
         refetchOnWindowFocus: false,
         retry: 1,

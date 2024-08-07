@@ -1,6 +1,8 @@
 // Lib
 import prisma from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (request: any) => {
   try {
     const result = await prisma.stock.findMany({

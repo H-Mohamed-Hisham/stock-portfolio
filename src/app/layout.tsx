@@ -40,19 +40,19 @@ export default function RootLayout({
         )}
       >
         <AuthProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ReactQueryProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
               <Navbar />
               <main className="relative isolate px-3 pt-32 pb-10 lg:px-8">
                 {children}
               </main>
-            </ReactQueryProvider>
-          </ThemeProvider>
+            </ThemeProvider>
+          </ReactQueryProvider>
         </AuthProvider>
       </body>
     </html>

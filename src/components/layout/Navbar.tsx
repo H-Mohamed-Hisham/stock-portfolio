@@ -42,6 +42,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 export const Navbar = () => {
@@ -111,7 +112,7 @@ export const Navbar = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Transaction</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <NavigationMenuLink className="w-48 block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ">
+                  {/* <NavigationMenuLink className="w-48 block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ">
                     {navbar_transaction_menu.map((item) => (
                       <Link
                         key={item.name}
@@ -131,7 +132,33 @@ export const Navbar = () => {
                         {item.name}
                       </Link>
                     ))}
-                  </NavigationMenuLink>
+                  </NavigationMenuLink> */}
+
+                  <ul className="grid w-48 p-3">
+                    {navbar_transaction_menu.map((item) => (
+                      <li key={item.name}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className={clsx(
+                              "group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 font-semibold",
+                              {
+                                "bg-primary text-primary-foreground":
+                                  pathname === item.href,
+                              },
+                              {
+                                "hover:bg-primary hover:text-primary-foreground":
+                                  pathname !== item.href,
+                              }
+                            )}
+                          >
+                            {item.name}
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>

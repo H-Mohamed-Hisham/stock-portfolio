@@ -30,7 +30,7 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       <DataTableColumnHeader column={column} title="Date" />
     ),
     cell: ({ row }) => (
-      <DataTableCell cellAlign="left" isRupees={true}>
+      <DataTableCell cellAlign="left">
         {formatDate(row.getValue("date"))}
       </DataTableCell>
     ),
@@ -41,13 +41,14 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       <DataTableColumnHeader column={column} title="Transaction Type" />
     ),
     cell: ({ row }) => (
-      <DataTableCell cellAlign="left" isRupees={true}>
+      <DataTableCell cellAlign="left">
         <BuySell type={row.getValue("transaction_type")} />
       </DataTableCell>
     ),
   },
   {
     accessorKey: "shares",
+    enableSorting: false,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -56,13 +57,12 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
       />
     ),
     cell: ({ row }) => (
-      <DataTableCell cellAlign="right" isRupees={true}>
-        {row.getValue("shares")}
-      </DataTableCell>
+      <DataTableCell cellAlign="right">{row.getValue("shares")}</DataTableCell>
     ),
   },
   {
     accessorKey: "price",
+    enableSorting: false,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -78,6 +78,7 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
   },
   {
     accessorKey: "tax",
+    enableSorting: false,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -93,6 +94,7 @@ export const all_transaction_columns: ColumnDef<TStockTransaction>[] = [
   },
   {
     accessorKey: "total",
+    enableSorting: false,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}

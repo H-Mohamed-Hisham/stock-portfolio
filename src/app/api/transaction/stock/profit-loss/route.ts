@@ -5,6 +5,8 @@ import { formatNumber } from "@/lib/formatter";
 // Provider
 import { getSessionUser } from "@/providers/auth/get-session-user";
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (request: any) => {
   try {
     const sessionUser = await getSessionUser();

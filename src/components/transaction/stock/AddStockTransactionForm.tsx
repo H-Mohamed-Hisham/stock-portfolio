@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import dayjs from "dayjs";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Icons
 import { CalendarIcon } from "lucide-react";
@@ -18,11 +18,20 @@ import { calculateTotal, calculateTotalForSell } from "@/lib/calculation";
 import { formatDateToISO } from "@/lib/formatter";
 
 // Constants
-import { FETCH_ALL_STOCK, ADD_STOCK_TRANSACTION } from "@/constants/query-key";
+import {
+  FETCH_ALL_STOCK,
+  ADD_STOCK_TRANSACTION,
+  FETCH_ALL_STOCK_TRANSACTION,
+  FETCH_ALL_STOCK_HOLDING,
+  FETCH_ALL_STOCK_PROFIT_LOSS,
+} from "@/constants/query-key";
 import { transaction_type_dropdown } from "@/constants/dropdown";
 
 // Types
 import { TStock, TLabelValue, TStockTransaction } from "@/types";
+
+// Providers
+import { getQueryClient } from "@/providers/react-query/get-query-client";
 
 // Rest API
 import { fetchAllStock } from "@/rest-api/stock";
@@ -87,6 +96,8 @@ const FormSchema = z.object({
 export type FormType = z.infer<typeof FormSchema>;
 
 export const AddStockTransactionForm = () => {
+  const queryClient = getQueryClient();
+
   // Local State
   const [stocksDropdown, setStocksDropdown] = useState<TLabelValue[]>([]);
 
@@ -126,6 +137,15 @@ export const AddStockTransactionForm = () => {
     onSuccess: (response: any) => {
       form.reset();
       setValue("stock_id", data?.[0]?.stock_id);
+      // queryClient.invalidateQueries({
+      //   queryKey: [
+      //     FETCH_ALL_STOCK_TRANSACTION,
+      //     FETCH_ALL_STOCK_HOLDING,
+      //     FETCH_ALL_STOCK_PROFIT_LOSS,
+      //   ],
+      // });
+
+      // queryClient.invalidateQueries(FETCH_ALL_STOCK_TRANSACTION);
       // TODO : Add toast to display success message
       console.log("RES :: ", response?.message);
     },
