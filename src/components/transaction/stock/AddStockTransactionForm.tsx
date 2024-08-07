@@ -22,7 +22,7 @@ import { FETCH_ALL_STOCK, ADD_STOCK_TRANSACTION } from "@/constants/query-key";
 import { transaction_type_dropdown } from "@/constants/dropdown";
 
 // Types
-import { TStock, TDropdown, TStockTransaction } from "@/types";
+import { TStock, TLabelValue, TStockTransaction } from "@/types";
 
 // Rest API
 import { fetchAllStock } from "@/rest-api/stock";
@@ -88,7 +88,7 @@ export type FormType = z.infer<typeof FormSchema>;
 
 export const AddStockTransactionForm = () => {
   // Local State
-  const [stocksDropdown, setStocksDropdown] = useState<TDropdown[]>([]);
+  const [stocksDropdown, setStocksDropdown] = useState<TLabelValue[]>([]);
 
   // Query
   const { data, isSuccess }: any = useQuery({
@@ -254,7 +254,7 @@ export const AddStockTransactionForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {stocksDropdown.map((item: TDropdown, index: number) => (
+                    {stocksDropdown.map((item: TLabelValue, index: number) => (
                       <SelectItem key={index} value={item.value}>
                         {item.label}
                       </SelectItem>
@@ -285,7 +285,7 @@ export const AddStockTransactionForm = () => {
                   </FormControl>
                   <SelectContent>
                     {transaction_type_dropdown.map(
-                      (item: TDropdown, index: number) => (
+                      (item: TLabelValue, index: number) => (
                         <SelectItem key={index} value={item.value}>
                           {item.label}
                         </SelectItem>

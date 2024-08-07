@@ -1,10 +1,13 @@
+// Constants
+import { stock_menu_tabs } from "@/constants/menu";
+
 // Components
-import { MenuTabs } from "@/components/transaction/stock/MenuTabs";
+import { MenuTabs } from "@/components/common/MenuTabs";
 
 const StockHoldings = () => {
   return (
     <div className="md:container md:mx-auto">
-      <MenuTabs />
+      <MenuTabs tabs={stock_menu_tabs} />
     </div>
   );
 };

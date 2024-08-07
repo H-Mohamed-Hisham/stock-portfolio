@@ -6,10 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { all_transaction_columns } from "@/columns/transaction-stock";
 
 // Constants
-import { FETCH_ALL_STOCK_TRANSACTION } from "@/constants/query-key";
+import { FETCH_ALL_STOCK_PROFIT_LOSS } from "@/constants/query-key";
 
 // Rest API
-import { fetchAllStockTransaction } from "@/rest-api/stock-transaction";
+import { fetchAllStockProfitLoss } from "@/rest-api/stock-transaction";
 
 // Components - Shadcn
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,22 +17,16 @@ import { Card, CardContent } from "@/components/ui/card";
 // Components
 import { DataTable, DataTableSkeleton } from "@/components/data-table";
 
-const transaction_stock_link = {
-  show: true,
-  text: "Add Stock Transaction",
-  link: "/transaction/stock/add",
-};
-
 const transaction_stock_filter = {
   placeholder: "symbol",
   field: "stock_symbol",
 };
 
-export const AllTransactionTable = () => {
+export const ProfitLossTable = () => {
   // Query
   const { data, isFetching, isError, error, isSuccess }: any = useQuery({
-    queryKey: [FETCH_ALL_STOCK_TRANSACTION],
-    queryFn: fetchAllStockTransaction,
+    queryKey: [FETCH_ALL_STOCK_PROFIT_LOSS],
+    queryFn: fetchAllStockProfitLoss,
   });
 
   return (
@@ -46,7 +40,7 @@ export const AllTransactionTable = () => {
           <DataTable
             columns={all_transaction_columns}
             data={data}
-            link={transaction_stock_link}
+            link={null}
             filter={transaction_stock_filter}
           />
         )}

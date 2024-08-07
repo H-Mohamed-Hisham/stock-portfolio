@@ -17,6 +17,11 @@ export type TStockTransaction = {
   stock?: TStock;
 };
 
+export type TLabelValue = {
+  label: string;
+  value: string;
+};
+
 export type TDataTableLink = {
   show: boolean;
   text: string;
@@ -26,9 +31,4 @@ export type TDataTableLink = {
 export type TDataTableFilter = {
   placeholder: string;
   field: string;
-};
-
-export type TDropdown = {
-  label: string;
-  value: string;
 };

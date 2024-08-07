@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 // Columns
-import { all_stock_columns } from "@/constants/columns/stock";
+import { all_stock_columns } from "@/columns/stock";
 
 // Constants
 import { FETCH_ALL_STOCK } from "@/constants/query-key";
@@ -17,15 +17,12 @@ import { Card, CardContent } from "@/components/ui/card";
 // Components
 import { DataTable, DataTableSkeleton } from "@/components/data-table";
 
-// Types
-import { TDataTableFilter, TDataTableLink } from "@/types";
-
-const stock_filter: TDataTableFilter = {
+const stock_filter = {
   placeholder: "symbol",
   field: "stock_symbol",
 };
 
-const stock_link: TDataTableLink = {
+const stock_link = {
   show: true,
   text: "Add Stock",
   link: "/stock/add",

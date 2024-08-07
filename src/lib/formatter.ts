@@ -1,19 +1,11 @@
 import dayjs from "dayjs";
 
 export const formatDate = (date: string) => {
-  if (date === "current_date") {
-    return dayjs().format("YYYY-MM-DD");
-  }
-
-  const result = dayjs(date).format("YYYY-MM-DD");
+  const result = dayjs(date).format("DD-MMM-YYYY");
   return result;
 };
 
 export const formatDateToISO = (date: string) => {
-  if (date === "curent_date_time") {
-    return dayjs(date).toISOString();
-  }
-
   const result = dayjs(date).toISOString();
   return result;
 };

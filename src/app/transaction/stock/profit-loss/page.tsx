@@ -3,16 +3,16 @@ import { stock_menu_tabs } from "@/constants/menu";
 
 // Components
 import { MenuTabs } from "@/components/common/MenuTabs";
-import { AllTransactionTable } from "@/components/transaction/stock/AllTransactionTable";
+import { ProfitLossTable } from "@/components/transaction/stock/ProfitLossTable";
 
-const StockTransaction = () => {
+const StockProfitLoss = () => {
   return (
     <div className="md:container md:mx-auto">
       <MenuTabs tabs={stock_menu_tabs} />
 
-      <AllTransactionTable />
+      <ProfitLossTable />
     </div>
   );
 };
 
-export default StockTransaction;
+export default StockProfitLoss;

@@ -84,7 +84,7 @@ export function DataTable<TData, TValue>({
         {link?.show && (
           <Link
             href={link.link}
-            className="flex items-center text-sm font-bold leading-6 rounded-lg px-3 py-1 bg-primary text-primary-foreground"
+            className="flex items-center text-sm font-semibold leading-6 rounded-lg px-3 py-1 bg-primary text-primary-foreground"
           >
             <SquarePlus className="mr-2 h-5 w-5" />
             {link.text}
