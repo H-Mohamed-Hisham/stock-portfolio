@@ -202,3 +202,50 @@ export const stock_profit_loss_columns: ColumnDef<TStockTransaction>[] = [
     ),
   },
 ];
+
+export const stock_holding_columns: ColumnDef<TStockTransaction>[] = [
+  {
+    accessorKey: "stock_name",
+    header: ({ table, column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
+  },
+  {
+    id: "stock_symbol",
+    accessorKey: "stock_symbol",
+    header: ({ table, column }) => (
+      <DataTableColumnHeader column={column} title="Symbol" />
+    ),
+  },
+  {
+    accessorKey: "total_shares",
+    enableSorting: false,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Total Shares"
+        className="justify-end"
+      />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell cellAlign="right">
+        {row.getValue("total_shares")}
+      </DataTableCell>
+    ),
+  },
+  {
+    accessorKey: "total_invested",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Total Invested"
+        className="justify-end"
+      />
+    ),
+    cell: ({ row }) => (
+      <DataTableCell cellAlign="right" isRupees={true}>
+        {row.getValue("total_invested")}
+      </DataTableCell>
+    ),
+  },
+];

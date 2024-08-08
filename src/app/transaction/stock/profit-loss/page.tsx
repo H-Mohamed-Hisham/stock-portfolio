@@ -1,5 +1,3 @@
-"use client";
-
 // Constants
 import { stock_menu_tabs } from "@/constants/menu";
 

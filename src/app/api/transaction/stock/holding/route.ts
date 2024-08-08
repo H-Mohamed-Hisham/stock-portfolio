@@ -38,7 +38,6 @@ export const GET = async (request: any) => {
 
       if (!netSharesMap[stockId]) {
         netSharesMap[stockId] = {
-          shares_bought: 0,
           remaining_share: 0,
         };
       }
@@ -46,7 +45,6 @@ export const GET = async (request: any) => {
       if (transactionType === "buy") {
         netSharesMap[stockId] = {
           ...netSharesMap[stockId],
-          shares_bought: netSharesMap[stockId].shares_bought + shares,
           remaining_share: netSharesMap[stockId].remaining_share + shares,
         };
       } else if (transactionType === "sell") {
@@ -58,10 +56,10 @@ export const GET = async (request: any) => {
     });
 
     const sharesNotHolding: any = Object.keys(netSharesMap)
-      .filter((stockId) => netSharesMap[stockId].remaining_share === 0)
+      .filter((stockId) => netSharesMap[stockId].remaining_share > 0)
       .map((stockId) => ({
         stock_id: stockId,
-        shares_bought: netSharesMap[stockId].shares_bought,
+        remaining_share: netSharesMap[stockId].remaining_share,
       }));
 
     const result: any = [];
@@ -75,7 +73,7 @@ export const GET = async (request: any) => {
       const stock_name = stock.stock_name;
       const stock_symbol = stock.stock_symbol;
 
-      const total_shares = item.shares_bought;
+      const total_shares = item.remaining_share;
 
       const buy_transactions = await prisma.stockTransaction.findMany({
         where: {
@@ -89,39 +87,11 @@ export const GET = async (request: any) => {
         0
       );
 
-      const sell_transaction = await prisma.stockTransaction.findMany({
-        where: {
-          user_id: userId,
-          stock_id: item.stock_id,
-          transaction_type: "sell",
-        },
-      });
-
-      const total_returns = sell_transaction.reduce(
-        (acc: any, t: any) => acc + Number(t.total),
-        0
-      );
-
-      const profit_loss_amount =
-        total_returns > total_invested
-          ? total_returns - total_invested
-          : total_invested - total_returns;
-
-      const profit_loss_status =
-        total_returns > total_invested
-          ? "profit"
-          : total_returns < total_invested
-          ? "loss"
-          : "no profit no loss";
-
       result.push({
         stock_name,
         stock_symbol,
         total_shares,
         total_invested: formatNumber(total_invested),
-        total_returns: formatNumber(total_returns),
-        profit_loss_amount: formatNumber(profit_loss_amount),
-        profit_loss_status,
       });
     }
 
@@ -130,7 +100,7 @@ export const GET = async (request: any) => {
     });
   } catch (error: any) {
     console.log("err :: ", error);
-    return new Response("Failed to fetch stock profit/loss data", {
+    return new Response("Failed to fetch stock holding data", {
       status: 500,
     });
   }
