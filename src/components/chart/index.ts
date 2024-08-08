@@ -1,1 +1,2 @@
-export * from "@/components/chart/BarChartMultiple";
+export * from "@/components/chart/TopInvestedChart";
+export * from "@/components/chart/TopProfitChart";

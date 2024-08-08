@@ -29,18 +29,18 @@ export type TStockProfitLoss = {
   profit_loss_status: string;
 };
 
-export type TStockInvestReturnChartData = {
+export type TStockChartData = {
   stock: string;
-  invested: number;
-  returns: number;
+  invested?: number;
+  returns?: number;
 };
 
-export type TStockInvestReturnChartConfig = {
-  invested: {
+export type TStockChartConfig = {
+  invested?: {
     label: string;
     color: string;
   };
-  returns: {
+  returns?: {
     label: string;
     color: string;
   };

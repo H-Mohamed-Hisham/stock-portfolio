@@ -10,7 +10,14 @@ export const formatDateToISO = (date: string) => {
   return result;
 };
 
-export const formatNumber = (number = 0) => {
+export const formatNumber = (number = 0, showRupee = false) => {
+  if (showRupee) {
+    return ` ₹${new Intl.NumberFormat("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number)}`;
+  }
+
   const result = new Intl.NumberFormat("en-IN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

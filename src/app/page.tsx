@@ -1,42 +1,14 @@
-// Types
-import {
-  TStockInvestReturnChartData,
-  TStockInvestReturnChartConfig,
-} from "@/types";
-
-// Components - Shadcn
-import { Card, CardContent } from "@/components/ui/card";
-
 // Components
-import { BarChartMultiple } from "@/components/chart";
+import { TopInvestedChart, TopProfitChart } from "@/components/chart";
 
 const Home = () => {
-  const data: TStockInvestReturnChartData[] = [
-    {
-      stock: "AAAA",
-      invested: 20,
-      returns: 30,
-    },
-  ];
-
-  const chartConfig: TStockInvestReturnChartConfig = {
-    invested: {
-      label: "Invested",
-      color: "#2563eb",
-    },
-    returns: {
-      label: "Returns",
-      color: "#60a5fa",
-    },
-  };
-
   return (
     <div className="md:container md:mx-auto">
-      <BarChartMultiple
-        chart_data={data}
-        chart_config={chartConfig}
-        x_axis={"stock"}
-      />
+      <div className="grid grid-cols-3 gap-4">
+        <TopInvestedChart />
+
+        <TopProfitChart />
+      </div>
     </div>
   );
 };
