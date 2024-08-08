@@ -1,3 +1,5 @@
+// Stock
+
 export type TStock = {
   stock_id: string;
   stock_symbol: string;
@@ -26,6 +28,25 @@ export type TStockProfitLoss = {
   profit_loss_amount: number;
   profit_loss_status: string;
 };
+
+export type TStockInvestReturnChartData = {
+  stock: string;
+  invested: number;
+  returns: number;
+};
+
+export type TStockInvestReturnChartConfig = {
+  invested: {
+    label: string;
+    color: string;
+  };
+  returns: {
+    label: string;
+    color: string;
+  };
+};
+
+// Miscellaneous
 
 export type TLabelValue = {
   label: string;
