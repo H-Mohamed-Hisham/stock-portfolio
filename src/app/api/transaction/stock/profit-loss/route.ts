@@ -118,9 +118,9 @@ export const GET = async (request: any) => {
         stock_name,
         stock_symbol,
         total_shares,
-        total_invested: formatNumber(total_invested),
-        total_returns: formatNumber(total_returns),
-        profit_loss_amount: formatNumber(profit_loss_amount),
+        total_invested: formatNumber({ value: total_invested }),
+        total_returns: formatNumber({ value: total_returns }),
+        profit_loss_amount: formatNumber({ value: profit_loss_amount }),
         profit_loss_status,
       });
     }

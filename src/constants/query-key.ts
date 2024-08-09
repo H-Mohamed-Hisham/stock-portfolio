@@ -1,3 +1,6 @@
+// Stats
+export const FETCH_OVERALL_STATS = "FETCH_OVERALL_STATS";
+
 // Stock
 export const FETCH_ALL_STOCK = "FETCH_ALL_STOCK";
 

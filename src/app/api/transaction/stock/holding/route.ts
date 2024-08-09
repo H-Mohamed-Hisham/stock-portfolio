@@ -91,7 +91,7 @@ export const GET = async (request: any) => {
         stock_name,
         stock_symbol,
         total_shares,
-        total_invested: formatNumber(total_invested),
+        total_invested: formatNumber({ value: total_invested }),
       });
     }
 

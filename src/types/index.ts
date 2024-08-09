@@ -63,3 +63,8 @@ export type TDataTableFilter = {
   placeholder: string;
   field: string;
 };
+
+export type TFormatNumberParams = {
+  value?: number;
+  show_rupee_symbol?: boolean;
+};
