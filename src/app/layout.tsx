@@ -34,10 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(
-          "bg-background font-sans antialiased h-full",
-          ubuntu.className
-        )}
+        className={cn("bg-background antialiased h-full", ubuntu.className)}
       >
         <AuthProvider>
           <ReactQueryProvider>
