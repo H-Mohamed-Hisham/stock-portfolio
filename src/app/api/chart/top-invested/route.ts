@@ -19,7 +19,7 @@ export const GET = async (request: any) => {
 
     const { userId } = sessionUser;
 
-    const top3StockTotals = await prisma.stockTransaction.groupBy({
+    const transactions = await prisma.stockTransaction.groupBy({
       by: ["stock_id"],
       where: {
         transaction_type: "buy",
@@ -35,9 +35,9 @@ export const GET = async (request: any) => {
       take: 3,
     });
 
-    const stockIds = top3StockTotals.map((item) => item.stock_id);
+    const stockIds = transactions.map((item) => item.stock_id);
 
-    const top3Stocks = await prisma.stock.findMany({
+    const stocks = await prisma.stock.findMany({
       where: {
         stock_id: {
           in: stockIds,
@@ -49,13 +49,12 @@ export const GET = async (request: any) => {
       },
     });
 
-    const result = top3Stocks.map((stock) => {
+    const result = stocks.map((stock) => {
       const total = Number(
-        top3StockTotals.find((item) => item.stock_id === stock.stock_id)?._sum
+        transactions.find((item) => item.stock_id === stock.stock_id)?._sum
           .total || 0
       );
       return {
-        // ...stock,
         stock: stock.stock_symbol,
         invested: total,
       };
