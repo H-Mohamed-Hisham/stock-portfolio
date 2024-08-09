@@ -30,17 +30,24 @@ export const GET = async (request: any) => {
       transactions.find((r) => r.transaction_type === "buy")?._sum.total || 0;
     const returns =
       transactions.find((r) => r.transaction_type === "sell")?._sum.total || 0;
+    const profit_loss_status =
+      Number(invested) < Number(returns)
+        ? "profit"
+        : Number(invested) > Number(returns)
+        ? "loss"
+        : "no profit no loss";
 
     const result = {
       invested: Number(invested),
       returns: Number(returns),
+      profit_loss_status,
     };
 
     return new Response(JSON.stringify(result), {
       status: 200,
     });
   } catch (error: any) {
-    return new Response("Failed to fetch stock data", {
+    return new Response("Failed to fetch stock overall stats data", {
       status: 500,
     });
   }

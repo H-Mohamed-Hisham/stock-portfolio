@@ -1,11 +1,14 @@
 import clsx from "clsx";
 
+// Lib
+import { formatNumber } from "@/lib/formatter";
+
 type Props = {
   type: "profit" | "loss" | "no profit no loss";
-  amount: string;
+  amount: number;
 };
 
-export const ProfitLossAmount = ({ type, amount }: Props) => {
+export const OverallProfitLossAmount = ({ type, amount }: Props) => {
   return (
     <div
       className={clsx(
@@ -22,8 +25,7 @@ export const ProfitLossAmount = ({ type, amount }: Props) => {
         }
       )}
     >
-      {type === "loss" ? "-₹" : type === "profit" ? "+₹" : "₹"}
-      {amount}
+      {formatNumber({ value: amount, show_rupee_symbol: true })}
     </div>
   );
 };

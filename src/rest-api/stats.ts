@@ -2,7 +2,7 @@ import { defaultHeaders, getRequest, postRequest } from "@/lib/http-method";
 
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
-export const fetchOverallStats = async ({ queryKey }: any) => {
+export const fetchStockOverallStats = async ({ queryKey }: any) => {
   // Handle the case where the domain is not available yet
   if (!apiDomain) {
     return [];
@@ -13,7 +13,7 @@ export const fetchOverallStats = async ({ queryKey }: any) => {
   const [key, body] = queryKey;
 
   const { data } = await getRequest(
-    `${apiDomain}/stats/overall`,
+    `${apiDomain}/stats/stock-overall`,
     body,
     await defaultHeaders()
   );

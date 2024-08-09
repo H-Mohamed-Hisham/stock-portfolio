@@ -1,1 +1,2 @@
-export * from "@/components/stats/OverallStat";
+export * from "@/components/stats/StockOverallStat";
+export * from "@/components/stats/OptionOverallStat";
