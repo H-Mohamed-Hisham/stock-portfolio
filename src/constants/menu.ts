@@ -1,6 +1,7 @@
 // Main Navigation
 
 export const navbar_menu = [
+  { name: "Home", href: "/" },
   { name: "Stock", href: "/stock" },
   // { name: "Index", href: "/index" },
 ];

@@ -12,6 +12,7 @@ model User {
   user_name        String
   user_email       String             @unique
   StockTransaction StockTransaction[]
+  OptionTransaction OptionTransaction[]
 }
 
 model Stock {
@@ -36,4 +37,28 @@ model StockTransaction {
 
   @@index([stock_id], map: "stock_id")
   @@index([user_id], map: "user_id")
+}
+
+
+model Index {
+  index_id         String             @id @default(uuid()) @db.Uuid
+  index_symbol     String             @unique
+  index_name       String
+  OptionTransaction OptionTransaction[]
+}
+
+model OptionTransaction {
+  transaction_id   String   @id @default(uuid()) @db.Uuid
+  user_id          String   @db.Uuid
+  transaction_type String
+  index_id         String   @db.Uuid
+  date             DateTime @default(now())
+  price            Decimal 
+  tax              Decimal 
+  total            Decimal 
+  Index            Index    @relation(fields: [index_id], references: [index_id], onDelete: Cascade)
+  User             User     @relation(fields: [user_id], references: [user_id])
+
+  @@index([index_id], map: "index_id")
+  @@index([user_id], map: "option_user_id")
 }
