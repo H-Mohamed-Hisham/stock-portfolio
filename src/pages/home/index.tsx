@@ -1,5 +1,12 @@
 import React from "react";
 
+// Components
+import { PublicLayout } from "@/components/layout";
+
 export function HomePage() {
-  return <div className="bg-red-500">HomePage</div>;
+  return (
+    <PublicLayout>
+      <div>TEST</div>
+    </PublicLayout>
+  );
 }

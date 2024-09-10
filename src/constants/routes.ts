@@ -7,4 +7,5 @@ export const SIGN_IN_URL = "/sign-in";
 // Private
 export const DASHBOARD_URL = "/dashboard";
 export const TRANSACTION_URL = "/transaction";
-export const ASSET_TRANSACTION_URL = "/transaction/asset/:id";
+export const TRANSACTION_ASSET_URL = "/transaction/asset/:id";
+export const ASSET_URL = "/asset";

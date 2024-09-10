@@ -9,7 +9,7 @@ import {
   SIGN_IN_URL,
   DASHBOARD_URL,
   TRANSACTION_URL,
-  ASSET_TRANSACTION_URL,
+  TRANSACTION_ASSET_URL,
 } from "@/constants/routes";
 
 // Pages
@@ -46,7 +46,7 @@ const PRIVATE_ROUTES = [
     element: <TransactionPage />,
   },
   {
-    path: ASSET_TRANSACTION_URL,
+    path: TRANSACTION_ASSET_URL,
     element: <AssetTransactionPage />,
   },
 ];

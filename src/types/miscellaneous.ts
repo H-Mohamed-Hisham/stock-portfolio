@@ -23,6 +23,12 @@ export type TCalculation = {
 
 // UI Components
 
+export type TAppMenu = {
+  label: string;
+  link: string;
+  icon: React.ReactNode;
+};
+
 export type TLabelValue = {
   label: string;
   value: string;
