@@ -1,14 +1,18 @@
-// Theme
-import { ThemeProvider } from "@/provider/theme/theme-provider";
+// Provider
+import { ReduxProvider, ThemeProvider, ReactQueryProvider } from "@/providers";
 
 // Routes
 import { AppRoutes } from "@/routes";
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <AppRoutes />
-    </ThemeProvider>
+    <ReduxProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ReactQueryProvider>
+          <AppRoutes />
+        </ReactQueryProvider>
+      </ThemeProvider>
+    </ReduxProvider>
   );
 }
 

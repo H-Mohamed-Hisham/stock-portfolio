@@ -1,5 +1,10 @@
-import React from "react";
+// Components
+import { PublicLayout } from "@/components/layout";
 
 export function SignInPage() {
-  return <div>SignInPage</div>;
+  return (
+    <PublicLayout>
+      <div>TEST</div>
+    </PublicLayout>
+  );
 }

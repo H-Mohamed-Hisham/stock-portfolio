@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 // Provider
-import { useTheme } from "@/provider/theme/theme-provider";
+import { useTheme } from "@/providers/theme/theme-provider";
 
 export function ThemeToggle() {
   const {
