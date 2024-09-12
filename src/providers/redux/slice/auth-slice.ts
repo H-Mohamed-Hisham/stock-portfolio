@@ -26,11 +26,13 @@ try {
       initialState.access_token = localStorage.getItem("stock-portfolio-token");
     }
   } else {
+    localStorage.removeItem("stock-portfolio-token");
     initialState.user = null;
     initialState.access_token = null;
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 } catch (error: unknown) {
+  localStorage.removeItem("stock-portfolio-token");
   initialState.user = null;
   initialState.access_token = null;
 }

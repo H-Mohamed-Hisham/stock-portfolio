@@ -1,4 +1,4 @@
-import { PublicLayout } from "@/components/layout/public-layout";
-import { PrivateLayout } from "@/components/layout/private-layout";
+import { PageLayout } from "@/components/layout/page-layout";
+import { FormCenter } from "@/components/layout/form-center";
 
-export { PublicLayout, PrivateLayout };
+export { PageLayout, FormCenter };

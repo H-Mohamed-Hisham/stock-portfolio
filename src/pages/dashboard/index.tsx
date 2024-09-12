@@ -1,11 +1,11 @@
 import React from "react";
 
 // Components
-import { PrivateLayout } from "@/components/layout";
+import { PageLayout } from "@/components/layout";
 
 export function DashboardPage() {
   return (
-    <PrivateLayout>
+    <PageLayout>
       <div>
         Contrary to popular belief, Lorem Ipsum is not simply random text. It
         has roots in a piece of classical Latin literature from 45 BC, making it
@@ -32,6 +32,6 @@ export function DashboardPage() {
         1.10.32. Contrary to popular belief, Lorem Ipsum is not simply random
         text.
       </div>
-    </PrivateLayout>
+    </PageLayout>
   );
 }

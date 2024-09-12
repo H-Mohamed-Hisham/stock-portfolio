@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { useSelector } from "react-redux";
 
 // Icons
 import { Menu } from "lucide-react";
@@ -9,6 +10,9 @@ import { app_menu } from "@/constants/menu";
 
 // Types
 import { TAppMenu } from "@/types";
+
+// Providers
+import { authState } from "@/providers/redux/slice/auth-slice";
 
 // Shadcn
 import {
@@ -25,6 +29,9 @@ import { ThemeToggle, AuthButton, Logo, NavLink } from "@/components/nav-ui";
 export function Header() {
   // Hooks
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+
+  // Redux
+  const { access_token } = useSelector(authState);
 
   // Local State
   const [open, setOpen] = useState(false);
@@ -43,9 +50,10 @@ export function Header() {
           <>
             {/* App Menu */}
             <div className="flex items-center gap-x-4">
-              {app_menu.map((menu: TAppMenu, index: number) => (
-                <NavLink key={index} menu={menu} />
-              ))}
+              {access_token &&
+                app_menu.map((menu: TAppMenu, index: number) => (
+                  <NavLink key={index} menu={menu} />
+                ))}
             </div>
 
             {/* Theme Toggle & Auth Button */}
@@ -77,9 +85,10 @@ export function Header() {
                 <div className="h-full py-10 flex flex-col justify-between">
                   {/* App Menu */}
                   <div className="flex flex-col gap-y-4">
-                    {app_menu.map((menu: TAppMenu, index: number) => (
-                      <NavLink key={index} menu={menu} />
-                    ))}
+                    {access_token &&
+                      app_menu.map((menu: TAppMenu, index: number) => (
+                        <NavLink key={index} menu={menu} />
+                      ))}
                   </div>
 
                   {/* Theme Toggle & Auth Button */}

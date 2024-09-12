@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Provider
+// Providers
 import { useTheme } from "@/providers/theme/theme-provider";
 
 export function ThemeToggle() {

@@ -1,4 +1,4 @@
-// Provider
+// Providers
 import { ReduxProvider, ThemeProvider, ReactQueryProvider } from "@/providers";
 
 // Routes

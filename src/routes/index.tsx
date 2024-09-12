@@ -1,4 +1,8 @@
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// Providers
+import { authState } from "@/providers/redux/slice/auth-slice";
 
 // Components
 import { RouteOutlet } from "@/components/routes";
@@ -52,10 +56,8 @@ const PRIVATE_ROUTES = [
 ];
 
 export function AppRoutes() {
-  // const { token } = useSelector(authState);
-
-  const token = "token";
-  // const token = null;
+  // Redux
+  const { access_token } = useSelector(authState);
 
   return (
     <Router>
@@ -64,7 +66,7 @@ export function AppRoutes() {
         <Route path="*" element={<PageNotFound />} />
 
         {/* Auth */}
-        <Route element={<RouteOutlet token={token} outletType="auth" />}>
+        <Route element={<RouteOutlet token={access_token} outletType="auth" />}>
           {AUTH_ROUTES.map((route, i) => (
             <Route
               path={route.path}
@@ -75,7 +77,9 @@ export function AppRoutes() {
         </Route>
 
         {/* Public  */}
-        <Route element={<RouteOutlet token={token} outletType="public" />}>
+        <Route
+          element={<RouteOutlet token={access_token} outletType="public" />}
+        >
           {PUBLIC_ROUTES.map((route, i) => (
             <Route
               path={route.path}
@@ -86,7 +90,9 @@ export function AppRoutes() {
         </Route>
 
         {/* Private */}
-        <Route element={<RouteOutlet token={token} outletType="private" />}>
+        <Route
+          element={<RouteOutlet token={access_token} outletType="private" />}
+        >
           {PRIVATE_ROUTES.map((route, i) => (
             <Route
               path={route.path}

@@ -33,3 +33,11 @@ export type TLabelValue = {
   label: string;
   value: string;
 };
+
+// Error Response
+
+export type TApiError = {
+  message: string;
+  error: string;
+  statusCode: number;
+};

@@ -1,6 +1,16 @@
 // Types
 import { TUser } from "@/types";
 
+export type TSignIn = {
+  email: string;
+  password: string;
+};
+
+export type TAuthState = {
+  user: TUser | null;
+  access_token: string | null;
+};
+
 export type TAccessToken = {
   id: string;
   name: string;
@@ -9,7 +19,7 @@ export type TAccessToken = {
   exp: number;
 };
 
-export type TAuthState = {
-  user: TUser | null;
-  access_token: string | null;
+export type TSignInResponse = {
+  access_token: string;
+  user: TUser;
 };

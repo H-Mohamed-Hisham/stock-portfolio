@@ -1,12 +1,12 @@
 import React from "react";
 
 // Components
-import { PublicLayout } from "@/components/layout";
+import { PageLayout } from "@/components/layout";
 
 export function HomePage() {
   return (
-    <PublicLayout>
+    <PageLayout>
       <div>TEST</div>
-    </PublicLayout>
+    </PageLayout>
   );
 }

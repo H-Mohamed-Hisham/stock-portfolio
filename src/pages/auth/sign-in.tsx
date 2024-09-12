@@ -1,10 +1,11 @@
 // Components
-import { PublicLayout } from "@/components/layout";
+import { PageLayout } from "@/components/layout";
+import { SignInForm } from "@/components/auth";
 
 export function SignInPage() {
   return (
-    <PublicLayout>
-      <div>TEST</div>
-    </PublicLayout>
+    <PageLayout>
+      <SignInForm />
+    </PageLayout>
   );
 }

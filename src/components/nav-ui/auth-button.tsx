@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Shadcn
 import { Button } from "@/components/ui/button";
 
-// Redux
+// Providers
 import { authState, setSignOut } from "@/providers/redux/slice/auth-slice";
 
 // Constants
@@ -14,17 +14,21 @@ export function AuthButton() {
   // Dispatch
   const dispatch = useDispatch();
 
+  // Router
+  const navigate = useNavigate();
+
   // Redux
-  const { user } = useSelector(authState);
+  const { access_token } = useSelector(authState);
 
   // Handle Sign Out
   function handleSignOut() {
     dispatch(setSignOut());
+    navigate(SIGN_IN_URL);
   }
 
   return (
     <>
-      {user ? (
+      {access_token ? (
         <Button
           variant="destructive"
           className="font-semibold text-white"
