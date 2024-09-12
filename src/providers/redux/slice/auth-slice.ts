@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
 
+// Constants
+import { LOCAL_STORAGE_KEY } from "@/constants/miscellaneous";
+
 // Types
 import { TAuthState, TAccessToken } from "@/types";
 
@@ -10,29 +13,29 @@ const initialState: TAuthState = {
 };
 
 try {
-  if (localStorage.getItem("stock-portfolio-token")) {
+  if (localStorage.getItem(LOCAL_STORAGE_KEY)) {
     const decodedToken: TAccessToken = jwtDecode(
-      localStorage.getItem("stock-portfolio-token") || ""
+      localStorage.getItem(LOCAL_STORAGE_KEY) || ""
     );
 
     if (decodedToken.exp * 1000 < Date.now()) {
-      localStorage.removeItem("stock-portfolio-token");
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
     } else {
       initialState.user = {
         id: decodedToken.id,
         name: decodedToken.name,
         email: decodedToken.email,
       };
-      initialState.access_token = localStorage.getItem("stock-portfolio-token");
+      initialState.access_token = localStorage.getItem(LOCAL_STORAGE_KEY);
     }
   } else {
-    localStorage.removeItem("stock-portfolio-token");
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
     initialState.user = null;
     initialState.access_token = null;
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 } catch (error: unknown) {
-  localStorage.removeItem("stock-portfolio-token");
+  localStorage.removeItem(LOCAL_STORAGE_KEY);
   initialState.user = null;
   initialState.access_token = null;
 }
@@ -48,7 +51,7 @@ const authSlice = createSlice({
       state.access_token = action.payload;
     },
     setSignOut: (state) => {
-      localStorage.removeItem("stock-portfolio-token");
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
       state.user = null;
       state.access_token = null;
     },

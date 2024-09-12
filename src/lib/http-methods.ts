@@ -1,9 +1,13 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
+
+// Constants
+import { LOCAL_STORAGE_KEY } from "@/constants/miscellaneous";
 
 export async function default_headers() {
   return {
     Accept: "application/json",
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`,
   };
 }
 
@@ -14,19 +18,29 @@ export async function get_request(
     "Content-Type": "application/json",
   }
 ) {
-  let baseURL = url;
+  try {
+    let baseURL = url;
 
-  if (Object.keys(queryParams).length) {
-    baseURL += `?${new URLSearchParams(queryParams).toString()}`;
+    if (Object.keys(queryParams).length) {
+      baseURL += `?${new URLSearchParams(queryParams).toString()}`;
+    }
+
+    const response = await axios({
+      method: "GET",
+      baseURL,
+      headers,
+    });
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
   }
-
-  const response = await axios({
-    method: "GET",
-    baseURL,
-    headers,
-  });
-
-  return response;
 }
 
 export async function post_request(
@@ -36,14 +50,24 @@ export async function post_request(
     "Content-Type": "application/json",
   }
 ) {
-  const response = await axios({
-    method: "POST",
-    data,
-    url,
-    headers,
-  });
+  try {
+    const response = await axios({
+      method: "POST",
+      data,
+      url,
+      headers,
+    });
 
-  return response;
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  }
 }
 
 export async function put_request(
@@ -53,14 +77,24 @@ export async function put_request(
     "Content-Type": "application/json",
   }
 ) {
-  const response = await axios({
-    method: "PUT",
-    data,
-    url,
-    headers,
-  });
+  try {
+    const response = await axios({
+      method: "PUT",
+      data,
+      url,
+      headers,
+    });
 
-  return response;
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  }
 }
 
 export async function delete_request(
@@ -70,12 +104,22 @@ export async function delete_request(
     "Content-Type": "application/json",
   }
 ) {
-  const response = await axios({
-    method: "DELETE",
-    data,
-    url,
-    headers,
-  });
+  try {
+    const response = await axios({
+      method: "DELETE",
+      data,
+      url,
+      headers,
+    });
 
-  return response;
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  }
 }

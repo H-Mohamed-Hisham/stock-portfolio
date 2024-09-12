@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 // Types
 import { TSignIn, TApiError, TSignInResponse } from "@/types";
 
+// Hooks
+import { useToast } from "@/hooks/use-toast";
+
 // API
 import { sign_in } from "@/api";
 
@@ -16,6 +19,7 @@ import { setUser, setAccessToken } from "@/providers/redux/slice/auth-slice";
 
 // Constants
 import { DASHBOARD_URL } from "@/constants/routes";
+import { LOCAL_STORAGE_KEY } from "@/constants/miscellaneous";
 
 // Shadcn
 import { Input } from "@/components/ui/input";
@@ -35,6 +39,9 @@ export function SignInForm() {
 
   // Router
   const navigate = useNavigate();
+
+  // Hooks
+  const { toast } = useToast();
 
   const initialValue: TSignIn = {
     email: "hmhwebdev@gmail.com",
@@ -59,12 +66,16 @@ export function SignInForm() {
         password,
       }),
     onError: (error: TApiError) => {
-      console.log("Error :: ", error.message);
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: error.message,
+      });
     },
     onSuccess: (response: TSignInResponse) => {
       form.reset();
       const { access_token, user } = response;
-      localStorage.setItem("stock-portfolio-token", access_token);
+      localStorage.setItem(LOCAL_STORAGE_KEY, access_token);
       dispatch(setUser(user));
       dispatch(setAccessToken(access_token));
       navigate(DASHBOARD_URL);
