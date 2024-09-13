@@ -57,7 +57,7 @@ export function ProfitLossChart({
 
   return (
     <>
-      {!isFetched && <BarChartSkeleton count={6} />}
+      {!isFetched && <BarChartSkeleton count={2} />}
 
       {isFetched && <ReactECharts option={chart_option} />}
     </>
