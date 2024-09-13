@@ -11,7 +11,7 @@ import { white, black, green, red, blue } from "@/constants/miscellaneous";
 import { useTheme } from "@/providers/theme/theme-provider";
 
 // Components
-import { BarChartSkeleton } from "@/components/skeleton";
+import { RoundSkeleton } from "@/components/skeleton";
 
 export function SharesChart({
   isFetched,
@@ -61,21 +61,21 @@ export function SharesChart({
           radius: ["40%", "70%"],
           data: [
             {
-              name: "Shares Bought",
+              name: "Bought",
               value: data.quantity_bought,
               itemStyle: {
                 color: green,
               },
             },
             {
-              name: "Shares Sold",
+              name: "Sold",
               value: data.quantity_sold,
               itemStyle: {
                 color: red,
               },
             },
             {
-              name: "Shares Holding",
+              name: "Holding",
               value: data.quantity_holding,
               itemStyle: {
                 color: blue,
@@ -89,7 +89,7 @@ export function SharesChart({
 
   return (
     <>
-      {!isFetched && <BarChartSkeleton count={2} />}
+      {!isFetched && <RoundSkeleton />}
 
       {isFetched && <ReactECharts option={chart_option} />}
     </>
