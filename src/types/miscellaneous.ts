@@ -34,6 +34,10 @@ export type TLabelValue = {
   value: string;
 };
 
+export type TSkeleton = {
+  count?: number;
+};
+
 // Error Response
 
 export type TApiError = {

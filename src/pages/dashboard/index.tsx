@@ -1,11 +1,13 @@
 // Components
 import { PageLayout } from "@/components/layout";
-import { OverallProfitLossChart } from "@/components/dashboard";
+import { OverallStat } from "@/components/dashboard";
 
 export function DashboardPage() {
   return (
     <PageLayout>
-      <OverallProfitLossChart />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <OverallStat asset_type="stock" />
+      </div>
     </PageLayout>
   );
 }

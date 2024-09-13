@@ -1,3 +1,4 @@
-import { OverallProfitLossChart } from "@/components/dashboard/overall-profit-loss-chart";
+import { OverallStat } from "@/components/dashboard/overall-stat";
+import { OverallStatDetail } from "@/components/dashboard/overall-stat-detail";
 
-export { OverallProfitLossChart };
+export { OverallStat, OverallStatDetail };

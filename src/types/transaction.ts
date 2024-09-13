@@ -1,10 +1,10 @@
 export type TTransactionType = "buy" | "sell";
 
-export type TOverallProfitLossForm = {
+export type TOverallProfitLossParam = {
   asset_type: string;
 };
 
-export type TAssetProfitLossForm = {
+export type TAssetProfitLossParam = {
   asset_id: string;
 };
 
