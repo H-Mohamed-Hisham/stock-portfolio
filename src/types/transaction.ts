@@ -1,10 +1,10 @@
 export type TTransactionType = "buy" | "sell";
 
-export type TOverallProfitLossParam = {
+export type TOverallStatParam = {
   asset_type: string;
 };
 
-export type TAssetProfitLossParam = {
+export type TAssetStatParam = {
   asset_id: string;
 };
 
@@ -20,17 +20,7 @@ export type TTransaction = {
   total: number;
 };
 
-export type TOverallProfitLoss = {
-  invested: number;
-  returns: number;
-  quantity_bought: number;
-  quantity_sold: number;
-  quantity_holding: number;
-  profit_loss_amount: number;
-  profit_loss_status: string;
-};
-
-export type TAssetProfitLoss = {
+export type TStat = {
   name: string;
   symbol: string;
   invested: number;
@@ -40,10 +30,4 @@ export type TAssetProfitLoss = {
   quantity_holding: number;
   profit_loss_amount: number;
   profit_loss_status: string;
-};
-
-export type TProfitLossChartData = {
-  symbol: string;
-  invested?: number;
-  returns?: number;
 };

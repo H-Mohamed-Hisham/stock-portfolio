@@ -1,21 +1,27 @@
 // Types
-import { TOverallProfitLoss } from "@/types";
+import { TStat } from "@/types";
 
 import { LineSkeleton } from "@/components/skeleton";
 
-export function OverallStatDetail({
+export function StatView({
   isFetched,
   data,
 }: {
   isFetched: boolean;
-  data: TOverallProfitLoss;
+  data: TStat;
 }) {
   return (
     <div className="flex flex-col gap-4">
-      {!isFetched && <LineSkeleton count={4} />}
+      {!isFetched && <LineSkeleton count={5} />}
 
       {isFetched && (
         <dl className="">
+          <div className="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6">Asset</dt>
+            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+              {data.name}
+            </dd>
+          </div>
           <div className="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6">Total Invested</dt>
             <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">

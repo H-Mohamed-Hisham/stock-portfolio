@@ -2,17 +2,17 @@ import ReactECharts from "echarts-for-react";
 import { useMemo } from "react";
 
 // Types
-import { TOverallProfitLoss } from "@/types";
+import { TStat } from "@/types";
 
 // Components
 import { BarChartSkeleton } from "@/components/skeleton";
 
-export function OverallProfitLossChart({
+export function ProfitLossChart({
   isFetched,
   data,
 }: {
   isFetched: boolean;
-  data: TOverallProfitLoss;
+  data: TStat;
 }) {
   const chart_option = useMemo(() => {
     if (!data) {

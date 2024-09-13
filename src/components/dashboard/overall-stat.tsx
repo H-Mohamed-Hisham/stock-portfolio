@@ -1,22 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 
 // API
-import { overall_profit_loss } from "@/api";
+import { overall_stat } from "@/api";
 
 // Constants
 import { OVERALL_PROFIT_LOSS } from "@/constants/query-key";
 
 // Types
-import { TOverallProfitLossParam } from "@/types";
+import { TOverallStatParam } from "@/types";
 
 // Components
-import { OverallProfitLossChart } from "@/components/chart";
-import { OverallStatDetail } from "@/components/dashboard";
+import { ProfitLossChart } from "@/components/chart";
+import { StatView } from "@/components/common";
 
 // Shadcn
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
-export function OverallStat({ asset_type }: TOverallProfitLossParam) {
+export function OverallStat({ asset_type }: TOverallStatParam) {
   // Query
   const { data, isFetched } = useQuery({
     queryKey: [
@@ -26,7 +26,7 @@ export function OverallStat({ asset_type }: TOverallProfitLossParam) {
       },
     ],
     queryFn: () =>
-      overall_profit_loss({
+      overall_stat({
         asset_type: asset_type,
       }),
   });
@@ -34,21 +34,18 @@ export function OverallStat({ asset_type }: TOverallProfitLossParam) {
   return (
     <>
       <Card className="w-full h-full p-3">
-        <CardHeader className="p-1">
-          <div>Stock Stat</div>
-        </CardHeader>
         <CardContent className="p-1">
-          <OverallStatDetail isFetched={isFetched} data={data} />
+          <StatView isFetched={isFetched} data={data} />
         </CardContent>
       </Card>
       <Card className="w-full h-full p-3">
         <CardContent className="p-1">
-          <OverallProfitLossChart isFetched={isFetched} data={data} />
+          <ProfitLossChart isFetched={isFetched} data={data} />
         </CardContent>
       </Card>
       <Card className="w-full h-full p-3">
         <CardContent className="p-1">
-          <OverallProfitLossChart isFetched={isFetched} data={data} />
+          <ProfitLossChart isFetched={isFetched} data={data} />
         </CardContent>
       </Card>
     </>
