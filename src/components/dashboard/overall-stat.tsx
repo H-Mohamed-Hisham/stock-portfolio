@@ -10,8 +10,8 @@ import { OVERALL_PROFIT_LOSS } from "@/constants/query-key";
 import { TOverallStatParam } from "@/types";
 
 // Components
-import { ProfitLossChart } from "@/components/chart";
 import { StatView } from "@/components/common";
+import { ProfitLossChart, SharesChart } from "@/components/chart";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
@@ -45,7 +45,7 @@ export function OverallStat({ asset_type }: TOverallStatParam) {
       </Card>
       <Card className="w-full h-full p-3">
         <CardContent className="p-1">
-          <ProfitLossChart isFetched={isFetched} data={data} />
+          <SharesChart isFetched={isFetched} data={data} />
         </CardContent>
       </Card>
     </>

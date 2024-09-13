@@ -4,6 +4,9 @@ import { useMemo } from "react";
 // Types
 import { TStat } from "@/types";
 
+// Constants
+import { green, red, blue } from "@/constants/miscellaneous";
+
 // Components
 import { BarChartSkeleton } from "@/components/skeleton";
 
@@ -42,14 +45,31 @@ export function ProfitLossChart({
       ],
       series: [
         {
-          name: "Invested",
           type: "bar",
-          data: [data.invested],
-        },
-        {
-          name: "Returns",
-          type: "bar",
-          data: [data.returns],
+          data: [
+            {
+              value: data.invested,
+              itemStyle: {
+                color:
+                  data.invested < data.returns
+                    ? green
+                    : data.invested > data.returns
+                    ? red
+                    : blue,
+              },
+            },
+            {
+              value: data.returns,
+              itemStyle: {
+                color:
+                  data.invested < data.returns
+                    ? green
+                    : data.invested > data.returns
+                    ? red
+                    : blue,
+              },
+            },
+          ],
         },
       ],
     };
