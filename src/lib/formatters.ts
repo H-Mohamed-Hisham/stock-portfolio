@@ -16,10 +16,11 @@ export const formatDateToISO = ({ date }: TFormatDate): string => {
 export const formatNumber = ({
   value = 0,
   show_rupee_symbol = true,
+  show_decimal_point = true,
 }: TFormatNumber): string => {
   const formattedNumber = new Intl.NumberFormat("en-IN", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: show_decimal_point ? 2 : 0,
+    maximumFractionDigits: show_decimal_point ? 2 : 0,
   }).format(value);
 
   return show_rupee_symbol ? `₹${formattedNumber}` : formattedNumber;

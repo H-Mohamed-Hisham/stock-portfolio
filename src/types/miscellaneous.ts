@@ -6,6 +6,7 @@ import { TTransactionType } from "@/types";
 export type TFormatNumber = {
   value?: number;
   show_rupee_symbol?: boolean;
+  show_decimal_point?: boolean;
 };
 
 export type TFormatDate = {
