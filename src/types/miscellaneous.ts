@@ -44,6 +44,22 @@ export type TAlertMessage = {
   message: string;
 };
 
+export type TDataTableCell = {
+  cellAlign: string;
+  children: React.ReactNode;
+};
+
+export type TDataTableLink = {
+  show: boolean;
+  text: string;
+  link: string;
+};
+
+export type TDataTableFilter = {
+  placeholder: string;
+  field: string;
+};
+
 // Error Response
 
 export type TApiError = {

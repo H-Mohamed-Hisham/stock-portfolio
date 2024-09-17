@@ -1,3 +1,6 @@
+// Types
+import { TAsset } from "@/types";
+
 export type TTransactionType = "buy" | "sell";
 
 export type TOverallStatParam = {
@@ -18,6 +21,7 @@ export type TTransaction = {
   price: number;
   tax: number;
   total: number;
+  asset: TAsset;
 };
 
 export type TStat = {
