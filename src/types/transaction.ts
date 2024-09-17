@@ -16,8 +16,8 @@ export type TTransactionListParam = {
 };
 
 export type TTransaction = {
-  id: string;
-  user_id: string;
+  id?: string;
+  user_id?: string;
   date: string;
   asset_id: string;
   transaction_type: TTransactionType;
@@ -25,7 +25,7 @@ export type TTransaction = {
   price: number;
   tax: number;
   total: number;
-  asset: TAsset;
+  asset?: TAsset;
 };
 
 export type TStat = {

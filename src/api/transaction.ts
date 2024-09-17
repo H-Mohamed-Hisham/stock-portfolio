@@ -30,7 +30,7 @@ export const asset_stat = async (body: TAssetStatParam) => {
   return response;
 };
 
-export const transaction_list = async (body: TTransactionListParam) => {
+export const fetch_transaction = async (body: TTransactionListParam) => {
   const response = await post_request(
     `${api_url}/transaction/list`,
     body,

@@ -8,4 +8,5 @@ export const SIGN_IN_URL = "/sign-in";
 export const DASHBOARD_URL = "/dashboard";
 export const TRANSACTION_URL = "/transaction/:transaction_type";
 export const TRANSACTION_ASSET_URL = "/transaction-asset/:asset_id";
+export const ADD_TRANSACTION_URL = "/transaction/add";
 export const ASSET_URL = "/asset";

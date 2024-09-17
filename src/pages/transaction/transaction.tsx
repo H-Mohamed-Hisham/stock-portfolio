@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 
 // API
-import { transaction_list } from "@/api";
+import { fetch_transaction } from "@/api";
 
 // Constants
 import { TRANSACTION_LIST_QUERY_KEY } from "@/constants/query-key";
@@ -56,7 +56,7 @@ export function TransactionPage() {
       },
     ],
     queryFn: () =>
-      transaction_list({
+      fetch_transaction({
         transaction_type: transaction_type,
       }),
   });
