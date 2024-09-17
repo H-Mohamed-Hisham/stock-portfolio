@@ -18,7 +18,7 @@ export type TTransactionListParam = {
 export type TTransaction = {
   id?: string;
   user_id?: string;
-  date: string;
+  date: string | Date;
   asset_id: string;
   transaction_type: TTransactionType;
   quantity: number;

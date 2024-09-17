@@ -55,7 +55,7 @@ export function AddTransactionForm() {
 
   // Form Initial Value
   const initialValue: TTransaction = {
-    date: new Date().toString(),
+    date: new Date(),
     asset_id: "",
     transaction_type: "buy",
     quantity: 0,
@@ -66,7 +66,7 @@ export function AddTransactionForm() {
 
   // Form Schema
   const schema = yup.object().shape({
-    date: yup.string().required(),
+    // date: yup.date().required(),
     asset_id: yup.string().required(),
     transaction_type: yup.string().required(),
     quantity: yup.number().required(),
@@ -111,37 +111,61 @@ export function AddTransactionForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="grid col-start-1 col-span-full lg:col-start-4 lg:col-span-6 gap-y-4">
-          <FormField
-            control={form.control}
-            name="asset_id"
-            render={({ field }) => (
-              <FormItem key={field.value}>
-                <FormLabel>Stock</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Asset" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {stocksDropdown.map((item: TLabelValue, index: number) => (
-                      <SelectItem key={index} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid grid-cols-1 gap-4"
+      >
+        <FormField
+          control={form.control}
+          name="asset_id"
+          render={({ field }) => (
+            <FormItem key={field.value}>
+              <FormLabel>Stock</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Asset" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {stocksDropdown.map((item: TLabelValue, index: number) => (
+                    <SelectItem key={index} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="asset_id"
+          render={({ field }) => (
+            <FormItem key={field.value}>
+              <FormLabel>Stock</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Asset" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {stocksDropdown.map((item: TLabelValue, index: number) => (
+                    <SelectItem key={index} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </form>
     </Form>
   );
