@@ -14,11 +14,12 @@ export function NavLink({ menu }: { menu: TAppMenu }) {
       className={clsx(
         "flex items-center gap-x-2 p-2 font-semibold rounded-sm",
         {
-          "bg-primary text-primary-foreground": pathname === menu.link,
+          "bg-primary text-primary-foreground":
+            pathname.split("/")[1] === menu.base_link,
         },
         {
           "hover:bg-primary hover:text-primary-foreground":
-            pathname !== menu.link,
+            pathname.split("/")[1] !== menu.base_link,
         }
       )}
     >

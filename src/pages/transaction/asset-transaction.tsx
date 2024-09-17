@@ -1,5 +1,5 @@
 import React from "react";
 
-export function AssetTransactionListPage() {
+export function AssetTransactionPage() {
   return <div>AssetTransaction</div>;
 }

@@ -39,7 +39,7 @@ const table_filter = {
   field: "symbol",
 };
 
-export function TransactionListPage() {
+export function TransactionPage() {
   // Router
   const { transaction_type } = useParams<{ transaction_type: string }>();
   const navigate = useNavigate();
@@ -114,7 +114,7 @@ export function TransactionListPage() {
                 </div>
 
                 <DataTable
-                  columns={transaction_columns(false, handleDelete)}
+                  columns={transaction_columns(true, handleDelete)}
                   data={data}
                   link={table_link}
                   filter={table_filter}

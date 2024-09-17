@@ -27,6 +27,7 @@ export type TCalculation = {
 export type TAppMenu = {
   label: string;
   link: string;
+  base_link: string;
   icon: React.ReactNode;
 };
 

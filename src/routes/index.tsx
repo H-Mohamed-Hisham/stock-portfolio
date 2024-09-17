@@ -21,8 +21,8 @@ import {
   HomePage,
   SignInPage,
   DashboardPage,
-  TransactionListPage,
-  AssetTransactionListPage,
+  TransactionPage,
+  AssetTransactionPage,
   PageNotFound,
 } from "@/pages";
 
@@ -47,11 +47,11 @@ const PRIVATE_ROUTES = [
   },
   {
     path: TRANSACTION_URL,
-    element: <TransactionListPage />,
+    element: <TransactionPage />,
   },
   {
     path: TRANSACTION_ASSET_URL,
-    element: <AssetTransactionListPage />,
+    element: <AssetTransactionPage />,
   },
 ];
 
