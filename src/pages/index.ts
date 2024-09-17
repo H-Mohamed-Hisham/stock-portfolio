@@ -1,15 +1,15 @@
 import { HomePage } from "@/pages/home";
 import { SignInPage } from "@/pages/auth/sign-in";
 import { DashboardPage } from "@/pages/dashboard";
-import { TransactionPage } from "@/pages/transaction/transaction";
-import { AssetTransactionPage } from "@/pages/transaction/asset-transaction";
+import { TransactionListPage } from "@/pages/transaction/transaction-list";
+import { AssetTransactionListPage } from "@/pages/transaction/asset-transaction-list";
 import { PageNotFound } from "@/pages/404";
 
 export {
   HomePage,
   SignInPage,
   DashboardPage,
-  TransactionPage,
-  AssetTransactionPage,
+  TransactionListPage,
+  AssetTransactionListPage,
   PageNotFound,
 };

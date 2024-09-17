@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { overall_stat } from "@/api";
 
 // Constants
-import { OVERALL_PROFIT_LOSS } from "@/constants/query-key";
+import { OVERALL_PROFIT_LOSS_QUERY_KEY } from "@/constants/query-key";
 
 // Types
 import { TOverallStatParam } from "@/types";
@@ -20,7 +20,7 @@ export function OverallStat({ asset_type }: TOverallStatParam) {
   // Query
   const { data, isFetched, error } = useQuery({
     queryKey: [
-      OVERALL_PROFIT_LOSS,
+      OVERALL_PROFIT_LOSS_QUERY_KEY,
       {
         asset_type: asset_type,
       },

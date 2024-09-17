@@ -11,6 +11,10 @@ export type TAssetStatParam = {
   asset_id: string;
 };
 
+export type TTransactionListParam = {
+  transaction_type: string | undefined;
+};
+
 export type TTransaction = {
   id: string;
   user_id: string;
