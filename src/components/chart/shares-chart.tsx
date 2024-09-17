@@ -2,7 +2,7 @@ import ReactECharts from "echarts-for-react";
 import { useMemo } from "react";
 
 // Types
-import { TStat } from "@/types";
+import { TStat, TApiError } from "@/types";
 
 // Constants
 import { white, black, green, red, blue } from "@/constants/miscellaneous";
@@ -12,13 +12,16 @@ import { useTheme } from "@/providers/theme/theme-provider";
 
 // Components
 import { RoundSkeleton } from "@/components/skeleton";
+import { AlertMessage } from "@/components/common";
 
 export function SharesChart({
   isFetched,
   data,
+  error,
 }: {
   isFetched: boolean;
   data: TStat;
+  error: TApiError | null | Error;
 }) {
   // Hooks
   const { theme } = useTheme();
@@ -90,6 +93,8 @@ export function SharesChart({
   return (
     <>
       {!isFetched && <RoundSkeleton />}
+
+      {error && <AlertMessage message={error.message} />}
 
       {isFetched && <ReactECharts option={chart_option} />}
     </>

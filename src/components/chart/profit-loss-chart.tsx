@@ -2,20 +2,23 @@ import ReactECharts from "echarts-for-react";
 import { useMemo } from "react";
 
 // Types
-import { TStat } from "@/types";
+import { TStat, TApiError } from "@/types";
 
 // Constants
 import { green, red, blue } from "@/constants/miscellaneous";
 
 // Components
 import { BarChartSkeleton } from "@/components/skeleton";
+import { AlertMessage } from "@/components/common";
 
 export function ProfitLossChart({
   isFetched,
   data,
+  error,
 }: {
   isFetched: boolean;
   data: TStat;
+  error: TApiError | null | Error;
 }) {
   const chart_option = useMemo(() => {
     if (!data) {
@@ -79,7 +82,9 @@ export function ProfitLossChart({
     <>
       {!isFetched && <BarChartSkeleton count={2} />}
 
-      {isFetched && <ReactECharts option={chart_option} />}
+      {error && <AlertMessage message={error.message} />}
+
+      {isFetched && !error && <ReactECharts option={chart_option} />}
     </>
   );
 }

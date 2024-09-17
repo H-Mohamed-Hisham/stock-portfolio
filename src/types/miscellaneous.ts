@@ -39,10 +39,15 @@ export type TSkeleton = {
   count?: number;
 };
 
+export type TAlertMessage = {
+  variant?: "default" | "destructive" | "success" | null | undefined;
+  message: string;
+};
+
 // Error Response
 
 export type TApiError = {
   message: string;
-  error: string;
+  // error: string;
   statusCode: number;
 };

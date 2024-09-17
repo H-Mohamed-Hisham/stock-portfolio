@@ -1,25 +1,29 @@
 // Types
-import { TStat } from "@/types";
+import { TStat, TApiError } from "@/types";
 
 // Lib
 import { formatNumber } from "@/lib/formatters";
 
 // Components
 import { LineSkeleton } from "@/components/skeleton";
-import { ProfitLoss } from "@/components/common";
+import { ProfitLoss, AlertMessage } from "@/components/common";
 
 export function StatView({
   isFetched,
   data,
+  error,
 }: {
   isFetched: boolean;
   data: TStat;
+  error: TApiError | null | Error;
 }) {
   return (
     <div className="flex flex-col gap-4">
       {!isFetched && <LineSkeleton count={5} />}
 
-      {isFetched && (
+      {error && <AlertMessage message={error.message} />}
+
+      {isFetched && !error && (
         <dl>
           <div className="p-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6">Asset</dt>

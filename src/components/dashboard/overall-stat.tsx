@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export function OverallStat({ asset_type }: TOverallStatParam) {
   // Query
-  const { data, isFetched } = useQuery({
+  const { data, isFetched, error } = useQuery({
     queryKey: [
       OVERALL_PROFIT_LOSS,
       {
@@ -35,17 +35,17 @@ export function OverallStat({ asset_type }: TOverallStatParam) {
     <>
       <Card className="w-full h-full p-3">
         <CardContent className="p-1">
-          <StatView isFetched={isFetched} data={data} />
+          <StatView isFetched={isFetched} error={error} data={data} />
         </CardContent>
       </Card>
       <Card className="w-full h-full p-3">
         <CardContent className="p-1">
-          <ProfitLossChart isFetched={isFetched} data={data} />
+          <ProfitLossChart isFetched={isFetched} error={error} data={data} />
         </CardContent>
       </Card>
       <Card className="w-full h-full p-3">
         <CardContent className="p-1">
-          <SharesChart isFetched={isFetched} data={data} />
+          <SharesChart isFetched={isFetched} error={error} data={data} />
         </CardContent>
       </Card>
     </>
