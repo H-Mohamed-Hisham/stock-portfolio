@@ -10,6 +10,6 @@ export const DASHBOARD_URL = "/dashboard";
 export const TRANSACTION_URL = "/transaction/:transaction_type";
 export const TRANSACTION_ASSET_URL = "/transaction/asset/:asset_id";
 export const CREATE_TRANSACTION_URL = "/transaction/create";
-export const UPDATE_TRANSACTION_URL = "/transaction/update/:id";
+export const UPDATE_TRANSACTION_URL = "/transaction/update/:transaction_id";
 
 export const ASSET_URL = "/asset";

@@ -12,6 +12,7 @@ import {
   TAssetStatParam,
   TTransactionListParam,
   TTransactionForm,
+  TTransactionByIDParam,
 } from "@/types";
 
 const api_url = import.meta.env.VITE_API_URL || null;
@@ -46,9 +47,9 @@ export const create_transaction = async (body: TTransactionForm) => {
   return response;
 };
 
-export const fetch_transaction_by_id = async (id: string) => {
+export const fetch_transaction_by_id = async (body: TTransactionByIDParam) => {
   const response = await get_request(
-    `${api_url}/transaction/${id}`,
+    `${api_url}/transaction/${body.transaction_id}`,
     {},
     await default_headers()
   );

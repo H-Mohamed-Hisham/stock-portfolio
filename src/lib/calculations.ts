@@ -11,7 +11,7 @@ export const calculate_total = ({
     transaction_type === "buy"
       ? Number(quantity) * Number(price) + Number(tax)
       : transaction_type === "sell"
-      ? Number(quantity) * Number(price) + Number(tax)
+      ? Number(quantity) * Number(price) - Number(tax)
       : 0;
   const result = Number(calculate.toFixed(2));
   return result;

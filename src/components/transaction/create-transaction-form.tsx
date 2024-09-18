@@ -142,7 +142,6 @@ export function CreateTransactionForm() {
 
   // Submit Handler
   const onSubmit = (data: TTransactionForm) => {
-    console.log(data);
     mutate({
       asset_id: data.asset_id,
       transaction_type: data.transaction_type,
@@ -151,12 +150,11 @@ export function CreateTransactionForm() {
       price: data.price,
       tax: data.tax,
     });
-    form.reset();
   };
 
   // UseEffect - Calculate Total
   useEffect(() => {
-    if (quantity && price && tax !== undefined) {
+    if (transaction_type && quantity && price && tax) {
       const total = calculate_total({ transaction_type, quantity, price, tax });
       setValue("total", total);
     }
@@ -174,8 +172,7 @@ export function CreateTransactionForm() {
 
       setValue("asset_id", data?.[0]?.id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, data]);
+  }, [isSuccess, data, setValue]);
 
   return (
     <Form {...form}>

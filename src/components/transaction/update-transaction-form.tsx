@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import clsx from "clsx";
+import { useParams } from "react-router-dom";
 
 // Icons
 import { CalendarIcon } from "lucide-react";
@@ -13,7 +14,11 @@ import { CalendarIcon } from "lucide-react";
 import { calculate_total } from "@/lib/calculations";
 
 // API
-import { fetch_asset, create_transaction } from "@/api";
+import {
+  fetch_asset,
+  fetch_transaction_by_id,
+  update_transaction,
+} from "@/api";
 
 // Types
 import { TLabelValue, TTransactionForm, TAsset, TApiError } from "@/types";
@@ -26,6 +31,7 @@ import { transaction_type_dropdown } from "@/constants/dropdown";
 import {
   FETCH_ASSET_QUERY_KEY,
   FETCH_TRANSACTION_QUERY_KEY,
+  FETCH_TRANSACTION_BY_ID_QUERY_KEY,
 } from "@/constants/query-key";
 
 // Shadcn
@@ -54,23 +60,15 @@ import {
 } from "@/components/ui/select";
 
 export function UpdateTransactionForm() {
+  // Router
+  const { transaction_id } = useParams<{ transaction_id: string }>();
+
   // Hooks
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
   // Local State
   const [stocksDropdown, setStocksDropdown] = useState<TLabelValue[]>([]);
-
-  // Form Initial Value
-  const initialValue: TTransactionForm = {
-    date: new Date(),
-    asset_id: "",
-    transaction_type: "buy",
-    quantity: 0,
-    price: 0,
-    tax: 0,
-    total: 0,
-  };
 
   // Form Schema
   const schema = yup.object().shape({
@@ -86,7 +84,6 @@ export function UpdateTransactionForm() {
   // Form Hook
   const form = useForm({
     resolver: yupResolver(schema),
-    defaultValues: initialValue,
   });
 
   const { setValue, watch } = form;
@@ -95,10 +92,28 @@ export function UpdateTransactionForm() {
   const price = watch("price");
   const tax = watch("tax");
 
-  // Query
+  // Query - Fetch Asset
   const { data, isSuccess } = useQuery({
     queryKey: [FETCH_ASSET_QUERY_KEY],
     queryFn: fetch_asset,
+  });
+
+  // Query - Fetch Transaction By ID
+  const {
+    data: transaction_data,
+    isFetched: is_transaction_fetched,
+    error: transaction_error,
+  } = useQuery({
+    queryKey: [
+      FETCH_TRANSACTION_BY_ID_QUERY_KEY,
+      {
+        transaction_id: transaction_id,
+      },
+    ],
+    queryFn: () =>
+      fetch_transaction_by_id({
+        transaction_id: transaction_id,
+      }),
   });
 
   // Mutation
@@ -111,7 +126,8 @@ export function UpdateTransactionForm() {
       price,
       tax,
     }: TTransactionForm) =>
-      create_transaction({
+      update_transaction({
+        id: transaction_id,
         asset_id,
         transaction_type,
         date,
@@ -127,22 +143,21 @@ export function UpdateTransactionForm() {
       });
     },
     onSuccess: () => {
-      form.reset();
-      setValue("asset_id", data?.[0]?.id);
+      // form.reset();
+      // setValue("asset_id", data?.[0]?.id);
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
       toast({
         title: "Success",
         variant: "success",
-        description: "Transaction created successfully",
+        description: "Transaction updated successfully",
       });
     },
   });
 
   // Submit Handler
   const onSubmit = (data: TTransactionForm) => {
-    console.log(data);
     mutate({
       asset_id: data.asset_id,
       transaction_type: data.transaction_type,
@@ -151,16 +166,38 @@ export function UpdateTransactionForm() {
       price: data.price,
       tax: data.tax,
     });
-    form.reset();
   };
 
   // UseEffect - Calculate Total
   useEffect(() => {
-    if (quantity && price && tax !== undefined) {
+    if (transaction_type && quantity && price && tax) {
       const total = calculate_total({ transaction_type, quantity, price, tax });
       setValue("total", total);
     }
   }, [transaction_type, quantity, price, tax, setValue]);
+
+  // UseEffect - Set Initial Value
+  useEffect(() => {
+    if (is_transaction_fetched && transaction_data) {
+      const {
+        asset_id,
+        transaction_type,
+        date,
+        quantity,
+        price,
+        tax,
+        total,
+      }: TTransactionForm = transaction_data;
+
+      setValue("asset_id", asset_id);
+      setValue("transaction_type", transaction_type);
+      setValue("date", date);
+      setValue("quantity", quantity);
+      setValue("price", price);
+      setValue("tax", tax);
+      setValue("total", total);
+    }
+  }, [transaction_data, is_transaction_fetched, setValue]);
 
   // UseEffect - Asset Dropdown Value
   useEffect(() => {
@@ -171,10 +208,7 @@ export function UpdateTransactionForm() {
           value: item?.id,
         }))
       );
-
-      setValue("asset_id", data?.[0]?.id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, data]);
 
   return (
@@ -233,7 +267,7 @@ export function UpdateTransactionForm() {
           render={({ field }) => (
             <FormItem key={field.value}>
               <FormLabel>Stock</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Asset" />
@@ -260,7 +294,7 @@ export function UpdateTransactionForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Transaction Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Transaction Type" />
@@ -349,6 +383,7 @@ export function UpdateTransactionForm() {
         <Button
           type="submit"
           className="bg-primary text-primary-foreground font-semibold"
+          disabled={!is_transaction_fetched || transaction_error ? true : false}
         >
           Submit
         </Button>

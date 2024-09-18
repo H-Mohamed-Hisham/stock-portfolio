@@ -48,3 +48,7 @@ export type TStat = {
   profit_loss_amount: number;
   profit_loss_status: string;
 };
+
+export type TTransactionByIDParam = {
+  transaction_id: string | undefined;
+};
