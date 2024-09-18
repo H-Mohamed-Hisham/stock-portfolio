@@ -21,7 +21,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const table_link = {
   show: true,
-  text: "Add Transaction",
+  text: "Create Transaction",
   link: "/transaction/create",
 };
 
@@ -69,33 +69,31 @@ export function AssetTransaction() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <Card className="w-full h-full p-3">
-        <CardContent className="p-1">
-          {!isFetched && <LineSkeleton count={5} />}
+    <Card className="w-full h-full p-3">
+      <CardContent className="p-1">
+        {!isFetched && <LineSkeleton count={5} />}
 
-          {error && <AlertMessage message={error.message} />}
+        {error && <AlertMessage message={error.message} />}
 
-          {isFetched && !error && (
-            <>
-              <div className="flex items-center gap-4">
-                {selectedRows.length > 0 && (
-                  <DeleteButton onClick={() => handleDeleteSelectedRow()} />
-                )}
-              </div>
+        {isFetched && !error && (
+          <>
+            <div className="flex items-center gap-4">
+              {selectedRows.length > 0 && (
+                <DeleteButton onClick={() => handleDeleteSelectedRow()} />
+              )}
+            </div>
 
-              <DataTable
-                columns={transaction_columns(true, handleDelete)}
-                data={data}
-                link={table_link}
-                filter={table_filter}
-                row_id_key="id"
-                onSelectedRowsChange={handleSelectedRowsChange}
-              />
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+            <DataTable
+              columns={transaction_columns(false, handleDelete)}
+              data={data}
+              link={table_link}
+              filter={table_filter}
+              row_id_key="id"
+              onSelectedRowsChange={handleSelectedRowsChange}
+            />
+          </>
+        )}
+      </CardContent>
+    </Card>
   );
 }

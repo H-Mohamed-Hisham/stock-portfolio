@@ -53,12 +53,7 @@ export function ProfitLossChart({
             {
               value: data.invested,
               itemStyle: {
-                color:
-                  data.invested < data.returns
-                    ? green
-                    : data.invested > data.returns
-                    ? red
-                    : blue,
+                color: blue,
               },
             },
             {

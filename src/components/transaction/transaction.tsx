@@ -29,7 +29,7 @@ import {
 
 const table_link = {
   show: true,
-  text: "Add Transaction",
+  text: "Create Transaction",
   link: "/transaction/create",
 };
 
