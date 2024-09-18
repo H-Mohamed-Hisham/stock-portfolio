@@ -50,3 +50,13 @@ export const create_transaction = async (body: TTransactionForm) => {
 
   return response;
 };
+
+export const fetch_asset_transaction = async (body: TAssetStatParam) => {
+  const response = await post_request(
+    `${api_url}/transaction/asset/${body.asset_id}`,
+    {},
+    await default_headers()
+  );
+
+  return response;
+};
