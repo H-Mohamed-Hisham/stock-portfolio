@@ -46,11 +46,11 @@ export const transaction_columns = (
           aria-label="Select row"
         />
         {show_link ? (
-          <Link to={`/transaction/${row.original.asset_id}`}>
-            {row.original?.asset.name}
+          <Link to={`/transaction-asset/${row.original.asset?.id}`}>
+            {row.original?.asset?.name}
           </Link>
         ) : (
-          <span>{row.original?.asset.name}</span>
+          <span>{row.original?.asset?.name}</span>
         )}
       </TableCell>
     ),
@@ -128,7 +128,7 @@ export const transaction_columns = (
     id: "actions",
     cell: ({ row }) => {
       return (
-        <RowDeleteButton row_id={row.original.id} onClick={handleDelete} />
+        <RowDeleteButton row_id={row.getValue("id")} onClick={handleDelete} />
       );
     },
   },
