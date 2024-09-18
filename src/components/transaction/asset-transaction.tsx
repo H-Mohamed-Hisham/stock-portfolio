@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // API
-import { fetch_transaction } from "@/api";
+import { fetch_asset_transaction } from "@/api";
 
 // Constants
-import { FETCH_TRANSACTION_QUERY_KEY } from "@/constants/query-key";
-import { transaction_type_dropdown } from "@/constants/dropdown";
+import { FETCH_ASSET_TRANSACTION_QUERY_KEY } from "@/constants/query-key";
 
 // Columns
 import { transaction_columns } from "@/columns";
@@ -19,13 +18,6 @@ import { AlertMessage, DeleteButton } from "@/components/common";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const table_link = {
   show: true,
@@ -40,8 +32,7 @@ const table_filter = {
 
 export function AssetTransaction() {
   // Router
-  const { transaction_type } = useParams<{ transaction_type: string }>();
-  const navigate = useNavigate();
+  const { asset_id } = useParams<{ asset_id: string }>();
 
   // Local State
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -49,14 +40,14 @@ export function AssetTransaction() {
   // Query
   const { data, isFetched, error } = useQuery({
     queryKey: [
-      FETCH_TRANSACTION_QUERY_KEY,
+      FETCH_ASSET_TRANSACTION_QUERY_KEY,
       {
-        transaction_type: transaction_type,
+        asset_id: asset_id,
       },
     ],
     queryFn: () =>
-      fetch_transaction({
-        transaction_type: transaction_type,
+      fetch_asset_transaction({
+        asset_id: asset_id,
       }),
   });
 
@@ -88,24 +79,6 @@ export function AssetTransaction() {
           {isFetched && !error && (
             <>
               <div className="flex items-center gap-4">
-                <Select
-                  onValueChange={(value: string) => {
-                    navigate(`/transaction/${value}`);
-                  }}
-                  value={transaction_type}
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Transaction Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {transaction_type_dropdown.map((item, index) => (
-                      <SelectItem key={index} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
                 {selectedRows.length > 0 && (
                   <DeleteButton onClick={() => handleDeleteSelectedRow()} />
                 )}

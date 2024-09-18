@@ -1,6 +1,3 @@
-// Types
-import { TTransactionType } from "@/types";
-
 // Formatters
 
 export type TFormatNumber = {

@@ -1,14 +1,12 @@
 // Types
 import { TAsset } from "@/types";
 
-export type TTransactionType = "buy" | "sell";
-
 export type TOverallStatParam = {
   asset_type: string;
 };
 
 export type TAssetStatParam = {
-  asset_id: string;
+  asset_id: string | undefined;
 };
 
 export type TTransactionListParam = {
@@ -20,7 +18,7 @@ export type TTransaction = {
   user_id?: string;
   date: Date | string;
   asset_id: string;
-  transaction_type: TTransactionType;
+  transaction_type: string;
   quantity: number;
   price: number;
   tax: number;

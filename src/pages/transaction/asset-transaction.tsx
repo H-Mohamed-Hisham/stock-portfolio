@@ -1,6 +1,11 @@
 // Components
 import { PageLayout } from "@/components/layout";
+import { AssetTransaction } from "@/components/transaction";
 
 export function AssetTransactionPage() {
-  return <PageLayout>Asset Transaction</PageLayout>;
+  return (
+    <PageLayout>
+      <AssetTransaction />
+    </PageLayout>
+  );
 }

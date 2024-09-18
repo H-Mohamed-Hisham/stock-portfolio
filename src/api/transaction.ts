@@ -31,16 +31,6 @@ export const fetch_asset_stat = async (body: TAssetStatParam) => {
   return response;
 };
 
-export const fetch_transaction = async (body: TTransactionListParam) => {
-  const response = await post_request(
-    `${api_url}/transaction/list`,
-    body,
-    await default_headers()
-  );
-
-  return response;
-};
-
 export const create_transaction = async (body: TTransactionForm) => {
   const response = await post_request(
     `${api_url}/transaction/create`,
@@ -51,10 +41,20 @@ export const create_transaction = async (body: TTransactionForm) => {
   return response;
 };
 
+export const fetch_transaction = async (body: TTransactionListParam) => {
+  const response = await post_request(
+    `${api_url}/transaction/list`,
+    body,
+    await default_headers()
+  );
+
+  return response;
+};
+
 export const fetch_asset_transaction = async (body: TAssetStatParam) => {
   const response = await post_request(
-    `${api_url}/transaction/asset/${body.asset_id}`,
-    {},
+    `${api_url}/transaction/asset`,
+    body,
     await default_headers()
   );
 
