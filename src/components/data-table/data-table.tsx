@@ -16,12 +16,16 @@ import {
 import { SquarePlus } from "lucide-react";
 
 // Types
-import { TDataTableLink, TDataTableFilter } from "@/types";
+import { TDataTableLink, TDataTableFilter, TLabelValue } from "@/types";
+
+// Constants
+import { transaction_type_dropdown } from "@/constants/dropdown";
 
 // Components
 import { Pagination } from "@/components/data-table";
 
 // Shadcn
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -30,7 +34,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -90,16 +100,44 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex flex-wrap justify-between items-center gap-y-2 py-4">
-        <Input
-          placeholder={`Filter by ${filter.placeholder}`}
-          value={
-            (table.getColumn(filter.field)?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn(filter.field)?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        {filter.filter_type === "text-input" && (
+          <Input
+            placeholder={`Filter by ${filter.placeholder}`}
+            value={
+              (table.getColumn(filter.field)?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn(filter.field)?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        )}
+
+        {filter.filter_type === "select-input" && (
+          <Select
+            onValueChange={(value) => {
+              table
+                .getColumn(filter.field)
+                ?.setFilterValue(value === "all" ? "" : value);
+            }}
+            defaultValue="all"
+            value={table.getColumn(filter.field)?.getFilterValue() as string}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder={`Filter by ${filter.placeholder}`} />
+            </SelectTrigger>
+
+            <SelectContent>
+              {transaction_type_dropdown.map(
+                (item: TLabelValue, index: number) => (
+                  <SelectItem key={index} value={item.value}>
+                    {item.label}
+                  </SelectItem>
+                )
+              )}
+            </SelectContent>
+          </Select>
+        )}
 
         {link?.show && (
           <Link

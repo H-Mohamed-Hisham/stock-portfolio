@@ -26,8 +26,9 @@ const table_link = {
 };
 
 const table_filter = {
-  placeholder: "symbol",
-  field: "symbol",
+  placeholder: "transaction type",
+  field: "transaction_type",
+  filter_type: "select-input",
 };
 
 export function AssetTransaction() {

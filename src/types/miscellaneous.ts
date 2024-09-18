@@ -56,6 +56,7 @@ export type TDataTableLink = {
 export type TDataTableFilter = {
   placeholder: string;
   field: string;
+  filter_type: string;
 };
 
 // Error Response

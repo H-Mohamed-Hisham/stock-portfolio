@@ -36,6 +36,7 @@ const table_link = {
 const table_filter = {
   placeholder: "symbol",
   field: "symbol",
+  filter_type: "text-input",
 };
 
 export function Transaction() {
