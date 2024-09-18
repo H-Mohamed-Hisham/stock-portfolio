@@ -16,8 +16,8 @@ export type TFormatDate = {
 // Calculation
 
 export type TCalculation = {
-  transaction_type: TTransactionType;
-  shares: number;
+  transaction_type: string;
+  quantity: number;
   price: number;
   tax: number;
 };

@@ -10,8 +10,7 @@ import clsx from "clsx";
 import { CalendarIcon } from "lucide-react";
 
 // Lib
-// import { calculate_total } from "@/lib/calculations";
-// import { formatDateToISO } from "@/lib/formatters";
+import { calculate_total } from "@/lib/calculations";
 
 // API
 import { fetch_asset, create_transaction } from "@/api";
@@ -84,6 +83,18 @@ export function CreateTransactionForm() {
     total: yup.number().optional(),
   });
 
+  // Form Hook
+  const form = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: initialValue,
+  });
+
+  const { setValue, watch } = form;
+  const transaction_type = watch("transaction_type");
+  const quantity = watch("quantity");
+  const price = watch("price");
+  const tax = watch("tax");
+
   // Query
   const { data, isSuccess } = useQuery({
     queryKey: [FETCH_ASSET_QUERY_KEY],
@@ -117,7 +128,7 @@ export function CreateTransactionForm() {
     },
     onSuccess: () => {
       form.reset();
-      form.setValue("asset_id", data?.[0]?.id);
+      setValue("asset_id", data?.[0]?.id);
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
@@ -127,12 +138,6 @@ export function CreateTransactionForm() {
         description: "Transaction created successfully",
       });
     },
-  });
-
-  // Form Hook
-  const form = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: initialValue,
   });
 
   // Submit Handler
@@ -149,7 +154,15 @@ export function CreateTransactionForm() {
     form.reset();
   };
 
-  // UseEffect
+  // UseEffect - Calculate Total
+  useEffect(() => {
+    if (quantity && price && tax !== undefined) {
+      const total = calculate_total({ transaction_type, quantity, price, tax });
+      setValue("total", total);
+    }
+  }, [transaction_type, quantity, price, tax, setValue]);
+
+  // UseEffect - Asset Dropdown Value
   useEffect(() => {
     if (isSuccess && Array.isArray(data)) {
       setStocksDropdown(
@@ -159,7 +172,7 @@ export function CreateTransactionForm() {
         }))
       );
 
-      form.setValue("asset_id", data?.[0]?.id);
+      setValue("asset_id", data?.[0]?.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, data]);
