@@ -46,7 +46,7 @@ export const transaction_columns = (
           aria-label="Select row"
         />
         {show_link ? (
-          <Link to={`/transaction-asset/${row.original.asset?.id}`}>
+          <Link to={`/transaction/asset/${row.original.asset?.id}`}>
             {row.original?.asset?.name}
           </Link>
         ) : (

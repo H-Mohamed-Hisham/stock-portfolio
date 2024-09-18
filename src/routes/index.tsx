@@ -48,16 +48,16 @@ const PRIVATE_ROUTES = [
     element: <DashboardPage />,
   },
   {
+    path: CREATE_TRANSACTION_URL,
+    element: <CreateTransactionPage />,
+  },
+  {
     path: TRANSACTION_URL,
     element: <TransactionPage />,
   },
   {
     path: TRANSACTION_ASSET_URL,
     element: <AssetTransactionPage />,
-  },
-  {
-    path: CREATE_TRANSACTION_URL,
-    element: <CreateTransactionPage />,
   },
 ];
 
