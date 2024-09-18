@@ -1,5 +1,10 @@
 // Lib
-import { default_headers, post_request } from "@/lib/http-methods";
+import {
+  default_headers,
+  post_request,
+  patch_request,
+  get_request,
+} from "@/lib/http-methods";
 
 // Types
 import {
@@ -34,6 +39,26 @@ export const fetch_asset_stat = async (body: TAssetStatParam) => {
 export const create_transaction = async (body: TTransactionForm) => {
   const response = await post_request(
     `${api_url}/transaction/create`,
+    body,
+    await default_headers()
+  );
+
+  return response;
+};
+
+export const fetch_transaction_by_id = async (id: string) => {
+  const response = await get_request(
+    `${api_url}/transaction/${id}`,
+    {},
+    await default_headers()
+  );
+
+  return response;
+};
+
+export const update_transaction = async (body: TTransactionForm) => {
+  const response = await patch_request(
+    `${api_url}/transaction/${body.id}`,
     body,
     await default_headers()
   );

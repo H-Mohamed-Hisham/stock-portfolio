@@ -70,7 +70,7 @@ export async function post_request(
   }
 }
 
-export async function put_request(
+export async function patch_request(
   url = "",
   data = {},
   headers = {
@@ -79,7 +79,7 @@ export async function put_request(
 ) {
   try {
     const response = await axios({
-      method: "PUT",
+      method: "PATCH",
       data,
       url,
       headers,

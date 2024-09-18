@@ -27,6 +27,7 @@ export type TTransaction = {
 };
 
 export type TTransactionForm = {
+  id?: string;
   date: Date;
   asset_id: string;
   transaction_type: string;

@@ -8,12 +8,13 @@ import { TTransaction } from "@/types";
 import { formatDate, formatNumber } from "@/lib/formatters";
 
 // Components
+import { BuySell } from "@/components/common";
 import {
   ColumnHeader,
   TableCell,
   RowDeleteButton,
+  RowEditButton,
 } from "@/components/data-table";
-import { BuySell } from "@/components/common";
 
 // Shadcn
 import { Checkbox } from "@/components/ui/checkbox";
@@ -128,7 +129,15 @@ export const transaction_columns = (
     id: "actions",
     cell: ({ row }) => {
       return (
-        <RowDeleteButton row_id={row.getValue("id")} onClick={handleDelete} />
+        <TableCell cellAlign="right">
+          <div className="flex items-center gap-x-2">
+            <RowEditButton link={`/transaction/update/${row.original?.id}`} />
+            <RowDeleteButton
+              row_id={row.getValue("id")}
+              onClick={handleDelete}
+            />
+          </div>
+        </TableCell>
       );
     },
   },

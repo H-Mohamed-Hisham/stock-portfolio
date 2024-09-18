@@ -26,20 +26,26 @@ export function StatView({
       {isFetched && !error && (
         <dl>
           <div className="p-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6">Asset</dt>
-            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+            <dt className="text-sm font-medium leading-6">Asset Name</dt>
+            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0 text-primary font-semibold">
               {data.name}
             </dd>
           </div>
           <div className="p-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6">Asset Symbol</dt>
+            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0 text-primary font-semibold">
+              {data.symbol}
+            </dd>
+          </div>
+          <div className="p-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6">Total Invested</dt>
-            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0 text-info font-semibold">
               {formatNumber({ value: data.invested })}
             </dd>
           </div>
           <div className="p-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6">Total Returns</dt>
-            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0 text-info font-semibold">
               {formatNumber({ value: data.returns })}
             </dd>
           </div>

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { fetch_asset_stat } from "@/api";
 
 // Constants
-import { FETCH_ASSET_QUERY_KEY } from "@/constants/query-key";
+import { FETCH_ASSET_STAT_QUERY_KEY } from "@/constants/query-key";
 
 // Components
 import { StatView } from "@/components/common";
@@ -21,7 +21,7 @@ export function AssetStat() {
   // Query
   const { data, isFetched, error } = useQuery({
     queryKey: [
-      FETCH_ASSET_QUERY_KEY,
+      FETCH_ASSET_STAT_QUERY_KEY,
       {
         asset_id: asset_id,
       },

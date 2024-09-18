@@ -4,6 +4,8 @@ import {
   fetch_overall_stat,
   fetch_asset_stat,
   create_transaction,
+  update_transaction,
+  fetch_transaction_by_id,
   fetch_transaction,
   fetch_asset_transaction,
 } from "@/api/transaction";
@@ -16,4 +18,6 @@ export {
   create_transaction,
   fetch_transaction,
   fetch_asset_transaction,
+  update_transaction,
+  fetch_transaction_by_id,
 };
