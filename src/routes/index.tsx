@@ -14,7 +14,7 @@ import {
   DASHBOARD_URL,
   TRANSACTION_URL,
   TRANSACTION_ASSET_URL,
-  ADD_TRANSACTION_URL,
+  CREATE_TRANSACTION_URL,
 } from "@/constants/routes";
 
 // Pages
@@ -24,7 +24,7 @@ import {
   DashboardPage,
   TransactionPage,
   AssetTransactionPage,
-  AddTransactionPage,
+  CreateTransactionPage,
   PageNotFound,
 } from "@/pages";
 
@@ -56,8 +56,8 @@ const PRIVATE_ROUTES = [
     element: <AssetTransactionPage />,
   },
   {
-    path: ADD_TRANSACTION_URL,
-    element: <AddTransactionPage />,
+    path: CREATE_TRANSACTION_URL,
+    element: <CreateTransactionPage />,
   },
 ];
 

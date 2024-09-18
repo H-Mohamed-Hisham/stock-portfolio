@@ -1,13 +1,13 @@
 // Components
 import { PageLayout } from "@/components/layout";
-import { AddTransactionForm } from "@/components/transaction";
+import { CreateTransactionForm } from "@/components/transaction";
 
-export function AddTransactionPage() {
+export function CreateTransactionPage() {
   return (
     <PageLayout>
       <div className="grid grid-cols-12">
         <div className="col-span-12 md:col-start-5 md:col-span-4">
-          <AddTransactionForm />
+          <CreateTransactionForm />
         </div>
       </div>
     </PageLayout>

@@ -1,3 +1,4 @@
-import { AddTransactionForm } from "@/components/transaction/add-transaction-form";
+import { CreateTransactionForm } from "@/components/transaction/create-transaction-form";
+import { Transaction } from "@/components/transaction/transaction";
 
-export { AddTransactionForm };
+export { CreateTransactionForm, Transaction };

@@ -1,5 +1,6 @@
-import React from "react";
+// Components
+import { PageLayout } from "@/components/layout";
 
 export function AssetTransactionPage() {
-  return <div>AssetTransaction</div>;
+  return <PageLayout>Asset Transaction</PageLayout>;
 }

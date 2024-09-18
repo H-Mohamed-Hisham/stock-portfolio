@@ -6,11 +6,12 @@ import {
   TOverallStatParam,
   TAssetStatParam,
   TTransactionListParam,
+  TTransactionForm,
 } from "@/types";
 
 const api_url = import.meta.env.VITE_API_URL || null;
 
-export const overall_stat = async (body: TOverallStatParam) => {
+export const fetch_overall_stat = async (body: TOverallStatParam) => {
   const response = await post_request(
     `${api_url}/transaction/overall-stat`,
     body,
@@ -20,7 +21,7 @@ export const overall_stat = async (body: TOverallStatParam) => {
   return response;
 };
 
-export const asset_stat = async (body: TAssetStatParam) => {
+export const fetch_asset_stat = async (body: TAssetStatParam) => {
   const response = await post_request(
     `${api_url}/transaction/asset-stat`,
     body,
@@ -33,6 +34,16 @@ export const asset_stat = async (body: TAssetStatParam) => {
 export const fetch_transaction = async (body: TTransactionListParam) => {
   const response = await post_request(
     `${api_url}/transaction/list`,
+    body,
+    await default_headers()
+  );
+
+  return response;
+};
+
+export const create_transaction = async (body: TTransactionForm) => {
+  const response = await post_request(
+    `${api_url}/transaction/create`,
     body,
     await default_headers()
   );
