@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 // Icons
 import { CalendarIcon } from "lucide-react";
@@ -59,7 +60,7 @@ export function CreateTransactionForm() {
   const { toast } = useToast();
 
   // Local State
-  const [stocksDropdown, setStocksDropdown] = useState<TLabelValue[]>([]);
+  const [assetDropdown, setAssetDropdown] = useState<TLabelValue[]>([]);
 
   // Form Initial Value
   const initialValue: TTransactionForm = {
@@ -102,7 +103,7 @@ export function CreateTransactionForm() {
   });
 
   // Mutation
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({
       asset_id,
       transaction_type,
@@ -160,10 +161,10 @@ export function CreateTransactionForm() {
     }
   }, [transaction_type, quantity, price, tax, setValue]);
 
-  // UseEffect - Asset Dropdown Value
+  // UseEffect - Set Asset Dropdown
   useEffect(() => {
     if (isSuccess && Array.isArray(data)) {
-      setStocksDropdown(
+      setAssetDropdown(
         data?.map((item: TAsset) => ({
           label: item?.name,
           value: item?.id,
@@ -229,7 +230,7 @@ export function CreateTransactionForm() {
           name="asset_id"
           render={({ field }) => (
             <FormItem key={field.value}>
-              <FormLabel>Stock</FormLabel>
+              <FormLabel>Asset</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -237,7 +238,7 @@ export function CreateTransactionForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {stocksDropdown.map((item: TLabelValue, index: number) => (
+                  {assetDropdown.map((item: TLabelValue, index: number) => (
                     <SelectItem key={index} value={item.value}>
                       {item.label}
                     </SelectItem>
@@ -344,10 +345,16 @@ export function CreateTransactionForm() {
         />
 
         <Button
+          variant="default"
           type="submit"
-          className="bg-primary text-primary-foreground font-semibold"
+          className="font-semibold"
+          disabled={isPending}
         >
-          Submit
+          {isPending ? "Submitting..." : "Submit"}
+        </Button>
+
+        <Button asChild variant="destructive" className="font-semibold">
+          {isPending ? "Cancel" : <Link to="/transaction/all">Cancel</Link>}
         </Button>
       </form>
     </Form>

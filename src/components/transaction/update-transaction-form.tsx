@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import clsx from "clsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // Icons
 import { CalendarIcon } from "lucide-react";
@@ -68,7 +68,18 @@ export function UpdateTransactionForm() {
   const { toast } = useToast();
 
   // Local State
-  const [stocksDropdown, setStocksDropdown] = useState<TLabelValue[]>([]);
+  const [assetDropdown, setAssetDropdown] = useState<TLabelValue[]>([]);
+
+  // Form Initial Value
+  const initialValue: TTransactionForm = {
+    date: new Date(),
+    asset_id: "",
+    transaction_type: "buy",
+    quantity: 0,
+    price: 0,
+    tax: 0,
+    total: 0,
+  };
 
   // Form Schema
   const schema = yup.object().shape({
@@ -84,6 +95,7 @@ export function UpdateTransactionForm() {
   // Form Hook
   const form = useForm({
     resolver: yupResolver(schema),
+    defaultValues: initialValue,
   });
 
   const { setValue, watch } = form;
@@ -117,7 +129,7 @@ export function UpdateTransactionForm() {
   });
 
   // Mutation
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({
       asset_id,
       transaction_type,
@@ -176,9 +188,13 @@ export function UpdateTransactionForm() {
     }
   }, [transaction_type, quantity, price, tax, setValue]);
 
-  // UseEffect - Set Initial Value
+  // UseEffect - Set Form Value
   useEffect(() => {
-    if (is_transaction_fetched && transaction_data) {
+    if (
+      is_transaction_fetched &&
+      transaction_data &&
+      Array.isArray(assetDropdown)
+    ) {
       const {
         asset_id,
         transaction_type,
@@ -197,12 +213,12 @@ export function UpdateTransactionForm() {
       setValue("tax", tax);
       setValue("total", total);
     }
-  }, [transaction_data, is_transaction_fetched, setValue]);
+  }, [transaction_data, is_transaction_fetched, setValue, assetDropdown]);
 
-  // UseEffect - Asset Dropdown Value
+  // UseEffect - Set Asset Dropdown
   useEffect(() => {
     if (isSuccess && Array.isArray(data)) {
-      setStocksDropdown(
+      setAssetDropdown(
         data?.map((item: TAsset) => ({
           label: item?.name,
           value: item?.id,
@@ -266,7 +282,7 @@ export function UpdateTransactionForm() {
           name="asset_id"
           render={({ field }) => (
             <FormItem key={field.value}>
-              <FormLabel>Stock</FormLabel>
+              <FormLabel>Asset</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -274,7 +290,7 @@ export function UpdateTransactionForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {stocksDropdown.map((item: TLabelValue, index: number) => (
+                  {assetDropdown.map((item: TLabelValue, index: number) => (
                     <SelectItem key={index} value={item.value}>
                       {item.label}
                     </SelectItem>
@@ -381,11 +397,20 @@ export function UpdateTransactionForm() {
         />
 
         <Button
+          variant="default"
           type="submit"
-          className="bg-primary text-primary-foreground font-semibold"
-          disabled={!is_transaction_fetched || transaction_error ? true : false}
+          className="font-semibold"
+          disabled={
+            !is_transaction_fetched || transaction_error || isPending
+              ? true
+              : false
+          }
         >
-          Submit
+          {isPending ? "Submitting..." : "Submit"}
+        </Button>
+
+        <Button asChild variant="destructive" className="font-semibold">
+          {isPending ? "Cancel" : <Link to="/transaction/all">Cancel</Link>}
         </Button>
       </form>
     </Form>
