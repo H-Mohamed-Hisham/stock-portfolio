@@ -16,6 +16,7 @@ import {
   TRANSACTION_ASSET_URL,
   CREATE_TRANSACTION_URL,
   UPDATE_TRANSACTION_URL,
+  ASSET_URL,
 } from "@/constants/routes";
 
 // Pages
@@ -28,6 +29,7 @@ import {
   CreateTransactionPage,
   PageNotFound,
   UpdateTransactionPage,
+  AssetPage,
 } from "@/pages";
 
 const AUTH_ROUTES = [
@@ -64,6 +66,10 @@ const PRIVATE_ROUTES = [
   {
     path: TRANSACTION_ASSET_URL,
     element: <AssetTransactionPage />,
+  },
+  {
+    path: ASSET_URL,
+    element: <AssetPage />,
   },
 ];
 

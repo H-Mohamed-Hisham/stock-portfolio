@@ -37,7 +37,7 @@ export const asset_columns = (
               disabled={false}
             />
             <RowDeleteButton
-              row_id={row.getValue("id")}
+              row_id={row.original.id}
               onClick={handleDelete}
               disabled={false}
             />

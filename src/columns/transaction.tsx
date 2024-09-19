@@ -24,7 +24,8 @@ export const transaction_columns = (
   handleDelete: (id: string) => void
 ): ColumnDef<TTransaction>[] => [
   {
-    accessorKey: "id",
+    id: "name",
+    accessorKey: "asset.name",
     header: ({ table, column }) => (
       <div className="flex items-center gap-x-1">
         <Checkbox
@@ -62,6 +63,7 @@ export const transaction_columns = (
     header: ({ column }) => <ColumnHeader column={column} title="Symbol" />,
   },
   {
+    id: "date",
     accessorKey: "date",
     header: ({ column }) => <ColumnHeader column={column} title="Date" />,
     cell: ({ row }) => (
@@ -69,6 +71,7 @@ export const transaction_columns = (
     ),
   },
   {
+    id: "transaction_type",
     accessorKey: "transaction_type",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Transaction Type" />
@@ -80,6 +83,7 @@ export const transaction_columns = (
     ),
   },
   {
+    id: "quantity",
     accessorKey: "quantity",
     enableSorting: false,
     header: ({ column }) => (
@@ -90,6 +94,7 @@ export const transaction_columns = (
     ),
   },
   {
+    id: "price",
     accessorKey: "price",
     enableSorting: false,
     header: ({ column }) => (
@@ -102,6 +107,7 @@ export const transaction_columns = (
     ),
   },
   {
+    id: "tax",
     accessorKey: "tax",
     enableSorting: false,
     header: ({ column }) => (
@@ -114,6 +120,7 @@ export const transaction_columns = (
     ),
   },
   {
+    id: "total",
     accessorKey: "total",
     enableSorting: false,
     header: ({ column }) => (
@@ -126,7 +133,7 @@ export const transaction_columns = (
     ),
   },
   {
-    id: "actions",
+    accessorKey: "id",
     cell: ({ row, table }) => {
       return (
         <TableCell cellAlign="right">

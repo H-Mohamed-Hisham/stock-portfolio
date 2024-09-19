@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -22,10 +24,9 @@ import { TDataTableLink, TDataTableFilter, TLabelValue } from "@/types";
 import { transaction_type_dropdown } from "@/constants/dropdown";
 
 // Components
-import { Pagination } from "@/components/data-table";
+import { Pagination, GlobalFilter } from "@/components/data-table";
 
 // Shadcn
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -49,6 +50,7 @@ interface DataTableProps<TData, TValue> {
   filter: TDataTableFilter;
   row_id_key?: string;
   onSelectedRowsChange?: (selectedRows: TData[]) => void;
+  globalFilterFn: any;
 }
 
 export function DataTable<TData, TValue>({
@@ -58,12 +60,14 @@ export function DataTable<TData, TValue>({
   filter,
   row_id_key = "",
   onSelectedRowsChange = () => {},
+  globalFilterFn = () => {},
 }: DataTableProps<TData, TValue>) {
   // Local State
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [prevSelectedRows, setPrevSelectedRows] = useState<TData[]>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   // Hook
   const table = useReactTable({
@@ -76,10 +80,13 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: globalFilterFn,
     state: {
       sorting,
       columnFilters,
       rowSelection,
+      globalFilter,
     },
   });
 
@@ -87,7 +94,6 @@ export function DataTable<TData, TValue>({
   useEffect(() => {
     const selectedRows = table
       .getSelectedRowModel()
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .rows.map((row: any) => row.original[row_id_key]);
 
     // Only trigger the callback if selected rows have changed
@@ -101,15 +107,10 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex flex-wrap justify-between items-center gap-y-2 py-4">
         {filter.filter_type === "text-input" && (
-          <Input
-            placeholder={`Filter by ${filter.placeholder}`}
-            value={
-              (table.getColumn(filter.field)?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn(filter.field)?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
+          <GlobalFilter
+            globalFilter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
+            placeholder={filter.placeholder}
           />
         )}
 
