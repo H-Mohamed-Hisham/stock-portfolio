@@ -13,6 +13,7 @@ import {
 import {
   FETCH_TRANSACTION_QUERY_KEY,
   FETCH_ASSET_TRANSACTION_QUERY_KEY,
+  FETCH_ASSET_STAT_QUERY_KEY,
 } from "@/constants/query-key";
 import { transaction_type_dropdown } from "@/constants/dropdown";
 
@@ -95,6 +96,9 @@ export function Transaction() {
       queryClient.invalidateQueries({
         queryKey: [FETCH_ASSET_TRANSACTION_QUERY_KEY],
       });
+      queryClient.invalidateQueries({
+        queryKey: [FETCH_ASSET_STAT_QUERY_KEY],
+      });
       toast({
         title: "Success",
         variant: "success",
@@ -121,6 +125,9 @@ export function Transaction() {
       });
       queryClient.invalidateQueries({
         queryKey: [FETCH_ASSET_TRANSACTION_QUERY_KEY],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FETCH_ASSET_STAT_QUERY_KEY],
       });
       toast({
         title: "Success",
