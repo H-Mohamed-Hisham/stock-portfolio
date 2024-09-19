@@ -99,7 +99,6 @@ export async function patch_request(
 
 export async function delete_request(
   url = "",
-  data = {},
   headers = {
     "Content-Type": "application/json",
   }
@@ -107,7 +106,6 @@ export async function delete_request(
   try {
     const response = await axios({
       method: "DELETE",
-      data,
       url,
       headers,
     });

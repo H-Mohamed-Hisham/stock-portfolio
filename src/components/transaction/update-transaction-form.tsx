@@ -116,16 +116,8 @@ export function UpdateTransactionForm() {
     isFetched: is_transaction_fetched,
     error: transaction_error,
   } = useQuery({
-    queryKey: [
-      FETCH_TRANSACTION_BY_ID_QUERY_KEY,
-      {
-        transaction_id: transaction_id,
-      },
-    ],
-    queryFn: () =>
-      fetch_transaction_by_id({
-        transaction_id: transaction_id,
-      }),
+    queryKey: [FETCH_TRANSACTION_BY_ID_QUERY_KEY, transaction_id],
+    queryFn: () => fetch_transaction_by_id(transaction_id),
   });
 
   // Mutation

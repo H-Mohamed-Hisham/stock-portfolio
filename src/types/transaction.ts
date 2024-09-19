@@ -13,6 +13,10 @@ export type TTransactionListParam = {
   transaction_type: string | undefined;
 };
 
+export type TRemoveTransactions = {
+  transaction_id: string[];
+};
+
 export type TTransaction = {
   id?: string;
   user_id?: string;
@@ -47,8 +51,4 @@ export type TStat = {
   quantity_holding: number;
   profit_loss_amount: number;
   profit_loss_status: string;
-};
-
-export type TTransactionByIDParam = {
-  transaction_id: string | undefined;
 };

@@ -4,6 +4,7 @@ import {
   post_request,
   patch_request,
   get_request,
+  delete_request,
 } from "@/lib/http-methods";
 
 // Types
@@ -12,7 +13,7 @@ import {
   TAssetStatParam,
   TTransactionListParam,
   TTransactionForm,
-  TTransactionByIDParam,
+  TRemoveTransactions,
 } from "@/types";
 
 const api_url = import.meta.env.VITE_API_URL || null;
@@ -47,9 +48,11 @@ export const create_transaction = async (body: TTransactionForm) => {
   return response;
 };
 
-export const fetch_transaction_by_id = async (body: TTransactionByIDParam) => {
+export const fetch_transaction_by_id = async (
+  transaction_id: string | undefined
+) => {
   const response = await get_request(
-    `${api_url}/transaction/${body.transaction_id}`,
+    `${api_url}/transaction/${transaction_id}`,
     {},
     await default_headers()
   );
@@ -60,6 +63,25 @@ export const fetch_transaction_by_id = async (body: TTransactionByIDParam) => {
 export const update_transaction = async (body: TTransactionForm) => {
   const response = await patch_request(
     `${api_url}/transaction/${body.id}`,
+    body,
+    await default_headers()
+  );
+
+  return response;
+};
+
+export const remove_transaction_by_id = async (transaction_id: string) => {
+  const response = await delete_request(
+    `${api_url}/transaction/${transaction_id}`,
+    await default_headers()
+  );
+
+  return response;
+};
+
+export const remove_transactions = async (body: TRemoveTransactions) => {
+  const response = await post_request(
+    `${api_url}/transaction/remove`,
     body,
     await default_headers()
   );

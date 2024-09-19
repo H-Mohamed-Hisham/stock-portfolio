@@ -127,14 +127,18 @@ export const transaction_columns = (
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       return (
         <TableCell cellAlign="right">
           <div className="flex items-center gap-x-2">
-            <RowEditButton link={`/transaction/update/${row.original?.id}`} />
+            <RowEditButton
+              link={`/transaction/update/${row.original?.id}`}
+              disabled={table.getFilteredSelectedRowModel().rows.length > 0}
+            />
             <RowDeleteButton
               row_id={row.getValue("id")}
               onClick={handleDelete}
+              disabled={table.getFilteredSelectedRowModel().rows.length > 0}
             />
           </div>
         </TableCell>

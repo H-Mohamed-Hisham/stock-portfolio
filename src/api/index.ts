@@ -5,6 +5,8 @@ import {
   fetch_asset_stat,
   create_transaction,
   update_transaction,
+  remove_transaction_by_id,
+  remove_transactions,
   fetch_transaction_by_id,
   fetch_transaction,
   fetch_asset_transaction,
@@ -20,4 +22,6 @@ export {
   fetch_asset_transaction,
   update_transaction,
   fetch_transaction_by_id,
+  remove_transaction_by_id,
+  remove_transactions,
 };

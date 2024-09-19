@@ -8,14 +8,23 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   link: string;
+  disabled: boolean;
 };
 
-export const RowEditButton = ({ link }: Props) => {
+export const RowEditButton = ({ link, disabled }: Props) => {
   return (
-    <Link to={link}>
-      <Button variant="secondary" size="icon">
-        <Pencil className="h-4 w-4" />
-      </Button>
-    </Link>
+    <>
+      {disabled ? (
+        <Button variant="secondary" disabled={disabled}>
+          <Pencil className="h-4 w-4" />
+        </Button>
+      ) : (
+        <Button asChild variant="secondary">
+          <Link to={link}>
+            <Pencil className="h-4 w-4" />
+          </Link>
+        </Button>
+      )}
+    </>
   );
 };
