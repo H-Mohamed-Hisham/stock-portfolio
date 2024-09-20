@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { Link, useParams } from "react-router-dom";
 
 // Icons
-import { CalendarIcon } from "lucide-react";
+import { Check, ChevronsUpDown, CalendarIcon } from "lucide-react";
 
 // Lib
 import { calculate_total } from "@/lib/calculations";
@@ -21,7 +21,13 @@ import {
 } from "@/api";
 
 // Types
-import { TLabelValue, TTransactionForm, TAsset, TApiError } from "@/types";
+import {
+  TLabelValue,
+  TTransactionForm,
+  TAsset,
+  TApiError,
+  TAssetDropdown,
+} from "@/types";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
@@ -58,6 +64,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
 
 export function UpdateTransactionForm() {
   // Router
@@ -68,7 +83,7 @@ export function UpdateTransactionForm() {
   const { toast } = useToast();
 
   // Local State
-  const [assetDropdown, setAssetDropdown] = useState<TLabelValue[]>([]);
+  const [assetDropdown, setAssetDropdown] = useState<TAssetDropdown[]>([]);
 
   // Form Initial Value
   const initialValue: TTransactionForm = {
@@ -214,6 +229,7 @@ export function UpdateTransactionForm() {
         data?.map((item: TAsset) => ({
           label: item?.name,
           value: item?.id,
+          type: item?.type,
         }))
       );
     }
@@ -275,20 +291,89 @@ export function UpdateTransactionForm() {
           render={({ field }) => (
             <FormItem key={field.value}>
               <FormLabel>Asset</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Asset" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {assetDropdown.map((item: TLabelValue, index: number) => (
-                    <SelectItem key={index} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={clsx("w-full justify-between", {
+                        "text-muted-foreground": !field.value,
+                      })}
+                    >
+                      {field.value
+                        ? assetDropdown.find(
+                            (asset: TAssetDropdown) =>
+                              asset.value === field.value
+                          )?.label
+                        : "Select asset"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[300px] p-0">
+                  <Command>
+                    <CommandInput placeholder="Search asset..." />
+                    <CommandList>
+                      <CommandEmpty>No asset found</CommandEmpty>
+                      <CommandGroup heading="Stock">
+                        {assetDropdown
+                          .filter((f: TAssetDropdown) => f.type === "stock")
+                          .map((asset: TAssetDropdown) => (
+                            <CommandItem
+                              value={asset.label}
+                              key={asset.value}
+                              onSelect={() => {
+                                form.setValue("asset_id", asset.value);
+                              }}
+                            >
+                              <Check
+                                className={clsx(
+                                  "mr-2 h-4 w-4",
+                                  {
+                                    "opacity-100": asset.value === field.value,
+                                  },
+                                  {
+                                    "opacity-0": asset.value !== field.value,
+                                  }
+                                )}
+                              />
+                              {asset.label}
+                            </CommandItem>
+                          ))}
+                      </CommandGroup>
+                      <CommandSeparator />
+                      <CommandGroup heading="Index">
+                        {assetDropdown
+                          .filter((f: TAssetDropdown) => f.type === "index")
+                          .map((asset: TAssetDropdown) => (
+                            <CommandItem
+                              value={asset.label}
+                              key={asset.value}
+                              onSelect={() => {
+                                form.setValue("asset_id", asset.value);
+                              }}
+                            >
+                              <Check
+                                className={clsx(
+                                  "mr-2 h-4 w-4",
+                                  {
+                                    "opacity-100": asset.value === field.value,
+                                  },
+                                  {
+                                    "opacity-0": asset.value !== field.value,
+                                  }
+                                )}
+                              />
+                              {asset.label}
+                            </CommandItem>
+                          ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
 
               <FormMessage />
             </FormItem>

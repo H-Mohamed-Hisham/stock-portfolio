@@ -33,6 +33,12 @@ export type TLabelValue = {
   value: string;
 };
 
+export type TAssetDropdown = {
+  label: string;
+  value: string;
+  type: string;
+};
+
 export type TSkeleton = {
   count?: number;
 };
