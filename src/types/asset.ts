@@ -6,6 +6,7 @@ export type TAsset = {
 };
 
 export type TAssetForm = {
+  id?: string;
   symbol: string;
   name: string;
   type: string;

@@ -1,21 +1,25 @@
+import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link, useParams } from "react-router-dom";
 
 // API
-import { create_asset } from "@/api";
+import { fetch_asset_by_id, update_asset } from "@/api";
 
 // Types
-import { TLabelValue, TAssetForm, TApiError } from "@/types";
+import { TLabelValue, TAssetForm, TAsset, TApiError } from "@/types";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
 
 // Constants
 import { asset_type_dropdown } from "@/constants/dropdown";
-import { FETCH_ASSET_QUERY_KEY } from "@/constants/query-key";
+import {
+  FETCH_TRANSACTION_QUERY_KEY,
+  FETCH_ASSET_BY_ID_QUERY_KEY,
+} from "@/constants/query-key";
 
 // Shadcn
 import { Input } from "@/components/ui/input";
@@ -36,7 +40,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function CreateAssetForm() {
+export function UpdateAssetForm() {
+  // Router
+  const { asset_id } = useParams<{ asset_id: string }>();
+
   // Hooks
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -61,10 +68,23 @@ export function CreateAssetForm() {
     defaultValues: initialValue,
   });
 
+  const { setValue } = form;
+
+  // Query - Fetch Transaction By ID
+  const {
+    data: asset_data,
+    isFetched: is_asset_fetched,
+    error: asset_error,
+  } = useQuery({
+    queryKey: [FETCH_ASSET_BY_ID_QUERY_KEY, asset_id],
+    queryFn: () => fetch_asset_by_id(asset_id),
+  });
+
   // Mutation
   const { mutate, isPending } = useMutation({
     mutationFn: ({ name, symbol, type }: TAssetForm) =>
-      create_asset({
+      update_asset({
+        id: asset_id,
         name,
         symbol,
         type,
@@ -77,14 +97,13 @@ export function CreateAssetForm() {
       });
     },
     onSuccess: () => {
-      form.reset();
       queryClient.invalidateQueries({
-        queryKey: [FETCH_ASSET_QUERY_KEY],
+        queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
       toast({
         title: "Success",
         variant: "success",
-        description: "Asset created successfully",
+        description: "Asset updated successfully",
       });
     },
   });
@@ -97,6 +116,17 @@ export function CreateAssetForm() {
       type: data.type,
     });
   };
+
+  // UseEffect - Set Form Value
+  useEffect(() => {
+    if (is_asset_fetched && asset_data) {
+      const { name, symbol, type }: TAsset = asset_data;
+
+      setValue("name", name);
+      setValue("symbol", symbol);
+      setValue("type", type);
+    }
+  }, [is_asset_fetched, asset_data, setValue]);
 
   return (
     <Form {...form}>
@@ -143,7 +173,7 @@ export function CreateAssetForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Asset Type" />
@@ -169,7 +199,9 @@ export function CreateAssetForm() {
           variant="default"
           type="submit"
           className="font-semibold"
-          disabled={isPending}
+          disabled={
+            !is_asset_fetched || asset_error || isPending ? true : false
+          }
         >
           {isPending ? "Submitting..." : "Submit"}
         </Button>

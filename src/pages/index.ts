@@ -7,6 +7,7 @@ import { CreateTransactionPage } from "@/pages/transaction/create-transaction";
 import { UpdateTransactionPage } from "@/pages/transaction/update-transaction";
 import { AssetPage } from "@/pages/asset/asset";
 import { CreateAssetPage } from "@/pages/asset/create-asset";
+import { UpdateAssetPage } from "@/pages/asset/update-asset";
 import { PageNotFound } from "@/pages/404";
 
 export {
@@ -19,5 +20,6 @@ export {
   UpdateTransactionPage,
   AssetPage,
   CreateAssetPage,
+  UpdateAssetPage,
   PageNotFound,
 };
