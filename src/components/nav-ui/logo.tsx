@@ -4,9 +4,9 @@ export function Logo() {
   return (
     <Link to="/">
       <img
-        src="https://github.com/shadcn.png"
+        src="/public/logo.svg"
         alt="Logo"
-        className="flex flex-1 items-center h-5 w-6"
+        className="flex flex-1 items-center h-8 w-8"
       />
     </Link>
   );
