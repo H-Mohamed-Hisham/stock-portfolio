@@ -8,12 +8,12 @@ import { TTransaction } from "@/types";
 import { formatDate, formatNumber } from "@/lib/formatters";
 
 // Components
-import { BuySell } from "@/components/common";
 import {
   ColumnHeader,
   TableCell,
   RowDeleteButton,
   RowEditButton,
+  BuySell,
 } from "@/components/data-table";
 
 // Shadcn

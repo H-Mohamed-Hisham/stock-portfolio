@@ -27,9 +27,9 @@ import { transaction_columns } from "@/columns";
 import { TApiError } from "@/types";
 
 // Components
-import { DataTable } from "@/components/data-table";
+import { DataTable, DeleteButton } from "@/components/data-table";
 import { LineSkeleton } from "@/components/skeleton";
-import { AlertMessage, DeleteButton } from "@/components/common";
+import { AlertMessage } from "@/components/common";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
