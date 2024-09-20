@@ -20,6 +20,9 @@ import {
 // Hooks
 import { useToast } from "@/hooks/use-toast";
 
+// Lib
+import { transactionGlobalFilterFn } from "@/lib/global-filters";
+
 // Columns
 import { transaction_columns } from "@/columns";
 
@@ -174,6 +177,7 @@ export function AssetTransaction() {
               filter={table_filter}
               row_id_key="id"
               onSelectedRowsChange={handleSelectedRowsChange}
+              globalFilterFn={transactionGlobalFilterFn}
             />
           </>
         )}

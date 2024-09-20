@@ -1,3 +1,4 @@
-import { Asset } from "@/components/asset/Asset";
+import { Asset } from "@/components/asset/asset";
+import { CreateAssetForm } from "@/components/asset/create-asset-form";
 
-export { Asset };
+export { Asset, CreateAssetForm };

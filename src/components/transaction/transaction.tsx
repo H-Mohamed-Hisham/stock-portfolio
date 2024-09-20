@@ -51,7 +51,7 @@ const table_link = {
 };
 
 const table_filter = {
-  placeholder: "symbol",
+  placeholder: "symbol, name",
   field: "symbol",
   filter_type: "text-input",
 };

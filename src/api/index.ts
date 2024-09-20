@@ -1,5 +1,5 @@
 import { sign_in } from "@/api/auth";
-import { fetch_asset } from "@/api/asset";
+import { fetch_asset, remove_asset_by_id, create_asset } from "@/api/asset";
 import {
   fetch_overall_stat,
   fetch_asset_stat,
@@ -15,6 +15,8 @@ import {
 export {
   sign_in,
   fetch_asset,
+  remove_asset_by_id,
+  create_asset,
   fetch_overall_stat,
   fetch_asset_stat,
   create_transaction,

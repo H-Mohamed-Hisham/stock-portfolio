@@ -1,17 +1,13 @@
-import {
-  useQuery,
-  // useMutation,
-  // useQueryClient
-} from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // API
-import { fetch_asset } from "@/api";
+import { fetch_asset, remove_asset_by_id } from "@/api";
 
 // Constants
 import { FETCH_ASSET_QUERY_KEY } from "@/constants/query-key";
 
 // Hooks
-// import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 // Lib
 import { assetGlobalFilterFn } from "@/lib/global-filters";
@@ -20,7 +16,7 @@ import { assetGlobalFilterFn } from "@/lib/global-filters";
 import { asset_columns } from "@/columns";
 
 // Types
-// import { TApiError } from "@/types";
+import { TApiError } from "@/types";
 
 // Components
 import { DataTable } from "@/components/data-table";
@@ -37,15 +33,15 @@ const table_link = {
 };
 
 const table_filter = {
-  placeholder: "symbol",
+  placeholder: "symbol, name & type",
   field: "symbol",
   filter_type: "text-input",
 };
 
 export function Asset() {
   // Hooks
-  //   const queryClient = useQueryClient();
-  //   const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   // Query
   const { data, isFetched, error } = useQuery({
@@ -54,37 +50,30 @@ export function Asset() {
   });
 
   // Mutation
-  //   const { mutate: mutate_remove_transaction_by_id } = useMutation({
-  //     mutationFn: (id: string) => remove_transaction_by_id(id),
-  //     onError: (error: TApiError) => {
-  //       toast({
-  //         title: "Error",
-  //         variant: "destructive",
-  //         description: error.message,
-  //       });
-  //     },
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({
-  //         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
-  //       });
-  //       queryClient.invalidateQueries({
-  //         queryKey: [FETCH_ASSET_TRANSACTION_QUERY_KEY],
-  //       });
-  //       queryClient.invalidateQueries({
-  //         queryKey: [FETCH_ASSET_STAT_QUERY_KEY],
-  //       });
-  //       toast({
-  //         title: "Success",
-  //         variant: "success",
-  //         description: "Transaction removed successfully",
-  //       });
-  //     },
-  //   });
+  const { mutate: mutate_remove_transaction_by_id } = useMutation({
+    mutationFn: (id: string) => remove_asset_by_id(id),
+    onError: (error: TApiError) => {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: error.message,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [FETCH_ASSET_QUERY_KEY],
+      });
+      toast({
+        title: "Success",
+        variant: "success",
+        description: "Asset removed successfully",
+      });
+    },
+  });
 
   // Handle Delete
   const handleDelete = (id: string) => {
-    // mutate_remove_transaction_by_id(id);
-    console.log("id : ", id);
+    mutate_remove_transaction_by_id(id);
   };
 
   return (

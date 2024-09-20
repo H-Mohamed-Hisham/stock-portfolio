@@ -13,3 +13,4 @@ export const CREATE_TRANSACTION_URL = "/transaction/create";
 export const UPDATE_TRANSACTION_URL = "/transaction/update/:transaction_id";
 
 export const ASSET_URL = "/asset";
+export const CREATE_ASSET_URL = "/asset/create";

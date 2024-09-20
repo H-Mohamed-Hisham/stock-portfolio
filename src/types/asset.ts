@@ -4,3 +4,9 @@ export type TAsset = {
   name: string;
   type: string;
 };
+
+export type TAssetForm = {
+  symbol: string;
+  name: string;
+  type: string;
+};
