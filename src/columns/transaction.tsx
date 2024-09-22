@@ -67,7 +67,9 @@ export const transaction_columns = (
     accessorKey: "date",
     header: ({ column }) => <ColumnHeader column={column} title="Date" />,
     cell: ({ row }) => (
-      <TableCell cellAlign="left">{formatDate(row.getValue("date"))}</TableCell>
+      <TableCell cellAlign="left">
+        {formatDate({ date: row.getValue("date") })}
+      </TableCell>
     ),
   },
   {
