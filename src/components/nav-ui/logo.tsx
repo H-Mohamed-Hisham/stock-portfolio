@@ -4,7 +4,7 @@ export function Logo() {
   return (
     <Link to="/">
       <img
-        src="/public/logo.svg"
+        src="/logo.svg"
         alt="Logo"
         className="flex flex-1 items-center h-8 w-8"
       />
