@@ -5,7 +5,7 @@ export type TAsset = {
   type: string;
 };
 
-export type TAssetForm = {
+export type TAssetPayload = {
   id?: string;
   symbol: string;
   name: string;

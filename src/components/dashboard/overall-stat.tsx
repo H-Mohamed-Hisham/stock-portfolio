@@ -7,7 +7,7 @@ import { fetch_overall_stat } from "@/api";
 import { FETCH_OVERALL_STAT_QUERY_KEY } from "@/constants/query-key";
 
 // Types
-import { TOverallStatParam } from "@/types";
+import { TOverallStatPayload } from "@/types";
 
 // Components
 import { StatView } from "@/components/common";
@@ -16,7 +16,7 @@ import { ProfitLossChart, SharesChart } from "@/components/chart";
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
 
-export function OverallStat({ asset_type }: TOverallStatParam) {
+export function OverallStat({ asset_type }: TOverallStatPayload) {
   // Query
   const { data, isFetched, error } = useQuery({
     queryKey: [

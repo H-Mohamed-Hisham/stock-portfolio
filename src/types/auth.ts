@@ -14,7 +14,7 @@ export type TAccessToken = {
   exp: number;
 };
 
-export type TSignInForm = {
+export type TSignInPayload = {
   email: string;
   password: string;
 };

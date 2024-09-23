@@ -23,7 +23,7 @@ import {
 // Types
 import {
   TLabelValue,
-  TTransactionForm,
+  TTransactionPayload,
   TAsset,
   TApiError,
   TAssetDropdown,
@@ -86,7 +86,7 @@ export function UpdateTransactionForm() {
   const [assetDropdown, setAssetDropdown] = useState<TAssetDropdown[]>([]);
 
   // Form Initial Value
-  const initialValue: TTransactionForm = {
+  const initialValue: TTransactionPayload = {
     date: new Date(),
     asset_id: "",
     transaction_type: "buy",
@@ -144,7 +144,7 @@ export function UpdateTransactionForm() {
       quantity,
       price,
       tax,
-    }: TTransactionForm) =>
+    }: TTransactionPayload) =>
       update_transaction({
         id: transaction_id,
         asset_id,
@@ -176,7 +176,7 @@ export function UpdateTransactionForm() {
   });
 
   // Submit Handler
-  const onSubmit = (data: TTransactionForm) => {
+  const onSubmit = (data: TTransactionPayload) => {
     mutate({
       asset_id: data.asset_id,
       transaction_type: data.transaction_type,
@@ -210,7 +210,7 @@ export function UpdateTransactionForm() {
         price,
         tax,
         total,
-      }: TTransactionForm = transaction_data;
+      }: TTransactionPayload = transaction_data;
 
       setValue("asset_id", asset_id);
       setValue("transaction_type", transaction_type);

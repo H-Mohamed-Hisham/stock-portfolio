@@ -19,7 +19,7 @@ import { fetch_asset, create_transaction } from "@/api";
 // Types
 import {
   TLabelValue,
-  TTransactionForm,
+  TTransactionPayload,
   TAsset,
   TApiError,
   TAssetDropdown,
@@ -78,7 +78,7 @@ export function CreateTransactionForm() {
   const [assetDropdown, setAssetDropdown] = useState<TAssetDropdown[]>([]);
 
   // Form Initial Value
-  const initialValue: TTransactionForm = {
+  const initialValue: TTransactionPayload = {
     date: new Date(),
     asset_id: "",
     transaction_type: "buy",
@@ -126,7 +126,7 @@ export function CreateTransactionForm() {
       quantity,
       price,
       tax,
-    }: TTransactionForm) =>
+    }: TTransactionPayload) =>
       create_transaction({
         asset_id,
         transaction_type,
@@ -157,7 +157,7 @@ export function CreateTransactionForm() {
   });
 
   // Submit Handler
-  const onSubmit = (data: TTransactionForm) => {
+  const onSubmit = (data: TTransactionPayload) => {
     mutate({
       asset_id: data.asset_id,
       transaction_type: data.transaction_type,

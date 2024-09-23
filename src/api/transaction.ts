@@ -9,16 +9,16 @@ import {
 
 // Types
 import {
-  TOverallStatParam,
-  TAssetStatParam,
-  TTransactionListParam,
-  TTransactionForm,
-  TRemoveTransactions,
+  TOverallStatPayload,
+  TAssetStatPayload,
+  TTransactionListPayload,
+  TTransactionPayload,
+  TRemoveTransactionsPayload,
 } from "@/types";
 
 const api_url = import.meta.env.VITE_API_URL || null;
 
-export const fetch_overall_stat = async (body: TOverallStatParam) => {
+export const fetch_overall_stat = async (body: TOverallStatPayload) => {
   const response = await post_request(
     `${api_url}/transaction/overall-stat`,
     body,
@@ -28,7 +28,7 @@ export const fetch_overall_stat = async (body: TOverallStatParam) => {
   return response;
 };
 
-export const fetch_asset_stat = async (body: TAssetStatParam) => {
+export const fetch_asset_stat = async (body: TAssetStatPayload) => {
   const response = await post_request(
     `${api_url}/transaction/asset-stat`,
     body,
@@ -38,7 +38,7 @@ export const fetch_asset_stat = async (body: TAssetStatParam) => {
   return response;
 };
 
-export const create_transaction = async (body: TTransactionForm) => {
+export const create_transaction = async (body: TTransactionPayload) => {
   const response = await post_request(
     `${api_url}/transaction/create`,
     body,
@@ -60,7 +60,7 @@ export const fetch_transaction_by_id = async (
   return response;
 };
 
-export const update_transaction = async (body: TTransactionForm) => {
+export const update_transaction = async (body: TTransactionPayload) => {
   const response = await patch_request(
     `${api_url}/transaction/${body.id}`,
     body,
@@ -79,7 +79,7 @@ export const remove_transaction_by_id = async (transaction_id: string) => {
   return response;
 };
 
-export const remove_transactions = async (body: TRemoveTransactions) => {
+export const remove_transactions = async (body: TRemoveTransactionsPayload) => {
   const response = await post_request(
     `${api_url}/transaction/remove`,
     body,
@@ -89,7 +89,7 @@ export const remove_transactions = async (body: TRemoveTransactions) => {
   return response;
 };
 
-export const fetch_transaction = async (body: TTransactionListParam) => {
+export const fetch_transaction = async (body: TTransactionListPayload) => {
   const response = await post_request(
     `${api_url}/transaction/list`,
     body,
@@ -99,7 +99,7 @@ export const fetch_transaction = async (body: TTransactionListParam) => {
   return response;
 };
 
-export const fetch_asset_transaction = async (body: TAssetStatParam) => {
+export const fetch_asset_transaction = async (body: TAssetStatPayload) => {
   const response = await post_request(
     `${api_url}/transaction/asset`,
     body,

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { create_asset } from "@/api";
 
 // Types
-import { TLabelValue, TAssetForm, TApiError } from "@/types";
+import { TLabelValue, TAssetPayload, TApiError } from "@/types";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
@@ -42,7 +42,7 @@ export function CreateAssetForm() {
   const { toast } = useToast();
 
   // Form Initial Value
-  const initialValue: TAssetForm = {
+  const initialValue: TAssetPayload = {
     name: "",
     symbol: "",
     type: "stock",
@@ -63,7 +63,7 @@ export function CreateAssetForm() {
 
   // Mutation
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ name, symbol, type }: TAssetForm) =>
+    mutationFn: ({ name, symbol, type }: TAssetPayload) =>
       create_asset({
         name,
         symbol,
@@ -90,7 +90,7 @@ export function CreateAssetForm() {
   });
 
   // Submit Handler
-  const onSubmit = (data: TAssetForm) => {
+  const onSubmit = (data: TAssetPayload) => {
     mutate({
       name: data.name,
       symbol: data.symbol,

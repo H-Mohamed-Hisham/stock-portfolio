@@ -9,7 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import { fetch_asset_by_id, update_asset } from "@/api";
 
 // Types
-import { TLabelValue, TAssetForm, TAsset, TApiError } from "@/types";
+import { TLabelValue, TAssetPayload, TAsset, TApiError } from "@/types";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
@@ -49,7 +49,7 @@ export function UpdateAssetForm() {
   const { toast } = useToast();
 
   // Form Initial Value
-  const initialValue: TAssetForm = {
+  const initialValue: TAssetPayload = {
     name: "",
     symbol: "",
     type: "stock",
@@ -82,7 +82,7 @@ export function UpdateAssetForm() {
 
   // Mutation
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ name, symbol, type }: TAssetForm) =>
+    mutationFn: ({ name, symbol, type }: TAssetPayload) =>
       update_asset({
         id: asset_id,
         name,
@@ -109,7 +109,7 @@ export function UpdateAssetForm() {
   });
 
   // Submit Handler
-  const onSubmit = (data: TAssetForm) => {
+  const onSubmit = (data: TAssetPayload) => {
     mutate({
       name: data.name,
       symbol: data.symbol,

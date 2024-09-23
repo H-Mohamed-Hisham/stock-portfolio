@@ -8,7 +8,7 @@ import {
 } from "@/lib/http-methods";
 
 // Types
-import { TAssetForm } from "@/types";
+import { TAssetPayload } from "@/types";
 
 const api_url = import.meta.env.VITE_API_URL || null;
 
@@ -41,7 +41,7 @@ export const remove_asset_by_id = async (asset_id: string) => {
   return response;
 };
 
-export const create_asset = async (body: TAssetForm) => {
+export const create_asset = async (body: TAssetPayload) => {
   const response = await post_request(
     `${api_url}/asset`,
     body,
@@ -51,7 +51,7 @@ export const create_asset = async (body: TAssetForm) => {
   return response;
 };
 
-export const update_asset = async (body: TAssetForm) => {
+export const update_asset = async (body: TAssetPayload) => {
   const response = await patch_request(
     `${api_url}/asset/${body.id}`,
     body,

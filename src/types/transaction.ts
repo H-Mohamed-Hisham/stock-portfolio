@@ -1,20 +1,33 @@
 // Types
 import { TAsset } from "@/types";
 
-export type TOverallStatParam = {
+// Payload
+
+export type TOverallStatPayload = {
   asset_type: string;
 };
 
-export type TAssetStatParam = {
+export type TAssetStatPayload = {
   asset_id: string | undefined;
 };
 
-export type TTransactionListParam = {
+export type TTransactionListPayload = {
   transaction_type: string | undefined;
 };
 
-export type TRemoveTransactions = {
+export type TRemoveTransactionsPayload = {
   transaction_id: string[];
+};
+
+export type TTransactionPayload = {
+  id?: string;
+  date: Date;
+  asset_id: string;
+  transaction_type: string;
+  quantity: number;
+  price: number;
+  tax: number;
+  total?: number;
 };
 
 export type TTransaction = {
@@ -28,17 +41,6 @@ export type TTransaction = {
   tax: number;
   total: number;
   asset?: TAsset;
-};
-
-export type TTransactionForm = {
-  id?: string;
-  date: Date;
-  asset_id: string;
-  transaction_type: string;
-  quantity: number;
-  price: number;
-  tax: number;
-  total?: number;
 };
 
 export type TStat = {

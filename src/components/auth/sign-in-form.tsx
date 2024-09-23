@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Types
-import { TSignInForm, TApiError, TSignIn } from "@/types";
+import { TSignInPayload, TApiError, TSignIn } from "@/types";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
@@ -43,7 +43,7 @@ export function SignInForm() {
   // Hooks
   const { toast } = useToast();
 
-  const initialValue: TSignInForm = {
+  const initialValue: TSignInPayload = {
     email: "hmhwebdev@gmail.com",
     password: "Hifaaz@17112023",
   };
@@ -60,7 +60,7 @@ export function SignInForm() {
 
   // Mutation
   const { mutate } = useMutation({
-    mutationFn: ({ email, password }: TSignInForm) =>
+    mutationFn: ({ email, password }: TSignInPayload) =>
       sign_in({
         email,
         password,
@@ -82,7 +82,7 @@ export function SignInForm() {
     },
   });
 
-  const onSubmit = (data: TSignInForm) => {
+  const onSubmit = (data: TSignInPayload) => {
     mutate({
       email: data.email,
       password: data.password,
