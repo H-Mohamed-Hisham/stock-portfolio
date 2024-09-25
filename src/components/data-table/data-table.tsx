@@ -12,6 +12,7 @@ import {
   getSortedRowModel,
   ColumnFiltersState,
   getFilteredRowModel,
+  Row,
 } from "@tanstack/react-table";
 
 // Icons
@@ -48,7 +49,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   link: TDataTableLink | null;
   filter: TDataTableFilter;
-  row_id_key?: string;
   onSelectedRowsChange?: (selectedRows: TData[]) => void;
   globalFilterFn: any;
 }
@@ -58,7 +58,6 @@ export function DataTable<TData, TValue>({
   data,
   link = null,
   filter,
-  row_id_key = "",
   onSelectedRowsChange = () => {},
   globalFilterFn = () => {},
 }: DataTableProps<TData, TValue>) {
@@ -92,16 +91,16 @@ export function DataTable<TData, TValue>({
 
   // UseEffect
   useEffect(() => {
-    const selectedRows = table
-      .getSelectedRowModel()
-      .rows.map((row: any) => row.original[row_id_key]);
+    const selectedRows =
+      table.getSelectedRowModel().rows.map((row: Row<TData>) => row.original) ||
+      [];
 
     // Only trigger the callback if selected rows have changed
     if (JSON.stringify(selectedRows) !== JSON.stringify(prevSelectedRows)) {
       setPrevSelectedRows(selectedRows);
       onSelectedRowsChange(selectedRows);
     }
-  }, [rowSelection, onSelectedRowsChange, table, prevSelectedRows, row_id_key]);
+  }, [rowSelection, onSelectedRowsChange, table, prevSelectedRows]);
 
   return (
     <div>

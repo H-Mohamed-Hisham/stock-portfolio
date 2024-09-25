@@ -27,7 +27,7 @@ import { transactionGlobalFilterFn } from "@/lib/global-filters";
 import { transaction_columns } from "@/columns";
 
 // Types
-import { TApiError } from "@/types";
+import { TApiError, TTransaction } from "@/types";
 
 // Components
 import { DataTable, DeleteButton } from "@/components/data-table";
@@ -66,7 +66,7 @@ export function Transaction() {
   const { toast } = useToast();
 
   // Local State
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [selectedRows, setSelectedRows] = useState<(string | undefined)[]>([]);
 
   // Query
   const { data, isFetched, error } = useQuery({
@@ -141,9 +141,9 @@ export function Transaction() {
   });
 
   // Handle Selected Rows Change
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleSelectedRowsChange = (rows: any[]) => {
-    setSelectedRows(rows);
+  const handleSelectedRowsChange = (rows: TTransaction[]) => {
+    const _rows = rows?.map((item: TTransaction) => item.id);
+    setSelectedRows(_rows);
   };
 
   // Handle Delete
@@ -153,7 +153,10 @@ export function Transaction() {
 
   // Handle Delete Selected Row
   const handleDeleteSelectedRow = () => {
-    mutate_remove_transactions(selectedRows);
+    const filteredSelectedRows = selectedRows.filter(
+      (row): row is string => row !== undefined
+    );
+    mutate_remove_transactions(filteredSelectedRows);
   };
 
   return (
@@ -195,7 +198,6 @@ export function Transaction() {
                 data={data}
                 link={table_link}
                 filter={table_filter}
-                row_id_key="id"
                 onSelectedRowsChange={handleSelectedRowsChange}
                 globalFilterFn={transactionGlobalFilterFn}
               />

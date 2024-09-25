@@ -90,7 +90,6 @@ export function Asset() {
               data={data}
               link={table_link}
               filter={table_filter}
-              row_id_key="id"
               globalFilterFn={assetGlobalFilterFn}
             />
           )}
