@@ -76,6 +76,7 @@ export function CreateTransactionForm() {
 
   // Local State
   const [assetDropdown, setAssetDropdown] = useState<TAssetDropdown[]>([]);
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   // Form Initial Value
   const initialValue: TTransactionPayload = {
@@ -204,7 +205,7 @@ export function CreateTransactionForm() {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Date</FormLabel>
-              <Popover>
+              <Popover open={showCalendar} onOpenChange={setShowCalendar}>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
@@ -214,7 +215,7 @@ export function CreateTransactionForm() {
                       })}
                     >
                       {field.value ? (
-                        dayjs(field.value).format("DD-MM-YYYY")
+                        dayjs(field.value).format("DD-MMM-YYYY")
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -225,12 +226,19 @@ export function CreateTransactionForm() {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
+                    initialFocus
                     selected={field.value}
-                    onSelect={field.onChange}
+                    // onSelect={field.onChange}
+                    onSelect={(value) => {
+                      form.setValue(
+                        "date",
+                        value === undefined ? new Date() : value
+                      );
+                      setShowCalendar(false);
+                    }}
                     disabled={(date) =>
                       date > new Date() || date < new Date("1900-01-01")
                     }
-                    // initialFocus
                   />
                 </PopoverContent>
               </Popover>
