@@ -18,7 +18,6 @@ import { fetch_asset, create_transaction } from "@/api";
 
 // Types
 import {
-  TLabelValue,
   TTransactionPayload,
   TAsset,
   TApiError,
@@ -29,16 +28,17 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 // Constants
-import { transaction_type_dropdown } from "@/constants/dropdown";
 import {
   FETCH_ASSET_QUERY_KEY,
   FETCH_TRANSACTION_QUERY_KEY,
 } from "@/constants/query-key";
+import { TRANSACTION_URL } from "@/constants/routes";
 
 // Shadcn
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Form,
   FormControl,
@@ -52,13 +52,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Command,
   CommandEmpty,
@@ -350,22 +343,24 @@ export function CreateTransactionForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Transaction Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Transaction Type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {transaction_type_dropdown
-                    .filter((f) => f.value !== "all")
-                    .map((item: TLabelValue, index: number) => (
-                      <SelectItem key={index} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+              <RadioGroup
+                onValueChange={field.onChange}
+                value={field.value}
+                className="flex flex-row space-x-3"
+              >
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="buy" />
+                  </FormControl>
+                  <FormLabel className="font-normal">Buy</FormLabel>
+                </FormItem>
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="sell" />
+                  </FormControl>
+                  <FormLabel className="font-normal">Sell</FormLabel>
+                </FormItem>
+              </RadioGroup>
 
               <FormMessage />
             </FormItem>
@@ -446,7 +441,7 @@ export function CreateTransactionForm() {
         </Button>
 
         <Button asChild variant="destructive" className="font-semibold">
-          {isPending ? "Cancel" : <Link to="/transaction/all">Cancel</Link>}
+          {isPending ? "Cancel" : <Link to={TRANSACTION_URL}>Cancel</Link>}
         </Button>
       </form>
     </Form>

@@ -24,10 +24,18 @@ export const asset_columns = (
   },
   {
     accessorKey: "type",
-    header: ({ column }) => <ColumnHeader column={column} title="Type" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Type" className="justify-center" />
+    ),
+    cell: ({ row }) => (
+      <TableCell cellAlign="center">
+        <div className="uppercase">{row.original.type}</div>
+      </TableCell>
+    ),
   },
   {
     id: "actions",
+    header: "",
     cell: ({ row }) => {
       return (
         <TableCell cellAlign="right">

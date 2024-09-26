@@ -2,7 +2,7 @@
 import { TDataTableCell } from "@/types";
 
 export const TableCell = ({ cellAlign, children }: TDataTableCell) => {
-  let _cellAlign = "left";
+  let _cellAlign = "justify-start";
   switch (cellAlign) {
     case "left":
       _cellAlign = "justify-start";

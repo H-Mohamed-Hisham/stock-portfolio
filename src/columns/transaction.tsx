@@ -136,6 +136,7 @@ export const transaction_columns = (
   },
   {
     accessorKey: "id",
+    header: "",
     cell: ({ row, table }) => {
       return (
         <TableCell cellAlign="right">
