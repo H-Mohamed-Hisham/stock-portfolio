@@ -35,7 +35,7 @@ import { TApiError, TTransaction } from "@/types";
 // Components
 import { DataTable, DeleteButton } from "@/components/data-table";
 import { LineSkeleton } from "@/components/skeleton";
-import { AlertMessage } from "@/components/common";
+import { AlertMessage, DeleteAlertDialog } from "@/components/common";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
@@ -75,6 +75,7 @@ export function Transaction() {
 
   // Local State
   const [selectedRows, setSelectedRows] = useState<(string | undefined)[]>([]);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
 
   // Query
   const { data, isFetched, error } = useQuery({
@@ -133,6 +134,7 @@ export function Transaction() {
       });
     },
     onSuccess: () => {
+      setShowDeleteDialog(false);
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
@@ -179,7 +181,7 @@ export function Transaction() {
 
           {isFetched && !error && (
             <>
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-end gap-4">
                 <div className="space-y-2">
                   <Label className="ml-1">Filter By Transaction Type :</Label>
                   <Select
@@ -227,7 +229,12 @@ export function Transaction() {
                 </div>
 
                 {selectedRows.length > 0 && (
-                  <DeleteButton onClick={() => handleDeleteSelectedRow()} />
+                  <DeleteButton
+                    onClick={() => {
+                      setShowDeleteDialog(true);
+                      // handleDeleteSelectedRow();
+                    }}
+                  />
                 )}
               </div>
 
@@ -243,6 +250,14 @@ export function Transaction() {
           )}
         </CardContent>
       </Card>
+
+      {showDeleteDialog && (
+        <DeleteAlertDialog
+          open={showDeleteDialog}
+          onOpenChange={setShowDeleteDialog}
+          deleteCallback={() => handleDeleteSelectedRow()}
+        />
+      )}
     </div>
   );
 }
