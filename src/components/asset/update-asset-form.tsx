@@ -180,13 +180,13 @@ export function UpdateAssetForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {asset_type_dropdown.map(
-                    (item: TLabelValue, index: number) => (
+                  {asset_type_dropdown
+                    .filter((f) => f.value !== "all")
+                    .map((item: TLabelValue, index: number) => (
                       <SelectItem key={index} value={item.value}>
                         {item.label}
                       </SelectItem>
-                    )
-                  )}
+                    ))}
                 </SelectContent>
               </Select>
 

@@ -12,7 +12,8 @@ export type TAssetStatPayload = {
 };
 
 export type TTransactionListPayload = {
-  transaction_type: string | undefined;
+  transaction_type: string;
+  asset_type: string;
 };
 
 export type TRemoveTransactionsPayload = {

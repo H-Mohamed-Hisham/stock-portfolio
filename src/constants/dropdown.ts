@@ -15,6 +15,10 @@ export const transaction_type_dropdown = [
 
 export const asset_type_dropdown = [
   {
+    label: "All",
+    value: "all",
+  },
+  {
     label: "Stock",
     value: "stock",
   },

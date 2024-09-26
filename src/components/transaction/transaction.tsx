@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // API
 import {
@@ -15,7 +15,10 @@ import {
   FETCH_ASSET_TRANSACTION_QUERY_KEY,
   FETCH_ASSET_STAT_QUERY_KEY,
 } from "@/constants/query-key";
-import { transaction_type_dropdown } from "@/constants/dropdown";
+import {
+  transaction_type_dropdown,
+  asset_type_dropdown,
+} from "@/constants/dropdown";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
@@ -36,6 +39,7 @@ import { AlertMessage } from "@/components/common";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -58,8 +62,12 @@ const table_filter = {
 
 export function Transaction() {
   // Router
-  const { transaction_type } = useParams<{ transaction_type: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const transaction_type = queryParams.get("transaction_type") ?? "all";
+  const asset_type = queryParams.get("asset_type") ?? "all";
 
   // Hooks
   const queryClient = useQueryClient();
@@ -74,11 +82,13 @@ export function Transaction() {
       FETCH_TRANSACTION_QUERY_KEY,
       {
         transaction_type: transaction_type,
+        asset_type: asset_type,
       },
     ],
     queryFn: () =>
       fetch_transaction({
         transaction_type: transaction_type,
+        asset_type: asset_type,
       }),
   });
 
@@ -169,24 +179,52 @@ export function Transaction() {
 
           {isFetched && !error && (
             <>
-              <div className="flex items-center gap-4">
-                <Select
-                  onValueChange={(value: string) => {
-                    navigate(`/transaction/${value}`);
-                  }}
-                  value={transaction_type}
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Transaction Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {transaction_type_dropdown.map((item, index) => (
-                      <SelectItem key={index} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="space-y-2">
+                  <Label className="ml-1">Transaction Type :</Label>
+                  <Select
+                    onValueChange={(value: string) => {
+                      queryParams.set("transaction_type", value);
+                      const newSearch = `?${queryParams.toString()}`;
+                      navigate({ search: newSearch });
+                    }}
+                    value={transaction_type}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Transaction Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {transaction_type_dropdown.map((item, index) => (
+                        <SelectItem key={index} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="ml-1">Asset Type :</Label>
+                  <Select
+                    onValueChange={(value: string) => {
+                      queryParams.set("asset_type", value);
+                      const newSearch = `?${queryParams.toString()}`;
+                      navigate({ search: newSearch });
+                    }}
+                    value={asset_type}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Asset Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {asset_type_dropdown.map((item, index) => (
+                        <SelectItem key={index} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
                 {selectedRows.length > 0 && (
                   <DeleteButton onClick={() => handleDeleteSelectedRow()} />

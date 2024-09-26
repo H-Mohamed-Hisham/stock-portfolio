@@ -2,7 +2,7 @@
 import { LayoutDashboard, Building2, ArrowRightLeft } from "lucide-react";
 
 // Constants
-import { DASHBOARD_URL, ASSET_URL } from "@/constants/routes";
+import { DASHBOARD_URL, ASSET_URL, TRANSACTION_URL } from "@/constants/routes";
 
 export const app_menu = [
   {
@@ -19,7 +19,7 @@ export const app_menu = [
   },
   {
     label: "Transaction",
-    link: "/transaction/all",
+    link: TRANSACTION_URL,
     base_link: "transaction",
     icon: <ArrowRightLeft />,
   },
