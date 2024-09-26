@@ -181,7 +181,7 @@ export function Transaction() {
             <>
               <div className="flex flex-wrap items-center gap-4">
                 <div className="space-y-2">
-                  <Label className="ml-1">Transaction Type :</Label>
+                  <Label className="ml-1">Filter By Transaction Type :</Label>
                   <Select
                     onValueChange={(value: string) => {
                       queryParams.set("transaction_type", value);
@@ -204,7 +204,7 @@ export function Transaction() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="ml-1">Asset Type :</Label>
+                  <Label className="ml-1">Filter By Asset Type :</Label>
                   <Select
                     onValueChange={(value: string) => {
                       queryParams.set("asset_type", value);

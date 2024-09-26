@@ -11,6 +11,9 @@ import {
   RowEditButton,
 } from "@/components/data-table";
 
+// Shadcn
+import { Badge } from "@/components/ui/badge";
+
 export const asset_columns = (
   handleDelete: (id: string) => void
 ): ColumnDef<TAsset>[] => [
@@ -24,12 +27,12 @@ export const asset_columns = (
   },
   {
     accessorKey: "type",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Type" className="justify-center" />
-    ),
+    header: ({ column }) => <ColumnHeader column={column} title="Type" />,
     cell: ({ row }) => (
-      <TableCell cellAlign="center">
-        <div className="uppercase">{row.original.type}</div>
+      <TableCell cellAlign="left">
+        <Badge variant="outline" className="uppercase">
+          {row.original.type}
+        </Badge>
       </TableCell>
     ),
   },
