@@ -1,10 +1,11 @@
 // Components
 import { PageLayout } from "@/components/layout";
+import { Home } from "@/components/home";
 
 export function HomePage() {
   return (
     <PageLayout>
-      <div>Home Page</div>
+      <Home />
     </PageLayout>
   );
 }
