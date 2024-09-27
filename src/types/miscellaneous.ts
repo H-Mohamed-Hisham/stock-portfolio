@@ -65,6 +65,11 @@ export type TDataTableFilter = {
   filter_type: string;
 };
 
+export type TDeleteDialog = {
+  type: "bulk" | "single" | null;
+  open: boolean;
+};
+
 // Error Response
 
 export type TApiError = {

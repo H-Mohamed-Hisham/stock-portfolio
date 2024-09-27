@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // API
@@ -16,12 +17,12 @@ import { assetGlobalFilterFn } from "@/lib/global-filters";
 import { asset_columns } from "@/columns";
 
 // Types
-import { TApiError } from "@/types";
+import { TApiError, TDeleteDialog } from "@/types";
 
 // Components
 import { DataTable } from "@/components/data-table";
 import { LineSkeleton } from "@/components/skeleton";
-import { AlertMessage } from "@/components/common";
+import { AlertMessage, DeleteAlertDialog } from "@/components/common";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
@@ -33,8 +34,8 @@ const table_link = {
 };
 
 const table_filter = {
-  placeholder: "symbol, name & type",
-  field: "symbol",
+  placeholder: "Symbol, Name & Type",
+  field: "",
   filter_type: "text-input",
 };
 
@@ -42,6 +43,13 @@ export function Asset() {
   // Hooks
   const queryClient = useQueryClient();
   const { toast } = useToast();
+
+  // Local State
+  const [singleRowDeleteID, setSingleRowDeleteID] = useState<string>("");
+  const [deleteDialog, setDeleteDialog] = useState<TDeleteDialog>({
+    type: null,
+    open: false,
+  });
 
   // Query
   const { data, isFetched, error } = useQuery({
@@ -53,6 +61,10 @@ export function Asset() {
   const { mutate: mutate_remove_transaction_by_id } = useMutation({
     mutationFn: (id: string) => remove_asset_by_id(id),
     onError: (error: TApiError) => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       toast({
         title: "Error",
         variant: "destructive",
@@ -60,6 +72,10 @@ export function Asset() {
       });
     },
     onSuccess: () => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       queryClient.invalidateQueries({
         queryKey: [FETCH_ASSET_QUERY_KEY],
       });
@@ -86,7 +102,13 @@ export function Asset() {
 
           {isFetched && !error && (
             <DataTable
-              columns={asset_columns(handleDelete)}
+              columns={asset_columns((id) => {
+                setSingleRowDeleteID(id);
+                setDeleteDialog({
+                  type: "single",
+                  open: true,
+                });
+              })}
               data={data}
               link={table_link}
               filter={table_filter}
@@ -95,6 +117,14 @@ export function Asset() {
           )}
         </CardContent>
       </Card>
+
+      {deleteDialog.open && (
+        <DeleteAlertDialog
+          deleteDialog={deleteDialog}
+          setDeleteDialog={setDeleteDialog}
+          deleteCallback={() => handleDelete(singleRowDeleteID)}
+        />
+      )}
     </div>
   );
 }

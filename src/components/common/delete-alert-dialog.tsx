@@ -1,3 +1,6 @@
+// Types
+import { TDeleteDialog } from "@/types";
+
 // Shadcn
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -12,22 +15,30 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export function DeleteAlertDialog({
-  open,
-  onOpenChange,
+  deleteDialog,
+  setDeleteDialog,
   deleteCallback,
 }: {
-  open: boolean;
-  onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteDialog: TDeleteDialog;
+  setDeleteDialog: React.Dispatch<React.SetStateAction<TDeleteDialog>>;
   deleteCallback: () => void;
 }) {
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog
+      open={deleteDialog.open}
+      onOpenChange={(value) =>
+        setDeleteDialog({
+          ...deleteDialog,
+          open: value,
+        })
+      }
+    >
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            record.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

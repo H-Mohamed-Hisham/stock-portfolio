@@ -14,7 +14,7 @@ export function GlobalFilter({
   placeholder: string;
 }) {
   return (
-    <div className="relative w-[230px]">
+    <div className="relative w-[240px]">
       <Search className="absolute top-3 left-2 w-4 h-4" />
       <Input
         placeholder={`Filter by ${placeholder}`}

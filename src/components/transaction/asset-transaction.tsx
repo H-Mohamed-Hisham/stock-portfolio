@@ -27,12 +27,12 @@ import { transactionGlobalFilterFn } from "@/lib/global-filters";
 import { transaction_columns } from "@/columns";
 
 // Types
-import { TApiError, TTransaction } from "@/types";
+import { TApiError, TTransaction, TDeleteDialog } from "@/types";
 
 // Components
 import { DataTable, DeleteButton } from "@/components/data-table";
 import { LineSkeleton } from "@/components/skeleton";
-import { AlertMessage } from "@/components/common";
+import { AlertMessage, DeleteAlertDialog } from "@/components/common";
 
 // Shadcn
 import { Card, CardContent } from "@/components/ui/card";
@@ -58,7 +58,12 @@ export function AssetTransaction() {
   const { toast } = useToast();
 
   // Local State
+  const [singleRowDeleteID, setSingleRowDeleteID] = useState<string>("");
   const [selectedRows, setSelectedRows] = useState<(string | undefined)[]>([]);
+  const [deleteDialog, setDeleteDialog] = useState<TDeleteDialog>({
+    type: null,
+    open: false,
+  });
 
   // Query
   const { data, isFetched, error } = useQuery({
@@ -78,6 +83,10 @@ export function AssetTransaction() {
   const { mutate: mutate_remove_transaction_by_id } = useMutation({
     mutationFn: (id: string) => remove_transaction_by_id(id),
     onError: (error: TApiError) => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       toast({
         title: "Error",
         variant: "destructive",
@@ -85,6 +94,10 @@ export function AssetTransaction() {
       });
     },
     onSuccess: () => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
@@ -111,6 +124,10 @@ export function AssetTransaction() {
         transaction_id: ids,
       }),
     onError: (error: TApiError) => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       toast({
         title: "Error",
         variant: "destructive",
@@ -118,6 +135,10 @@ export function AssetTransaction() {
       });
     },
     onSuccess: () => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
@@ -158,31 +179,60 @@ export function AssetTransaction() {
   };
 
   return (
-    <Card className="w-full h-full p-3">
-      <CardContent className="p-1">
-        {!isFetched && <LineSkeleton count={5} />}
+    <>
+      <Card className="w-full h-full p-3">
+        <CardContent className="p-1">
+          {!isFetched && <LineSkeleton count={5} />}
 
-        {error && <AlertMessage message={error.message} />}
+          {error && <AlertMessage message={error.message} />}
 
-        {isFetched && !error && (
-          <>
-            <div className="flex items-center gap-4">
-              {selectedRows.length > 0 && (
-                <DeleteButton onClick={() => handleDeleteSelectedRow()} />
-              )}
-            </div>
+          {isFetched && !error && (
+            <>
+              <div className="flex items-center gap-4">
+                {selectedRows.length > 0 && (
+                  <DeleteButton
+                    onClick={() => {
+                      setDeleteDialog({
+                        type: "bulk",
+                        open: true,
+                      });
+                    }}
+                  />
+                )}
+              </div>
 
-            <DataTable
-              columns={transaction_columns(false, handleDelete)}
-              data={data}
-              link={table_link}
-              filter={table_filter}
-              onSelectedRowsChange={handleSelectedRowsChange}
-              globalFilterFn={transactionGlobalFilterFn}
-            />
-          </>
-        )}
-      </CardContent>
-    </Card>
+              <DataTable
+                columns={transaction_columns(false, (id) => {
+                  setSingleRowDeleteID(id);
+                  setDeleteDialog({
+                    type: "single",
+                    open: true,
+                  });
+                })}
+                data={data}
+                link={table_link}
+                filter={table_filter}
+                onSelectedRowsChange={handleSelectedRowsChange}
+                globalFilterFn={transactionGlobalFilterFn}
+              />
+            </>
+          )}
+        </CardContent>
+      </Card>
+
+      {deleteDialog.open && (
+        <DeleteAlertDialog
+          deleteDialog={deleteDialog}
+          setDeleteDialog={setDeleteDialog}
+          deleteCallback={() =>
+            deleteDialog.type === "bulk"
+              ? handleDeleteSelectedRow()
+              : deleteDialog.type === "single"
+              ? handleDelete(singleRowDeleteID)
+              : {}
+          }
+        />
+      )}
+    </>
   );
 }

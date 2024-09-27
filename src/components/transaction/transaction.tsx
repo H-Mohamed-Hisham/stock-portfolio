@@ -30,7 +30,7 @@ import { transactionGlobalFilterFn } from "@/lib/global-filters";
 import { transaction_columns } from "@/columns";
 
 // Types
-import { TApiError, TTransaction } from "@/types";
+import { TApiError, TTransaction, TDeleteDialog } from "@/types";
 
 // Components
 import { DataTable, DeleteButton } from "@/components/data-table";
@@ -55,8 +55,8 @@ const table_link = {
 };
 
 const table_filter = {
-  placeholder: "symbol, name",
-  field: "symbol",
+  placeholder: "Symbol & Name",
+  field: "",
   filter_type: "text-input",
 };
 
@@ -74,8 +74,12 @@ export function Transaction() {
   const { toast } = useToast();
 
   // Local State
+  const [singleRowDeleteID, setSingleRowDeleteID] = useState<string>("");
   const [selectedRows, setSelectedRows] = useState<(string | undefined)[]>([]);
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [deleteDialog, setDeleteDialog] = useState<TDeleteDialog>({
+    type: null,
+    open: false,
+  });
 
   // Query
   const { data, isFetched, error } = useQuery({
@@ -97,6 +101,10 @@ export function Transaction() {
   const { mutate: mutate_remove_transaction_by_id } = useMutation({
     mutationFn: (id: string) => remove_transaction_by_id(id),
     onError: (error: TApiError) => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       toast({
         title: "Error",
         variant: "destructive",
@@ -104,6 +112,10 @@ export function Transaction() {
       });
     },
     onSuccess: () => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
@@ -127,6 +139,10 @@ export function Transaction() {
         transaction_id: ids,
       }),
     onError: (error: TApiError) => {
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       toast({
         title: "Error",
         variant: "destructive",
@@ -134,7 +150,10 @@ export function Transaction() {
       });
     },
     onSuccess: () => {
-      setShowDeleteDialog(false);
+      setDeleteDialog({
+        type: null,
+        open: false,
+      });
       queryClient.invalidateQueries({
         queryKey: [FETCH_TRANSACTION_QUERY_KEY],
       });
@@ -158,7 +177,7 @@ export function Transaction() {
     setSelectedRows(_rows);
   };
 
-  // Handle Delete
+  // Handle Single Row Delete
   const handleDelete = (id: string) => {
     mutate_remove_transaction_by_id(id);
   };
@@ -231,15 +250,23 @@ export function Transaction() {
                 {selectedRows.length > 0 && (
                   <DeleteButton
                     onClick={() => {
-                      setShowDeleteDialog(true);
-                      // handleDeleteSelectedRow();
+                      setDeleteDialog({
+                        type: "bulk",
+                        open: true,
+                      });
                     }}
                   />
                 )}
               </div>
 
               <DataTable
-                columns={transaction_columns(true, handleDelete)}
+                columns={transaction_columns(true, (id) => {
+                  setSingleRowDeleteID(id);
+                  setDeleteDialog({
+                    type: "single",
+                    open: true,
+                  });
+                })}
                 data={data}
                 link={table_link}
                 filter={table_filter}
@@ -251,11 +278,17 @@ export function Transaction() {
         </CardContent>
       </Card>
 
-      {showDeleteDialog && (
+      {deleteDialog.open && (
         <DeleteAlertDialog
-          open={showDeleteDialog}
-          onOpenChange={setShowDeleteDialog}
-          deleteCallback={() => handleDeleteSelectedRow()}
+          deleteDialog={deleteDialog}
+          setDeleteDialog={setDeleteDialog}
+          deleteCallback={() =>
+            deleteDialog.type === "bulk"
+              ? handleDeleteSelectedRow()
+              : deleteDialog.type === "single"
+              ? handleDelete(singleRowDeleteID)
+              : {}
+          }
         />
       )}
     </div>
