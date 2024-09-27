@@ -22,12 +22,14 @@ import {
   TAsset,
   TApiError,
   TAssetDropdown,
+  TLabelValue,
 } from "@/types";
 
 // Hooks
 import { useToast } from "@/hooks/use-toast";
 
 // Constants
+import { transaction_type_dropdown } from "@/constants/dropdown";
 import {
   FETCH_ASSET_QUERY_KEY,
   FETCH_TRANSACTION_QUERY_KEY,
@@ -348,18 +350,21 @@ export function CreateTransactionForm() {
                 value={field.value}
                 className="flex flex-row space-x-3"
               >
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="buy" />
-                  </FormControl>
-                  <FormLabel className="font-normal">Buy</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="sell" />
-                  </FormControl>
-                  <FormLabel className="font-normal">Sell</FormLabel>
-                </FormItem>
+                {transaction_type_dropdown
+                  .filter((f) => f.value !== "all")
+                  .map((item: TLabelValue, index: number) => (
+                    <FormItem
+                      key={index}
+                      className="flex items-center space-x-3 space-y-0"
+                    >
+                      <FormControl>
+                        <RadioGroupItem value={item.value} />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        {item.label}
+                      </FormLabel>
+                    </FormItem>
+                  ))}
               </RadioGroup>
 
               <FormMessage />
