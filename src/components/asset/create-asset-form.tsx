@@ -20,6 +20,7 @@ import { FETCH_ASSET_QUERY_KEY } from "@/constants/query-key";
 // Shadcn
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Form,
   FormControl,
@@ -28,13 +29,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 export function CreateAssetForm() {
   // Hooks
@@ -143,22 +137,27 @@ export function CreateAssetForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Asset Type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {asset_type_dropdown
-                    .filter((f) => f.value !== "all")
-                    .map((item: TLabelValue, index: number) => (
-                      <SelectItem key={index} value={item.value}>
+              <RadioGroup
+                onValueChange={field.onChange}
+                value={field.value}
+                className="flex flex-row space-x-3"
+              >
+                {asset_type_dropdown
+                  .filter((f) => f.value !== "all")
+                  .map((item: TLabelValue, index: number) => (
+                    <FormItem
+                      key={index}
+                      className="flex items-center space-x-3 space-y-0"
+                    >
+                      <FormControl>
+                        <RadioGroupItem value={item.value} />
+                      </FormControl>
+                      <FormLabel className="font-normal">
                         {item.label}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                      </FormLabel>
+                    </FormItem>
+                  ))}
+              </RadioGroup>
 
               <FormMessage />
             </FormItem>
