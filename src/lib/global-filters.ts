@@ -2,7 +2,7 @@
 
 export const assetGlobalFilterFn = (
   row: any,
-  columnId: any,
+  _columnId: any,
   filterValue: any
 ) => {
   const symbolMatch = row
@@ -28,7 +28,7 @@ export const assetGlobalFilterFn = (
 
 export const transactionGlobalFilterFn = (
   row: any,
-  columnId: any,
+  _columnId: any,
   filterValue: any
 ) => {
   const symbolMatch = row
