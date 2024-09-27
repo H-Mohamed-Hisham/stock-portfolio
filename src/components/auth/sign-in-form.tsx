@@ -47,8 +47,8 @@ export function SignInForm() {
   const { toast } = useToast();
 
   const initialValue: TSignInPayload = {
-    email: "hmhwebdev@gmail.com",
-    password: "Hifaaz@17112023",
+    email: "",
+    password: "",
   };
 
   const resolver = yup.object({
